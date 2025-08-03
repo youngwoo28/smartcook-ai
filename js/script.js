@@ -278,10 +278,7 @@ const recipeData = {
   async function loadRecipe() {
     const foodId = localStorage.getItem("selectedFood");
     const recipe = recipeData[foodId];
-  
-    if (!recipe) {
-      alert("레시피 정보를 찾을 수 없습니다.");
-      return;
+
     }
   
     renderRecipe(recipe);

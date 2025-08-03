@@ -1085,7 +1085,7 @@ textarea::-moz-placeholder {
     font-weight: 600;
     font-size: 18px;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-left: 20px;
     color: #76573a;
   }
@@ -1160,6 +1160,7 @@ textarea::-moz-placeholder {
   .menu-arrow-icon {
     width: 10px;           /* 아이콘 너비 */
     height: 10px;          /* 아이콘 높이 */
+  
     vertical-align: middle;
     margin-right: 1px;   
   }
