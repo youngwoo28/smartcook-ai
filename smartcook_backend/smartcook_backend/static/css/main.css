@@ -1,27 +1,27 @@
 @font-face {
     font-family: 'BMHANNA';
-    src: url('../fonts/BM-HANNA.ttf') format('truetype');
+    src: url('/static/fonts/BM-HANNA.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
 
 @font-face {
     font-family: 'Alexandria-Regular';
-    src: url('../fonts/Alexandria-Regular.ttf') format('truetype');
+    src: url('/static/fonts/Alexandria-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'LilitaOne-Regular';
-    src: url('../fonts/LilitaOne-Regular.ttf') format('truetype');
+    src: url('/static/fonts/LilitaOne-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'TitanOne-Regular';
-    src: url('../fonts/TitanOne-Regular.ttf') format('truetype');
+    src: url('/static/fonts/TitanOne-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,7 +29,7 @@
 
 @font-face {
     font-family: 'TiltWarp-Regular-VariableFont_XROT,YROT';
-    src: url('../fonts/TiltWarp-Regular-VariableFont_XROT,YROT.ttf') format('truetype');
+    src: url('/static/fonts/TiltWarp-Regular-VariableFont_XROT,YROT.ttf') format('truetype');
   }
   
 
@@ -951,7 +951,7 @@ form.signup{
     background-position: center;
   }
 
-  .login-icon.fb { background-image: url('../images/login/facebook.png'); }
-  .login-icon.ig { background-image: url('../images/login/instar.png'); }
-  .login-icon.kt { background-image: url('../images/login/kakao.png'); }
+  .login-icon.fb { background-image: url('/static/images/login/facebook.png'); }
+  .login-icon.ig { background-image: url('/static/images/login/instar.png'); }
+  .login-icon.kt { background-image: url('/static/images/login/kakao.png'); }
 

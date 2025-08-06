@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>묵은지 참치마요 레시피</title>
-  <link rel="stylesheet" href="../css/upload.css">
+  <link rel="stylesheet" href="{% static 'css/upload.css' %}">
 </head>
 <body class="upload">
   <div class="navbar">
@@ -13,12 +14,11 @@
     <button class="login-button">Login</button>
   </div>
 
-<div class="btn-group">
-<button id="food-btn" class="btn active-btn" onclick="showSection('food')">음식으로 탐색하기</button>
-<button id="ingredient-btn" class="btn" onclick="showSection('ingredient')">재료로 탐색하기</button>
-</div>
+  <div class="btn-group">
+    <button id="food-btn" class="btn active-btn" onclick="showSection('food')">음식으로 탐색하기</button>
+    <button id="ingredient-btn" class="btn" onclick="showSection('ingredient')">재료로 탐색하기</button>
+  </div>
 
-  
   <div class="recipe-container">
     <div class="recipe-content">
       <div class="recipe-left-box">
@@ -49,16 +49,18 @@
       </div>
       <div class="recipe-right-box">
         <h2>유튜브 영상 보러가기</h2>
-        <img class="recipe-video-slot" src="../images/recipe/muk.png" alt="영상 1">
-        <img class="recipe-video-slot" src="../images/recipe/muk2.png" alt="영상 2">
-        <img class="recipe-video-slot" src="../images/recipe/muk3.png" alt="영상 3">
-        <img class="recipe-video-slot" src="../images/recipe/muk4.png" alt="영상 4">
+        <img class="recipe-video-slot" src="{% static 'images/recipe/muk.png' %}" alt="영상 1">
+        <img class="recipe-video-slot" src="{% static 'images/recipe/muk2.png' %}" alt="영상 2">
+        <img class="recipe-video-slot" src="{% static 'images/recipe/muk3.png' %}" alt="영상 3">
+        <img class="recipe-video-slot" src="{% static 'images/recipe/muk4.png' %}" alt="영상 4">
       </div>
     </div>
   </div>
+
   <div class="recipe-bottom-button">
     <button style="margin-bottom: 130px;">다른 레시피 보러가기</button>
   </div>
-  <script src="../js/recipe.js"></script>
+
+  <script src="{% static 'js/recipe.js' %}"></script>
 </body>
 </html>

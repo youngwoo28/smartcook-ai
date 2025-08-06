@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>로그인 페이지</title>
-  <link rel="stylesheet" href="../css/main.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
   
 </head>
@@ -21,11 +22,11 @@
 
     <div class="login-form-box">
       <div class="login-input-box">
-        <img src="../images/login/people.png" alt="user-icon" />
+        <img src="{% static 'images/login/people.png' %}" alt="user-icon" />
         <input type="text" id="username" class="login-input" placeholder="ID">
       </div>
       <div class="login-input-box">
-        <img src="../images/login/lock.png" alt="lock-icon" />
+        <img src="{% static 'images/login/lock.png' %}" alt="lock-icon" />
         <input type="password" id="password" class="login-input" placeholder="Password">
       </div>
       
@@ -56,6 +57,7 @@
       </div>
     </div>
   </div>
-  <script src="../js/script.js"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
 </body>
 </html>

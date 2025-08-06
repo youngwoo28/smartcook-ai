@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>장바구니</title>
-  <link rel="stylesheet" href="../css/upload.css">
+  <link rel="stylesheet" href="{% static 'css/upload.css' %}">
 </head>
 <body class="upload">
   <div class="navbar">
@@ -12,8 +13,6 @@
     </div>
     <button class="login-button">Login</button>
   </div>
-
-  
 
   <div class="cart-container">
     <div>
@@ -32,22 +31,22 @@
     </div>
   </div>
 
-  <script src="../js/script.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
 
 
-<!-- 주작 코드
+<!-- 🧙 주작 코드 (디자인 시 참고용) -->
+<!--
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>장바구니</title>
-  <link rel="stylesheet" href="../css/upload.css">
-  
+  <link rel="stylesheet" href="{% static 'css/upload.css' %}">
 </head>
-<body>
-
+<body class="upload">
   <div class="cart-container">
     <div>
       <a class="cart-back-link" href="#">← 레시피로 돌아가기</a>
@@ -64,7 +63,7 @@
               <span class="cart-count">3</span>
             </div>
           </div>
-          <img class="cart-trash" src="../images/cart/trash.png" alt="삭제">
+          <img class="cart-trash" src="{% static 'images/cart/trash.png' %}" alt="삭제">
         </div>
 
         <div class="cart-item-wrapper">
@@ -76,7 +75,7 @@
               <span class="cart-count">1</span>
             </div>
           </div>
-          <img class="cart-trash" src="../images/cart/trash.png" alt="삭제">
+          <img class="cart-trash" src="{% static 'images/cart/trash.png' %}" alt="삭제">
         </div>
 
         <div class="cart-item-wrapper">
@@ -88,7 +87,7 @@
               <span class="cart-count">2</span>
             </div>
           </div>
-          <img class="cart-trash" src="../images/cart/trash.png" alt="삭제">
+          <img class="cart-trash" src="{% static 'images/cart/trash.png' %}" alt="삭제">
         </div>
 
         <div class="cart-item-wrapper">
@@ -100,7 +99,7 @@
               <span class="cart-count">2</span>
             </div>
           </div>
-          <img class="cart-trash" src="../images/cart/trash.png" alt="삭제">
+          <img class="cart-trash" src="{% static 'images/cart/trash.png' %}" alt="삭제">
         </div>
 
         <div class="cart-item-wrapper">
@@ -112,7 +111,7 @@
               <span class="cart-count">1</span>
             </div>
           </div>
-          <img class="cart-trash" src="../images/cart/trash.png" alt="삭제">
+          <img class="cart-trash" src="{% static 'images/cart/trash.png' %}" alt="삭제">
         </div>
       </div>
     </div>
@@ -121,8 +120,7 @@
       <button class="cart-go-button">쿠팡으로 가기</button>
     </div>
   </div>
-  <script src="../js/script.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
- -->
-
+-->

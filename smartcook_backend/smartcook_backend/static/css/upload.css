@@ -2,7 +2,7 @@
 /* 한글 글꼴 */
 @font-face {
   font-family: 'BM-HANNA';
-  src: url('../fonts/BM-HANNA.ttf') format('truetype');
+  src: url('/static/fonts/BM-HANNA.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -10,19 +10,19 @@
 /* 로고 글꼴 */
 @font-face {
   font-family: 'LilitaOne-Regular';
-  src: url('../fonts/LilitaOne-Regular.ttf') format('truetype');
+  src: url('/static/fonts/LilitaOne-Regular.ttf') format('truetype');
 }
 
 /* 영어 글꼴 */
 @font-face {
   font-family: 'TitanOne-Regular';
-  src: url('../fonts/TitanOne-Regular.ttf') format('truetype');
+  src: url('/static/fonts/TitanOne-Regular.ttf') format('truetype');
 }
 
 /* 작은 영어 글꼴 */
 @font-face {
   font-family: 'AlexandriaFLF';
-  src: url('../fonts/AlexandriaFLF.ttf') format('truetype');
+  src: url('/static/fonts/AlexandriaFLF.ttf') format('truetype');
 }
 
 /* 세팅 */

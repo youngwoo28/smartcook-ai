@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>회원가입</title>
-  <link rel="stylesheet" href="../css/main.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body class="authpage">
   <div class="navbar">
@@ -13,7 +14,6 @@
     <button class="login-button">Login</button>
   </div>
   
-
   <div class="signup-container">
     <div class="signup-home-link">
       <div class="login-home-link">←Home</div>
@@ -50,6 +50,7 @@
       <button type="submit" class="signup-submit-btn">회원가입하기</button>
     </form>
   </div>
-<script src="../js/script.js"></script>
+
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
