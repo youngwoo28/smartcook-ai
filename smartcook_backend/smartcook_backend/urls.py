@@ -17,15 +17,22 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView   # ← RedirectView는 옵션
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('mainpage/', TemplateView.as_view(template_name='mainpage.html')),
-    path('login/', TemplateView.as_view(template_name='login.html')),
-    path('signup/', TemplateView.as_view(template_name='signup.html')),
-    path('cart/', TemplateView.as_view(template_name='cart.html')),
-    path('menu2/', TemplateView.as_view(template_name='menu2.html')),
-    path('recipe/', TemplateView.as_view(template_name='recipe.html')),
-    path('upload/', TemplateView.as_view(template_name='upload.html')),
+
+    # ✅ 루트 접속 시 mainpage.html 띄우기 (이 한 줄만 추가)
+    path("", TemplateView.as_view(template_name="mainpage.html"), name="home"),
+
+    # 또는 루트 → /mainpage/ 리다이렉트로 하고 싶으면 위 한 줄 대신 이거:
+    # path("", RedirectView.as_view(url="/mainpage/", permanent=False)),
+
+    path("mainpage/", TemplateView.as_view(template_name="mainpage.html")),
+    path("login/", TemplateView.as_view(template_name="login.html")),
+    path("signup/", TemplateView.as_view(template_name="signup.html")),
+    path("cart/", TemplateView.as_view(template_name="cart.html")),
+    path("menu2/", TemplateView.as_view(template_name="menu2.html")),
+    path("recipe/", TemplateView.as_view(template_name="recipe.html")),
+    path("upload/", TemplateView.as_view(template_name="upload.html")),
 ]
