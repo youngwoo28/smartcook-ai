@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'core', # upload app -> core 추가함
 ]
+RECO_MODEL_PATH = BASE_DIR / "models" / "smartcook_reco.joblib"  # 예시 (파일명/경로)
+SMARTCOOK_MOCK_RECO = True  # 모델 없을 때 더미로 안전하게
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
