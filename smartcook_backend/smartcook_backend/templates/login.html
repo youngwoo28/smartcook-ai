@@ -23,11 +23,11 @@
         {% csrf_token %}
 
         {% if messages %}
-          <div class="login-error">
-            {% for message in messages %}
-              <p>{{ message }}</p>
-            {% endfor %}
+          <div id="django-messages"
+              data-messages="{% for message in messages %}{{ message|escapejs }}{% if not forloop.last %}||{% endif %}{% endfor %}">
           </div>
+        {% else %}
+          <div id="django-messages" data-messages=""></div>
         {% endif %}
 
         <div class="login-input-box">

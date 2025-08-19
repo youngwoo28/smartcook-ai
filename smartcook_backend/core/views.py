@@ -53,7 +53,20 @@ def login_view(request):
     return render(request, "login.html")
 
 
+# mypage 가기
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
+@login_required
+def menu2_view(request):
+    user = request.user  # 로그인한 사용자
+    preferred = user.preferred_ingredients  # 예: "감자,당근"
+    disliked = user.disliked_ingredients    # 예: "양파,버섯"
+
+    return render(request, 'menu2.html', {
+        'preferred': preferred,
+        'disliked': disliked,
+    })
 
 
 

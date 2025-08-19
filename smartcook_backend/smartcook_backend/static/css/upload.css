@@ -21,8 +21,10 @@
 
 /* 작은 영어 글꼴 */
 @font-face {
-  font-family: 'AlexandriaFLF';
-  src: url('/static/fonts/AlexandriaFLF.ttf') format('truetype');
+    font-family: 'Alexandria-Regular';
+    src: url('/static/fonts/Alexandria-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* 세팅 */
@@ -150,7 +152,7 @@ main {
   position: absolute;
   top: 30px;
   left: 40px;
-  font-family: 'Alexandria';
+  font-family: 'Alexandria-Regular';
 }
 
 .upload-container {
@@ -1070,7 +1072,7 @@ textarea::-moz-placeholder {
   }
 
   .menu2-breadcrumb {
-    font-family: 'Alexandria', sans-serif;
+    font-family: 'Alexandria-Regular', sans-serif;
     margin-top: 0px;
     font-size: 12px;
     color: #AD8B73;

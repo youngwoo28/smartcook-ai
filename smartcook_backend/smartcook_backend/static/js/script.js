@@ -180,5 +180,27 @@ document.addEventListener("DOMContentLoaded", function () {
       show(recipeSection);
       recipeSection.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+
+    // 비/선호 재료
+    const preferTags = [];
+    const nonpreferTags = [];
+
+    function applyExistingTags(containerId, targetArray) {
+      const container = document.getElementById(containerId);
+      const tags = container.querySelectorAll(".tag");
+
+      tags.forEach(tag => {
+        const text = tag.childNodes[0].textContent.trim();
+        if (!targetArray.includes(text)) targetArray.push(text);
+
+        const delBtn = tag.querySelector("button");
+        delBtn.onclick = () => {
+          container.removeChild(tag);
+          const idx = targetArray.indexOf(text);
+          if (idx !== -1) targetArray.splice(idx, 1);
+        };
+      });
+    }
   });
+
   

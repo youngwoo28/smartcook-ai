@@ -19,10 +19,17 @@
             <a href="#feedback">Feedback</a>
           </div>
         </div>
-        <form method="POST" action="/login/" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit" class="main-login-button">Login</button>
-        </form>
+         <div class="main-nav-right">
+          {% if user.is_authenticated %}
+            <a href="{% url 'menu2' %}" class="main-menu2-button">Mypage</a>
+            <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="main-navbar-logout-btn">Logout</button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}" class="main-login-button">Login</a>
+          {% endif %}
+        </div>
       </div>
 
       <section id="home">
@@ -39,7 +46,7 @@
               있습니다. 구독 서비스를 활용하면 사용자의 건강 상태나 음식 선호도 등을 반영하여 더욱<br />
               정교해진 SMARTCOOK을 만나볼 수 있습니다. 자신에게 맞는 나만의 요리사가 되어보세요!
             </p>
-            <button class="home-start">요리하러 가기</button>
+            <button class="home-start" onclick="location.href='upload.html'">요리하러 가기</button>
           </div>
           <div class="home-right">
             <div class="home-desktop-box">

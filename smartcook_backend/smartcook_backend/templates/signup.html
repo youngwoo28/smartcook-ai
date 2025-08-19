@@ -11,12 +11,11 @@
     <div class="nav-left">
       <div class="logo">SMARTCOOK</div>
     </div>
-    <button class="login-button">Login</button>
   </div>
   
   <div class="signup-container">
     <div class="signup-home-link">
-      <div class="login-home-link">←Home</div>
+      <div class="login-home-link"><a href="{% url 'mainpage' %}">←Home</a></div>
     </div>
 
     <form class="signup" method="post" action="{% url 'signup' %}">

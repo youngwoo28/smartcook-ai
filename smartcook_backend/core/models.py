@@ -31,6 +31,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    preferred_ingredients = models.TextField(blank=True)
+    disliked_ingredients = models.TextField(blank=True)
+
+
     USERNAME_FIELD = "userid"
     REQUIRED_FIELDS = ["username", "email"]
 
