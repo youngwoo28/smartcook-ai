@@ -18,8 +18,9 @@
 
     <!-- 음식명 검색 -->
     <div class="btn-group">
-      <button id="food-btn" class="btn active-btn">음식으로 탐색하기</button>
-      <a href="{% url 'upload' %}" class="btn" id="ingredient-btn">재료로 탐색하기</a>
+      <button class="btn active-btn">음식으로 탐색하기</button>
+      <a href="{% url 'upload' %}" class="btn">재료로 탐색하기</a>
+      <a href="{% url 'live' %}" class="btn">실시간으로 탐색하기</a>
     </div>
 
     <div class="container" id="food-section">
@@ -49,11 +50,11 @@
               <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
               <h5>{{ recipe.title }}</h5>
           
-              <h6>재료</h6>
-              <ul>
-                {% for ing in recipe.ingredients %}
-                <li>{{ ing }}</li>
-                {% endfor %}
+              <h6 style="text-align: center;">재료</h6>
+              <ul style="list-style-type: none; padding-left: 0;">
+                  {% for ing in recipe.ingredients %}
+                  <li>{{ ing}}</li>
+                  {% endfor %}
               </ul>
           
               
@@ -93,7 +94,7 @@
       <div class="chip-box" id="extra-ingredients"></div>
 
       <div class="cart-wrapper">
-        <button class="cart-btns" id="go-cart-btn">장바구니로 이동</button>
+        <button class="cart-btns" id="go-cart-btn" style="margin-right: 10px;">장바구니로 이동</button>
         <button class="cart-btns" id="go-detail-btn">레시피 상세보기</button>
       </div>
     </section>

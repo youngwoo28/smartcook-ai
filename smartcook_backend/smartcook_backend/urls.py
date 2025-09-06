@@ -17,6 +17,7 @@ urlpatterns = [
     path("recipe/", TemplateView.as_view(template_name="recipe.html")),
     path("upload/", TemplateView.as_view(template_name="upload.html")),
     path("food_upload/", TemplateView.as_view(template_name="food_upload.html")),
+    path("live/", TemplateView.as_view(template_name="live.html"), name="live"),
     path("", include("core.urls")),
     path("", include("recipes.urls")),
 ]

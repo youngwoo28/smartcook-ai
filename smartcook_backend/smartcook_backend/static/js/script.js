@@ -269,6 +269,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // upload
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("dropdownToggle");
+  const menu = document.getElementById("dropdownMenu");
+  const preview = document.getElementById("preview-image");
+  const input = document.getElementById("file-upload");
+
+  if (toggle && menu && input) {
+    // 버튼 클릭 → 메뉴 열기/닫기
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    });
+
+    // 드롭다운 옵션 선택
+    menu.querySelectorAll("div").forEach(item => {
+      item.addEventListener("click", () => {
+        const choice = item.dataset.value;
+        console.log("선택:", choice);
+
+        if (choice === "device" || choice === "gallery") {
+          input.click(); // 실제 파일 선택창 열기
+        }
+        menu.style.display = "none";
+      });
+    });
+
+    // 파일 미리보기
+    input.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          preview.src = e.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+});
 
 // static/js/script.js  — 업로드/인식 + 필터링 + 추천(더보기) + (선택)GPT 재랭킹
 (function () {

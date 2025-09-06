@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure--ic=vs^t=g8^dytk9tt5jmz_pv6(i5so2*6@ouubcklm+xyd)1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-kr"
 
 TIME_ZONE = "UTC"
 
@@ -139,3 +139,9 @@ YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "AIzaSyDlgcQEu21PW9JBjyGUi3ThkIZW
 
 
 model_path = BASE_DIR / "best.pt"
+
+# 외부 터널(ngrok/localtunnel) 사용 시 CSRF 문제 방지
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok-free.app',
+    'https://*.loca.lt',
+]

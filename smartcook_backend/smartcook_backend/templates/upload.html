@@ -18,15 +18,14 @@
     <!-- 상단 네비 -->
     <div class="navbar">
       <div class="nav-left"><div class="logo">SMARTCOOK</div></div>
-      <button class="login-button">Login</button>
+      <button class="logout-button">Logout</button>
     </div>
 
     <!-- 탭 버튼 -->
     <div class="btn-group">
-      <button id="food-btn" class="btn" onclick="location.href='{% url 'food_upload' %}'">
-        음식으로 탐색하기
-      </button>
-      <button id="ingredient-btn" class="btn active-btn" onclick="showSection('ingredient')">재료로 탐색하기</button>
+      <a href="{% url 'food_upload' %}" class="btn" >음식으로 탐색하기</a>
+      <button class="btn active-btn">재료로 탐색하기</button>
+      <a href="{% url 'live' %}" class="btn">실시간으로 탐색하기</a>
     </div>
 
     <!-- 음식 검색(패스 섹션) -->
@@ -48,17 +47,22 @@
         <label for="file-upload">재료 사진을 업로드하세요</label>
 
         <div class="upload-section">
-          <!-- ✅ 브라우저 기본 동작만 사용: for="file-upload" -->
-          <label class="dropdown-btn" id="dropdownToggle" for="file-upload">
-            <div class="dropdown-left">
-              <img src="{% static 'images/file-icon.png' %}" alt="파일" style="width:44px;height:58px;" />
-              <span>파일 선택</span>
+          <!-- 파일 선택 버튼 -->
+          <div class="dropdown">
+            <button class="dropdown-btn" id="dropdownToggle">
+              <img src="{% static 'images/file-icon.png' %}" style="width: 44px; height: 58px;" alt="파일 아이콘" />
+              <span style="font-size: 20px; margin-left: 10px;"> 파일 선택</span>
+            </button>
+
+            <!-- 드롭다운 메뉴 -->
+            <div class="dropdown-menu" id="dropdownMenu">
+              <div data-value="device">📂 기기에서</div>
+              <div data-value="gallery">🖼 갤러리에서</div>
+              <div data-value="dropbox">☁ dropbox에서</div>
+              <div data-value="onedrive">💠 OneDrive에서</div>
+              <div data-value="gdrive">📎 구글 드라이브에서</div>
             </div>
-            <div class="dropdown-right">
-              <img src="{% static 'images/check-icon.png' %}" alt="V"
-                   style="width:30px;height:30px;position:absolute;left:190px;" />
-            </div>
-          </label>
+          </div>
 
           <!-- 파일 input: 한 개만 -->
           <input type="file" id="file-upload" accept="image/*" style="display:none;" />
@@ -104,7 +108,7 @@
     </section>
 
     <!-- 추천 레시피 -->
-    <section class="recommend" id="recipe-section">
+    <section class="recommend" id="recipe-section" style="display:none;">
       <h4 class="category-title" style="margin-left:24px;">추천 레시피</h4>
       <div class="recipe-list" id="recipe-list"></div>
       <div class="more-wrap">

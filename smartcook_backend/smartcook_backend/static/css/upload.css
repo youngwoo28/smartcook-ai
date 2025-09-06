@@ -104,11 +104,13 @@ main {
 
  /* 검색 버튼 세팅 */
 .btn-group {
-  display: flex;
+   display: flex;
   gap: 30px;
   margin-bottom: 30px;
-  align-self: flex-start;
-  margin-left: 430px;
+  justify-content: flex-start;    /* 왼쪽 정렬 */
+  width: 1055px;                 /* 컨테이너랑 동일 */
+  margin: 0 auto 30px auto;      /* 가운데 배치 + 아래 여백 */
+  padding-left: 0px;            /* 컨테이너 padding(50px) + label 위치 고려 */
 }
 
 .btn {
@@ -237,36 +239,33 @@ a.btn {
   border: 3px dashed #CEAB93;
   background-color: #FFFFFF;
   border-radius: 10px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
 
+/* 버튼 스타일 */
 .dropdown-btn {
   display: flex;
+  justify-content: center;
   align-items: center;
   background-color: #AD8B73;
-  color: #fff;
+  margin-left: 337px;
+  color: white;
   border: none;
   width: 240px;
   height: 68px;
   border-radius: 10px;
-  overflow: visible;
   cursor: pointer;
-  font-size: 16px;
-  position: absolute;     /* ✅ 절대 위치로 */
-  top: 50%;               /* 중앙 정렬 */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;             /* 이미지보다 아래 */
+  font-size: 15px;
 }
 
 .dropdown-left {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  gap: 25px;
+  gap: 10px;
 }
 
 .dropdown-left img {
@@ -274,55 +273,34 @@ a.btn {
   height: 20px;
 }
 
-.dropdown-divider {
-  width: 1px;
-  background-color: #d3c0b0;
-  height: 68px;
-  position: absolute;
-  left: 170px;
-}
-
-.dropdown-right {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-}
-
-.dropdown-right img {
-  width: 12px;
-  height: 12px;
+.dropdown {
+  position: relative; /* 버튼 기준 */
 }
 
 .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  margin-top: 4px;
-  left: 0;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   display: none;
-  min-width: 240px;
-  z-index: 100;
-}
-
-.dropdown-menu.active {
-  display: block;
+  position: absolute;
+  margin-left: 337px;
+  top: 100%;   /* 버튼 바로 아래 */
+  left: 0;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #CEAB93;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 240px;
+  z-index: 9999; /* 버튼 위에 뜨게 */
 }
 
 .dropdown-menu div {
-  padding: 10px 15px;
+  padding: 12px 15px;
   font-size: 14px;
-  cursor: pointer;
   color: #5C4434;
+  cursor: pointer;
 }
 
 .dropdown-menu div:hover {
   background-color: #f1e6dd;
-}
-
-.dropdown-menu .selected {
-  font-weight: bold;
 }
 
 
@@ -330,19 +308,20 @@ a.btn {
 .image-preview-box {
   width: 100%;
   height: 100%;
-  position: relative; /* 필요에 따라 유지 */
+  position: relative;
+  overflow: hidden; /* 박스 밖으로 안 튀게 */
 }
 
-
 #preview-image {
-  position: absolute;     /* ✅ 버튼 위에 뜨게 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  z-index: 3;             /* 버튼보다 위 */
-  display: none;          /* 기본은 안보이게 */
+  position: absolute;
+  top: 50%;   /* 세로 가운데 */
+  left: 50%;  /* 가로 가운데 */
+  transform: translate(-50%, -50%); /* 정확히 가운데 정렬 */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;  /* 비율 유지하면서 맞추기 */
+  z-index: 3;
+  display: none;
 }
 
 /* 기본 세팅 */
@@ -585,6 +564,8 @@ a.btn {
   margin-left: auto;
   margin-right: auto;
   margin-top: -23px;
+   background: #CEAB93;   /* ⬅️ 트랙 색상 추가 */
+  border-radius: 3px;    /* ⬅️ 살짝 둥글게 */
 }
 
 .range-wrap input[type="range"]::-webkit-slider-thumb {
@@ -1236,4 +1217,304 @@ background-color: #AD8B73;
 }
 
 */
+
+/* 실시간 */
+/* 재료 탐색 옵션 선택 */
+.ingredient-options {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.option-card {
+  width: 300px;
+  height: 250px;
+  background-color: #FFFFFF;
+  border: 3px solid #CEAB93;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(206, 171, 147, 0.3);
+  border-color: #AD8B73;
+}
+
+.option-card.selected {
+  background-color: #F1E3D0;
+  border-color: #AD8B73;
+}
+
+.option-icon {
+  margin-bottom: 20px;
+}
+
+.option-icon img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.option-card h3 {
+  font-size: 22px;
+  color: #AD8B73;
+  margin-bottom: 15px;
+}
+
+.option-card p {
+  font-size: 16px;
+  color: #CEAB93;
+  line-height: 1.4;
+}
+
+/* 실시간 재료 탐색 */
+/* 버튼 스타일 */
+.down-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #AD8B73;
+  color: white;
+  border: none;
+  margin-top: 20px;
+  margin-left: 5px;
+  width: 240px;
+  height: 68px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.down-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.down-left img {
+  width: 20px;
+  height: 20px;
+}
+
+
+.realtime-section {
+  width: 914px;
+  height: 413px;
+  border: 3px dashed #CEAB93;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.camera-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.camera-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* ⬆️ 위쪽으로 올리기 */
+  height: 100%; /* 섹션 전체 높이 기준 */
+  padding-top: 30px; /* 원하는 만큼 위쪽 여백 */
+}
+
+.camera-icon {
+  margin-bottom: 20px;
+}
+
+.camera-icon img {
+  width: 80px;
+  height: 80px;
+  opacity: 0.6;
+}
+
+.camera-placeholder h3 {
+  font-size: 24px;
+  color: #AD8B73;
+  margin-bottom: 15px;
+}
+
+.camera-placeholder p {
+  font-size: 16px;
+  color: #CEAB93;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.camera-btn {
+  background-color: #AD8B73;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'BM-HANNA', sans-serif;
+}
+
+.camera-btn:hover {
+  background-color: #9A7A62;
+  transform: scale(1.05);
+}
+
+/* 카메라 비디오 */
+#camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 카메라 제어 버튼들 */
+.camera-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 20;
+  display: flex !important;        /* 강제 flex */
+  flex-direction: row !important;  /* 무조건 가로 */
+  justify-content: center;         /* 가운데 정렬 */
+  align-items: center;             /* 세로축도 정렬 */
+  gap: 20px;                       /* 버튼 간격 */
+  z-index: 20;
+  width: auto;                     /* 혹시 세로폭이 강제된 경우 해제 */
+  height: auto;                    /* 혹시 세로 높이 제한 풀기 */
+}
+
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #CEAB93;
+  border-radius: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'BM-HANNA', sans-serif;
+  font-size: 14px;
+  color: #AD8B73;
+  min-width: 70px;
+}
+
+.control-btn:hover {
+  background-color: #F1E3D0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+.capture-btn {
+  background-color: #AD8B73;
+  color: white;
+  border-color: #AD8B73;
+}
+
+.capture-btn:hover {
+  background-color: #9A7A62;
+}
+
+.capture-icon, .switch-icon, .stop-icon {
+  font-size: 20px;
+}
+
+/* 촬영된 이미지 */
+#captured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 인식 중 오버레이 */
+.recognition-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+  border-radius: 10px;
+}
+
+.recognition-overlay p {
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.recognition-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .realtime-section {
+    width: 100%;
+    height: 350px;
+  }
+  
+  .camera-controls {
+    bottom: 15px;
+    gap: 10px;
+  }
+  
+  .control-btn {
+    padding: 8px 12px;
+    min-width: 60px;
+    font-size: 12px;
+  }
+  
+  .capture-icon, .switch-icon, .stop-icon {
+    font-size: 18px;
+  }
+}
 
