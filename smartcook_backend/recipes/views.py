@@ -4,15 +4,51 @@ import requests
 from uuid import uuid4
 import cv2
 import numpy as np
-
+from ultralytics import YOLO
+from PIL import Image
 from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .models import Recipe
+from django.http import HttpResponse
+model = YOLO('best.pt')
 
-# =========================
+
+# 카메라 초기화 (0: 기본 웹캠)
+
+cap = cv2.VideoCapture(0)
+
+@csrf_exempt
+def detect_frame(request):
+    if request.method == 'POST' and request.FILES.get('frame'):
+        file = request.FILES['frame']
+        file_bytes = np.asarray(bytearray(file.read()), dtype=np.uint8)
+        img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+        
+        results = model(img)[0]
+
+        # 50% 이상 confidence인 박스만 필터링
+        filtered_boxes = []
+        for box in results.boxes:
+            conf = float(box.conf[0])
+            if conf >= 0.8:
+                filtered_boxes.append(box)
+
+        results.boxes = filtered_boxes  # 필터링된 박스 리스트로 대체
+        
+        annotated_img = results.plot()
+        
+        _, buffer = cv2.imencode('.jpg', annotated_img)
+        response = HttpResponse(buffer.tobytes(), content_type="image/jpeg")
+        return response
+    
+    return JsonResponse({"error": "No frame uploaded"}, status=400)
+
+
+
+
 # 전역 캐시: recipe_data.json
 # =========================
 _recipe_cache = None
@@ -255,20 +291,7 @@ def cart_view(request, pk):
         "ingredients": ingredients,
     })
 
-# =========================
-# YOLO 업로드 / 인식
-# =========================
-_yolo_model = None
 
-def _get_yolo():
-    global _yolo_model
-    if _yolo_model is None:
-        from ultralytics import YOLO
-        model_path = settings.BASE_DIR / "best.pt"
-        if not model_path.exists():
-            raise FileNotFoundError(f"YOLO 가중치가 없습니다: {model_path}")
-        _yolo_model = YOLO(str(model_path))
-    return _yolo_model
 
 KO_MAP = {
     "cucumber": "오이",

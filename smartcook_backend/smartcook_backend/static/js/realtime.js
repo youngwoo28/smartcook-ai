@@ -116,17 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const realtimeSection = document.getElementById("realtime-section");
   const backToOptions = document.getElementById("back-to-options");
   
-  // 카메라 관련 요소들
-  const startCameraBtn = document.getElementById("start-camera");
-  const cameraVideo = document.getElementById("camera-video");
-  const cameraCanvas = document.getElementById("camera-canvas");
-  const capturedImage = document.getElementById("captured-image");
-  const cameraPlaceholder = document.getElementById("camera-placeholder");
-  const cameraControls = document.getElementById("camera-controls");
-  const captureBtn = document.getElementById("capture-btn");
-  const switchBtn = document.getElementById("switch-btn");
-  const stopBtn = document.getElementById("stop-btn");
-  const recognitionOverlay = document.getElementById("recognition-overlay");
   
   // 뒤로가기 버튼
   const backToOptionsBtn = document.getElementById("back-to-options-btn");

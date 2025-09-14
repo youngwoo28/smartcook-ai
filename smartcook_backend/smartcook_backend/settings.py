@@ -31,6 +31,23 @@ INSTALLED_APPS = [
     "recipes",
 ]
 
+
+# settings.py
+INSTALLED_APPS += [
+    'channels',
+]
+
+ASGI_APPLICATION = 'smartcook_backend.asgi.application'
+
+# Channels Layer 설정 (Redis)
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 AUTH_USER_MODEL = "core.CustomUser"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

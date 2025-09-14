@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartCook</title>
+  <title>SmartCook - 실시간 YOLO</title>
   <link rel="stylesheet" href="{% static 'css/upload.css' %}" />
   <script src="{% static 'js/upload.js' %}" defer></script>
-  <script src="{% static 'js/realtime.js' %}" defer></script>
 </head>
 
 <body>
@@ -26,88 +25,55 @@
       <a href="{% url 'food_upload' %}" class="btn">음식으로 탐색하기</a>
       <a href="{% url 'upload' %}" class="btn">재료로 탐색하기</a>
       <button class="btn active-btn">실시간으로 탐색하기</button>
-
     </div>
     
-
-    <div class="container2" id="ingredient-section">
-      <a href="mainpage.html" class="home-link">← Home</a>
-      <div class="form-box">
-        <label for="file-upload">카메라 권한을 허용해주세요</label>
-
-        <div class="upload-section">
-          <!-- ✅ 브라우저 기본 동작만 사용: for="file-upload" -->
-          <div class="dropdown">
-          <label class="down-btn" id="realtime-option">
-            <div class="down-left">
-              <img src="{% static 'images/camera.png' %}" alt="실시간 탐색 아이콘" style="margin-top: 15px; margin-left: 50px; width:44px;height:44px;" />
-              <span style="color: white; margin-top: 10px; font-size: 20px;">카메라 권한</span>
-            </div>
-          </label>
-          </div>
-        </div>
-
-        <!-- 실시간 재료 탐색 섹션 -->
-        <div class="realtime-section" id="realtime-section" style="display: none;">
-          <div class="camera-container">
-            <!-- 카메라 시작 전 플레이스홀더 -->
-            <div class="camera-placeholder" id="camera-placeholder">
-              <div class="camera-icon">
-                <img src="{% static 'images/image.png' %}" alt="카메라 아이콘">
-              </div>
-              <h3>실시간 카메라</h3>
-              <p>카메라를 활성화하여 재료를 실시간으로 인식하세요</p>
-              <button class="camera-btn" id="start-camera">카메라 시작</button>
-            </div>
-            
-            <!-- 카메라 비디오 스트림 -->
-            <video id="camera-video" autoplay muted playsinline style="display: none;"></video>
-            
-            <!-- 카메라 제어 버튼들 -->
-            <div class="camera-controls" id="camera-controls" style="display: none;">
-              <button class="control-btn capture-btn" id="capture-btn">
-                <span class="capture-icon">📸</span>
-                <span>촬영</span>
-              </button>
-              <button class="control-btn switch-btn" id="switch-btn">
-                <span class="switch-icon">🔄</span>
-                <span>전환</span>
-              </button>
-              <button class="control-btn stop-btn" id="stop-btn">
-                <span class="stop-icon">⏹️</span>
-                <span>중지</span>
-              </button>
-            </div>
-            
-            <!-- 촬영된 이미지 프리뷰 -->
-            <canvas id="camera-canvas" style="display: none;"></canvas>
-            <img id="captured-image" style="display: none;" alt="촬영된 이미지">
-            
-            <!-- 인식 중 표시 -->
-            <div class="recognition-overlay" id="recognition-overlay" style="display: none;">
-              <div class="recognition-spinner"></div>
-              <p>재료를 인식하고 있습니다...</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 뒤로가기 버튼 -->
-        <div class="back-to-options" id="back-to-options" style="display: none;">
-          <!-- <button class="back-btn" id="back-to-options-btn">← 다른 방법 선택하기</button> -->
-        </div>
-      </div>
+    <div class="upload-container">
+  <div class="upload-form-box" style="position: relative; width: 100%; max-width: 480px; margin: 0 auto;">
+    <h2 class="upload-title" style="text-align: center;">실시간 YOLO</h2>
+    <div style="position: relative; padding-top: 56.25%; /* 16:9 비율 유지 */ border-radius: 12px; overflow: hidden; background: #f7f4f0;">
+      <video id="video" autoplay playsinline muted 
+             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;"></video>
+      <img id="detected" alt="실시간 감지 이미지" 
+           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
     </div>
+  </div>
+</div>
 
-    <!-- 인식된 재료 -->
-    <section class="recognized" id="ingredient-buttons" style="display:none;">
-      <h4 class="recognized-title">인식된 재료</h4>
-      <div class="chip-box" id="recognized-list"></div>
-      <div class="confirm-wrapper">
-        <button class="confirm-btn" id="toCategoryBtn">선택 완료</button>
-      </div>
-    </section>
+<script>
+  const video = document.getElementById('video');
+  const detected = document.getElementById('detected');
 
-    <!-- 선호도(옵션) -->
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => { video.srcObject = stream; })
+    .catch(err => { alert('카메라 접근 실패: ' + err); });
+
+  async function sendFrame() {
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob(async (blob) => {
+        const formData = new FormData();
+        formData.append('frame', blob, 'frame.jpg');
+        try {
+          const res = await fetch('/detect/', { method: 'POST', body: formData });
+          if (!res.ok) return;
+          const imgBlob = await res.blob();
+          detected.src = URL.createObjectURL(imgBlob);
+        } catch {}
+      }, 'image/jpeg');
+    }
+  }
+  
+  setInterval(sendFrame, 100);
+</script>
+
+
+
+    <!-- 선호도 선택 섹션 -->
     <section class="category" id="category-section" style="display:none;">
       <h4 class="category-title">음식 분야 선택</h4>
       <div class="chip-box">
@@ -130,7 +96,7 @@
       </div>
     </section>
 
-    <!-- 검색 결과 UI (food_upload.html과 동일하게 적용) -->
+    <!-- 검색 결과 UI -->
     {% if query %}
     <section class="recommend" id="recipe-section" style="display:block;">
       {% if recipes %}
@@ -172,7 +138,7 @@
     </section>
     {% endif %}
 
-    <!-- ✅ 추가재료 선택 (food_upload.html과 동일하게 적용) -->
+    <!-- 추가재료 선택 섹션 -->
     <section class="extra" id="extra-section" style="display:none;">
       <div class="extra-header">
         <h4 class="extra-title">추가 재료 선택</h4>
@@ -190,7 +156,6 @@
     </section>
   </main>
 
-  <!-- 하단 -->
   <div class="feedback-footer">
     © SmartCook. All rights reserved.
   </div>

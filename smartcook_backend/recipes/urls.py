@@ -19,4 +19,7 @@ urlpatterns = [
 
     # GPT 재랭킹 API
     path("api/rerank/", views.rerank_view, name="rerank"),
+    path('detect/', views.detect_frame, name='detect_frame'),
+    
+    
 ]
