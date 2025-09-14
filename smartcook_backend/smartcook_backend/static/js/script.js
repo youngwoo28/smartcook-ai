@@ -202,18 +202,21 @@ if (skipBtn) {
 
 document.addEventListener('DOMContentLoaded', function() {
   const startCookingButton = document.querySelector('.home-start');
-  const uploadUrl = startCookingButton.dataset.uploadUrl; // data-upload-url 속성 값 가져오기
-  const isAuthenticated = JSON.parse(document.body.dataset.isAuthenticated);
+  if (startCookingButton) {
+    const uploadUrl = startCookingButton.dataset.uploadUrl; // data-upload-url 속성 값 가져오기
+    const loginUrl = startCookingButton.dataset.loginUrl; // data-login-url 속성 값 가져오기
+    const isAuthenticated = JSON.parse(document.body.dataset.isAuthenticated);
 
-  startCookingButton.addEventListener('click', function(event) {
-      if (!isAuthenticated) {
-          event.preventDefault();
-          alert('로그인 후 이용해 주세요.');
-          window.location.href = '{% url "login" %}'; 
-      } else {
-          window.location.href = uploadUrl; // HTML에서 가져온 URL로 이동
-      }
-  });
+    startCookingButton.addEventListener('click', function(event) {
+        if (!isAuthenticated) {
+            event.preventDefault();
+            alert('로그인 후 이용해 주세요.');
+            window.location.href = loginUrl; // HTML에서 가져온 로그인 URL로 이동
+        } else {
+            window.location.href = uploadUrl; // HTML에서 가져온 URL로 이동
+        }
+    });
+  }
 });
 
 // cart
