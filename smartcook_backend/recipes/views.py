@@ -17,7 +17,6 @@ model = YOLO('best.pt')
 
 
 # 카메라 초기화 (0: 기본 웹캠)
-
 cap = cv2.VideoCapture(0)
 
 @csrf_exempt
@@ -47,15 +46,12 @@ def detect_frame(request):
     return JsonResponse({"error": "No frame uploaded"}, status=400)
 
 
-
-
 # 전역 캐시: recipe_data.json
-# =========================
 _recipe_cache = None
 # [SESSION] 세션 키 상수
-SESSION_QUERY_KEY = "sc.query"           # 마지막 검색어(문자열)
-SESSION_RESULT_IDS_KEY = "sc.result_ids" # 마지막 결과 레시피 ID 리스트
-SESSION_MODE_KEY = "sc.mode"             # 'food' | 'ingredient' (어느 화면에서 검색했는지)
+SESSION_QUERY_KEY = "sc.query"
+SESSION_RESULT_IDS_KEY = "sc.result_ids"
+SESSION_MODE_KEY = "sc.mode"
 
 def get_recipes_data():
     """ recipe_data.json 캐싱 """
@@ -66,18 +62,15 @@ def get_recipes_data():
             _recipe_cache = json.load(f)
     return _recipe_cache
 
-# [SESSION] id -> recipe 빠른 조회용 인덱스 생성 헬퍼
 def _index_by_id(data_list):
     return {str(item.get("id")): item for item in data_list}
 
-# [SESSION] 세션에 현재 검색 컨텍스트 저장
 def _save_session_search(request, *, query: str, mode: str, result_ids: list[int]):
     request.session[SESSION_QUERY_KEY] = query
     request.session[SESSION_MODE_KEY] = mode
-    request.session[SESSION_RESULT_IDS_KEY] = list(map(int, result_ids))  # 정수 리스트로 저장
+    request.session[SESSION_RESULT_IDS_KEY] = list(map(int, result_ids))
     request.session.modified = True
 
-# [SESSION] 세션에서 마지막 검색 컨텍스트 로드
 def _load_session_search(request):
     return {
         "query": request.session.get(SESSION_QUERY_KEY, ""),
@@ -85,13 +78,10 @@ def _load_session_search(request):
         "result_ids": request.session.get(SESSION_RESULT_IDS_KEY, []),
     }
 
-# =========================
-# 재료 필터링
-# =========================
+
 EXCLUDE_KEYWORDS = ["주재료", "도마", "조리용", "전자레인지", "용기", "그릇", "위생장갑", "구매"]
 
 def clean_ingredients(ingredients):
-    """ 불필요한 단어 제외 """
     cleaned = []
     for ing in ingredients:
         if not ing.strip():
@@ -101,6 +91,7 @@ def clean_ingredients(ingredients):
         name = ing.split()[0]
         cleaned.append(name)
     return cleaned
+
 
 # =========================
 # 업로드 / 검색 (음식명으로 탐색하기)
@@ -121,22 +112,18 @@ def food_upload_view(request):
             short_ingredients = clean_ingredients(recipe.get("ingredients", []))
             match_count = 0
 
-            # 음식명 매칭
             if query in recipe.get("title", ""):
                 match_count += 2
-            # 재료 매칭
             ing_match_count = sum(1 for q in query_ingredients if q in short_ingredients)
             match_count += ing_match_count
 
             if match_count > 0:
-                # 원본 변경 방지: 얕은 복사본 사용
                 r = dict(recipe)
                 r["match_count"] = match_count
                 results.append(r)
 
         recipes = sorted(results, key=lambda r: r.get("match_count", 0), reverse=True)
 
-        # [SESSION] 이번 검색 상태 저장 (mode='food')
         _save_session_search(
             request,
             query=query,
@@ -144,15 +131,9 @@ def food_upload_view(request):
             result_ids=[r.get("id") for r in recipes if r.get("id") is not None],
         )
     else:
-        # [SESSION] 파라미터 없으면 세션에서 복구 시도 (mode가 'food'일 때만)
-        sess = _load_session_search(request)
-        if sess["mode"] == "food" and sess["result_ids"]:
-            # 세션의 result_ids 순서대로 복원
-            for rid in sess["result_ids"]:
-                item = by_id.get(str(rid))
-                if item:
-                    recipes.append(item)
-            query = sess["query"]  # 화면에 마지막 검색어 유지
+        # ✅ 검색어가 아예 없으면 세션 무시하고 초기화
+        query = ""
+        recipes = []
 
     return render(request, "food_upload.html", {
         "recipes": recipes if recipes else None,
@@ -160,18 +141,18 @@ def food_upload_view(request):
         "hasRecipes": bool(recipes),
     })
 
+
 # =========================
 # 업로드 / 검색 (재료로 탐색하기)
 # =========================
 def search_recipe(request):
     recipes = []
-    query = request.GET.get("q", "").strip()  # ✅ 오직 GET만 사용
+    query = request.GET.get("q", "").strip()
 
     data = get_recipes_data()
     by_id = _index_by_id(data)
 
     if query:
-        # 새 검색 로직
         query_ingredients = [q.strip() for q in query.split(",") if q.strip()]
 
         for recipe in data:
@@ -185,7 +166,6 @@ def search_recipe(request):
 
         recipes.sort(key=lambda r: r.get("match_count", 0), reverse=True)
 
-        # [SESSION] 이번 검색 상태 저장 (mode='ingredient')
         _save_session_search(
             request,
             query=query,
@@ -193,20 +173,16 @@ def search_recipe(request):
             result_ids=[r.get("id") for r in recipes if r.get("id") is not None],
         )
     else:
-        # [SESSION] 파라미터 없으면 세션에서 복구 시도 (mode가 'ingredient'일 때만)
-        sess = _load_session_search(request)
-        if sess["mode"] == "ingredient" and sess["result_ids"]:
-            for rid in sess["result_ids"]:
-                item = by_id.get(str(rid))
-                if item:
-                    recipes.append(item)
-            query = sess["query"]
+        # ✅ 여기서도 세션 무시하고 초기화
+        query = ""
+        recipes = []
 
     return render(request, "upload.html", {
         "recipes": recipes if recipes else None,
         "query": query,
         "hasRecipes": bool(recipes),
     })
+
 
 # =========================
 # 레시피 상세 + 유튜브 영상
@@ -217,7 +193,6 @@ def recipe_detail_view(request, pk):
     if not recipe:
         raise Http404("Recipe not found")
 
-    # ✅ 검색어 유지: 쿼리파라미터 우선, 없으면 세션의 마지막 검색어 사용
     query = request.GET.get("q", "")
     if not query:
         sess = _load_session_search(request)
@@ -245,8 +220,9 @@ def recipe_detail_view(request, pk):
     return render(request, "recipe.html", {
         "recipe": recipe,
         "videos": videos,
-        "query": query,  # ✅ 템플릿에 항상 전달 (세션/파라미터 기반)
+        "query": query,
     })
+
 
 # =========================
 # 장바구니
@@ -292,7 +268,6 @@ def cart_view(request, pk):
     })
 
 
-
 KO_MAP = {
     "cucumber": "오이",
     "carrot": "당근",
@@ -322,7 +297,6 @@ def upload_preview(request):
 
 @require_POST
 def detect_ingredients(request):
-    """ YOLO 재료 감지 """
     file = request.FILES.get("image")
     if not file:
         return JsonResponse({"ok": False, "error": "image 파일이 필요합니다."}, status=400)
@@ -367,6 +341,7 @@ def detect_ingredients(request):
     ann_url = settings.MEDIA_URL + f"annotated/{filename}"
 
     return JsonResponse({"ok": True, "items": items_list, "annotated_url": ann_url})
+
 
 # =========================
 # GPT 재랭킹
