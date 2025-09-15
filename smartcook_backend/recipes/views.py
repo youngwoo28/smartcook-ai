@@ -127,14 +127,15 @@ def food_upload_view(request):
             if match_count > 0:
                 r = dict(recipe)
                 r["match_count"] = match_count
-                r["ingredient_count"] = len(short_ingredients)
+                # ✅ JSON 배열 길이 기준 (따옴표 갯수 == 재료 개수)
+                r["ingredient_count"] = len(recipe.get("ingredients", []))
                 results.append(r)
 
         if sort_option == "ingredients":
-            # ✅ 재료 적은 순 → 전체 한 번에 내려줌 (더보기 없음)
+            # ✅ 재료 적은 순 → 전체 정렬
             recipes = sorted(results, key=lambda r: r.get("ingredient_count", 0))
         else:
-            # ✅ 관련도 순 → 더보기 유지
+            # ✅ 관련도 순
             recipes = sorted(results, key=lambda r: r.get("match_count", 0), reverse=True)
 
         _save_session_search(
@@ -173,14 +174,13 @@ def search_recipe(request):
             if match_count > 0:
                 r = dict(recipe)
                 r["match_count"] = match_count
-                r["ingredient_count"] = len(short_ingredients)
+                # ✅ JSON 배열 길이 기준
+                r["ingredient_count"] = len(recipe.get("ingredients", []))
                 results.append(r)
 
         if sort_option == "ingredients":
-            # ✅ 재료 적은 순 → 전체 한 번에 내려줌 (더보기 없음)
             recipes = sorted(results, key=lambda r: r.get("ingredient_count", 0))
         else:
-            # ✅ 관련도 순 → 더보기 유지
             recipes = sorted(results, key=lambda r: r.get("match_count", 0), reverse=True)
 
         _save_session_search(
