@@ -59,6 +59,13 @@
           reader.onload = function (evt) {
             previewImage.src = evt.target.result;
             previewImage.style.display = "block";
+  
+            // ✅ 업로드 버튼 전부 숨기기 (CSS로 제거)
+            const dropdown = document.querySelector(".dropdown");
+            if (dropdown) {
+              dropdown.style.display = "none";
+              dropdown.style.visibility = "hidden";
+            }
           };
           reader.readAsDataURL(file);
   
@@ -213,4 +220,3 @@
       }
     });
   })();
-  
