@@ -37,7 +37,7 @@
 }
 
 body {
-  background-color: #FFFBE9;
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
 }
@@ -64,19 +64,19 @@ main {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #e3caa5;
+  background-color: #ffffff;
   padding: 10px 40px; /* ← 좌우 여백 더 넓게 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #d0bca0;
+  border-bottom: 1px solid #9e9a93;
 }
 
 .logo {
   font-family: 'LilitaOne-Regular';
   font-weight: 400;
   font-size: 26px;
-  color: #ad8b73;
+  color: #76b5c5;
   letter-spacing: 1px;
   text-decoration: none;
 }
@@ -91,8 +91,8 @@ main {
 .logout-button {
   font-family: 'TitanOne-Regular';
   margin-right: 40px;
-  background-color: #ad8b73;
-  color: #fffbe9;
+  background-color: #76b5c5;
+  color: #ffffff;
   border: none;
   padding: 6px 15px;
   border-radius: 5px;
@@ -117,31 +117,31 @@ main {
 .btn {
   font-size: 16px;
   border-radius: 30px;
-  border: 3px solid #CEAB93;
+  border: 3px solid #76b5c5;
   cursor: pointer;
   width: 205px;
   height: 55px;
   background-color: #FFFFFF;
-  color: #CEAB93;
+  color: #76b5c5;
 }
 
 .btn.active-btn {
-  background-color: #CEAB93 !important;
+  background-color: #76b5c5 !important;
   color: #FFFFFF !important;
   border: none;
 }
 
 .btn:not(.active-btn) {
   background-color: #FFFFFF;
-  color: #CEAB93;
-  border: 3px solid #CEAB93;
+  color: #76b5c5;
+  border: 3px solid #76b5c5;
 }
 
 /* <a> 태그이면서 .btn 클래스를 가진 요소의 스타일을 명확하게 지정 */
 a.btn {
   background-color: #FFFFFF;
-  color: #CEAB93;
-  border: 3px solid #CEAB93;
+  color: #76b5c5;
+  border: 3px solid #76b5c5;
   display: flex; /* 링크도 버튼처럼 보이게 하기 위해 추가 */
   justify-content: center;
   align-items: center;
@@ -152,8 +152,8 @@ a.btn {
 .container {
   width: 1055px;
   height: 510px;
-  background-color: #F9F5F0;
-  border: 2px solid #CEAB93;
+  background-color: #Ffffff;
+  border: 2px solid #76b5c5;
   border-radius: 10px;
   padding: 50px 80px;
   position: relative;
@@ -164,7 +164,7 @@ a.btn {
 
 .home-link {
   font-size: 14px;
-  color: #A6856E;
+  color: #76b5c5;
   position: absolute;
   top: 30px;
   left: 40px;
@@ -186,7 +186,7 @@ a.btn {
 
 .form-box label {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   display: block;
   margin-bottom: 20px;
 }
@@ -195,7 +195,7 @@ a.btn {
 .input-wrapper {
   width: 914px;
   height: 45px;
-  border: 3px solid #CEAB93;
+  border: 3px solid #76b5c5;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -223,8 +223,8 @@ a.btn {
 .container2 {
   width: 1055px;
   height: 771px;
-  background-color: #F9F5F0;
-  border: 2px solid #CEAB93;
+  background-color: #Ffffff;
+  border: 2px solid #76b5c5;
   border-radius: 10px;
   padding: 50px 80px;
   position: relative;
@@ -237,7 +237,7 @@ a.btn {
 .upload-section {
   width: 914px;
   height: 413px;
-  border: 3px dashed #CEAB93;
+  border: 3px dashed #76b5c5;
   background-color: #FFFFFF;
   border-radius: 10px;
   position: relative;   /* 버튼과 이미지 위치 제어 */
@@ -251,7 +251,7 @@ a.btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #AD8B73;
+  background-color: #76b5c5;
   color: white;
   border: none;
   width: 240px;
@@ -277,7 +277,7 @@ a.btn {
   left: 0;
   flex-direction: column;
   background-color: #fff;
-  border: 1px solid #CEAB93;
+  border: 1px solid #000000;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   width: 240px;
@@ -287,7 +287,7 @@ a.btn {
 .dropdown-menu div {
   padding: 12px 15px;
   font-size: 14px;
-  color: #5C4434;
+  color: #000000;
   cursor: pointer;
 }
 
@@ -316,7 +316,7 @@ a.btn {
   font-size: 22px;
   border-radius: 10px;
   padding: 6px 20px;
-  background-color:#CEAB93;
+  background-color:#76b5c5;
   color: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 139px;
@@ -339,7 +339,7 @@ a.btn {
   font-size: 17px;
   border-radius: 10px;
   padding: 6px 20px;
-  background-color:#CEAB93;
+  background-color:#76b5c5;
   color: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 148px;
@@ -364,7 +364,7 @@ a.btn {
   border-radius: 10px;
   width: fit-content;
   height: 28px;
-  background-color: #CEAB93;
+  background-color: #76b5c5;
   color: white;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -383,7 +383,7 @@ a.btn {
   
   width: 1055px;
     background-color: white;
-    border: 2px solid #CEAB93;
+    border: 2px solid #76b5c5;
     border-radius: 10px;
     padding: 50px 80px;
     position: relative;
@@ -413,7 +413,7 @@ a.btn {
 
 .recognized-title {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   margin-left: 47px;
   top: 50px;
   padding-top: 20px;
@@ -421,7 +421,7 @@ a.btn {
 
 .category-title {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   margin-left: 50px;
   top: 35px;
   padding-top: 20px;
@@ -429,7 +429,7 @@ a.btn {
 
 .extra-title {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   margin-left: 47px;
   top: 38px;
   padding-top: 20px;
@@ -437,7 +437,7 @@ a.btn {
 
 .recognized-title {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   margin-left: 47px;
   top: 50px;
   padding-top: 20px;
@@ -445,7 +445,7 @@ a.btn {
 
 .category-title {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   margin-left: 50px;
   top: 35px;
   padding-top: 20px;
@@ -453,7 +453,7 @@ a.btn {
 
 .extra-title {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   margin-left: 47px;
   top: 38px;
   padding-top: 20px;
@@ -483,14 +483,14 @@ a.btn {
   padding: 0 20px;
   height: 48px;
   font-size: 22px;
-  color: #CEAB93;
+  color: #000000;
   background-color: white;
-  border: 3px solid #CEAB93;
+  border: 3px solid #76b5c5;
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
   transition: background-color 0.3s, color 0.3s;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  /*box-shadow: 0 4px 4px #76b5c5;*/
 }
 
 
@@ -500,17 +500,17 @@ a.btn {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #F1E3D0;
+  background-color: #Ffffff;
   border: none;
   margin-right: 15px;
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
-  box-shadow: inset 0 0 4px rgba(206, 171, 147, 0.6);
+  box-shadow: inset 0 0 4px #76b5c5;
 }
 
 .chip-radio:checked {
-  border: 2px solid #A6856E;
+  border: 2px solid #76b5c5;
 }
 
 .chip-radio:checked::after {
@@ -520,7 +520,7 @@ a.btn {
   left: 50%;
   width: 10px;
   height: 10px;
-  background-color: #A6856E;
+  background-color: #76b5c5;
   border: 3px solid #ffffff;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -543,7 +543,7 @@ a.btn {
   margin-left: auto;
   margin-right: auto;
   margin-top: -23px;
-   background: #CEAB93;   /* ⬅️ 트랙 색상 추가 */
+   background: #000000;   /* ⬅️ 트랙 색상 추가 */
   border-radius: 3px;    /* ⬅️ 살짝 둥글게 */
 }
 
@@ -553,7 +553,7 @@ a.btn {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #A6856E;
+  background: #000000;
   cursor: pointer;
   border: none;
   margin-top: 0px;
@@ -565,7 +565,7 @@ a.btn {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #A6856E;
+  background: #000000;
   cursor: pointer;
   border: none;
   position: relative;
@@ -582,7 +582,7 @@ a.btn {
 
 .range-wrap label {
   font-size: 27px;
-  color: #A6856E;
+  color: #000000;
   position: relative;
   top: -60px;
   left: 50px;
@@ -593,7 +593,7 @@ a.btn {
   left: 45px;
   top: 25px;
   font-size: 27px;
-  color: #CEAB93;
+  color: #000000;
 }
 
 .range-labels .right-label {
@@ -601,7 +601,7 @@ a.btn {
   right: 45px;
   top: 25px;
   font-size: 27px;
-  color: #CEAB93;
+  color: #000000;
 }
 
 /* 레시피 부분 */
@@ -620,7 +620,7 @@ a.btn {
   width: 100%;
     min-height: 472px;
     height: auto; /* 내용에 따라 높이 자동 조절 */
-    border: 3px solid #CEAB93;
+    border: 3px solid #76b5c5;
     border-radius: 10px;
     padding: 20px 15px 60px;
     background-color: #ffffff;
@@ -633,13 +633,13 @@ a.btn {
 }
 /* 음식명과 재료명 글꼴 색상 통일 */
 .recipe-card h5 {
-  color: #Ad8b73; /* 재료명과 동일한 색상으로 변경 */
+  color: #000000; /* 재료명과 동일한 색상으로 변경 */
   font-size: 18px;
   font-weight: bold;
   margin: 10px 0 5px 0;
 }
 .recipe-card h6 {
-  color: #ad8b73; /* h5와 동일한 색상으로 유지 */
+  color: #000000; /* h5와 동일한 색상으로 유지 */
   font-size: 14px;
   font-weight: bold;
   margin: 15px 0 5px 0;
@@ -650,7 +650,7 @@ a.btn {
   height: 130px;
   object-fit: cover;
   margin: 0 auto 10px auto; /* 가운데 정렬 */
-  box-shadow: 0 4px 4px #AD8B73;
+  box-shadow: 0 4px 4px #000000;
 }
 
 
@@ -667,7 +667,7 @@ a.btn {
 .small-text {
   font-family: Arial, sans-serif;
   font-size: 16px;
-  color: #CEAB93;
+  color: #000000;
   position: absolute;
   top: -17px;
   right: 40px;
@@ -684,7 +684,7 @@ a.btn {
 }
 
   body.upload {
-    background-color: #fffbe9;
+    background-color: #ffffff;
     margin: 0;
     padding: 60px 0;
     display: flex;
@@ -745,7 +745,7 @@ textarea::-moz-placeholder {
     height: 699px;
     margin: 40px auto;
     background-color: white;
-    border: 2px solid #CEAB93;
+    border: 2px solid #76b5c5;
     border-radius: 10px;
     box-sizing: border-box;
     padding: 50px 80px;
@@ -761,7 +761,7 @@ textarea::-moz-placeholder {
     top: 20px;
     left: 20px;
     font-size: 20px;
-    color: #CEAB93;
+    color: #76b5c5;
     text-decoration: none;
     margin-bottom: 40px;
     display: inline-block;
@@ -769,14 +769,14 @@ textarea::-moz-placeholder {
   
   h2 {
     font-size: 30px;
-    color: #AD8B73;
+    color: #000000;
     margin: 10px 0 5px;
     margin-top: 60px;
   }
   
   hr {
     border: none;
-    border-top: 3px solid #AD8B73;
+    border-top: 3px solid #76b5c5;
     margin-top: 20px;
     margin-bottom: 50px;
   }
@@ -801,12 +801,12 @@ textarea::-moz-placeholder {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 3px solid #CEAB93;
+    border: 3px solid #76b5c5;
     border-radius: 10px;
     padding: 0 10px;
     box-sizing: border-box;
     font-size: 30px;
-    color: #76573A;
+    color: #000000;
   }
   
   .cart-item-name {
@@ -823,7 +823,7 @@ textarea::-moz-placeholder {
     font-size: 45px;
     background: none;
     border: none;
-    color: #76573A;
+    color: #76b5c5;
     cursor: pointer;
     padding: 0;
     width: 20px;
@@ -831,7 +831,7 @@ textarea::-moz-placeholder {
   
   
   .cart-count {
-    border: 3px solid #CEAB93;
+    border: 3px solid #76b5c5;
     border-radius: 10px;
     padding: 0px 0;
     width: 30px;
@@ -852,7 +852,7 @@ textarea::-moz-placeholder {
   }
   
   .cart-go-button {
-    background-color: #CEAB93;
+    background-color: #76b5c5;
     color: white;
     border: none;
     border-radius: 6px;
@@ -871,7 +871,7 @@ textarea::-moz-placeholder {
 .recipe-container {
   width: 1055px;
   background-color: #fff;
-  border: 2px solid #CEAB93;
+  border: 2px solid #000000;
   border-radius: 10px;
   padding: 30px;
   margin-top: 100px;
@@ -893,7 +893,7 @@ textarea::-moz-placeholder {
 /* 왼쪽 박스 */
 .recipe-left-box {
   flex: 1;
-  border: 3px dashed #CEAB93;
+  border: 3px dashed #000000;
   border-radius: 10px;
   padding: 20px;
 
@@ -905,7 +905,7 @@ textarea::-moz-placeholder {
 /* 오른쪽 박스 */
 .recipe-right-box {
   flex: 1;
-  border: 3px dashed #CEAB93;
+  border: 3px dashed #000000;
   border-radius: 10px;
   padding: 20px;
 
@@ -922,19 +922,19 @@ textarea::-moz-placeholder {
 .recipe-left-box h2,
 .recipe-right-box h2 {
   font-size: 26px;
-  color: #Ad8b73;
+  color: #000000;
   margin-bottom: 30px;
 }
 
 .recipe-subheading {
   font-size: 18px;
   margin-bottom: 30px;
-  color: #AD8B73;
+  color: #000000;
 }
 
 /* 글자 스타일 */
 p {
-  color: #Ad8B73;
+  color: #000000;
   margin-bottom: 20px;
 }
 
@@ -943,7 +943,7 @@ ul, ol {
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 30px;
-  color: #AD8B73;
+  color: #000000;
 }
 
 ol li {
@@ -991,7 +991,7 @@ ol li {
 }
 
 .recipe-bottom-button button {
-  background-color: #CEAB93;
+  background-color: #76b5c5;
   border: none;
   color: white;
   padding: 12px 35px;
@@ -1004,7 +1004,7 @@ ol li {
 }
 
 .recipe-bottom-button button:hover {
-  background-color: #c6a97d;
+  background-color: #76b5c5;
 }
 
 
@@ -1015,8 +1015,8 @@ ol li {
 
 
 .menu2-container {
-    background-color: #fef9f5;
-    border: 2px solid #CEAB93;
+    background-color: #ffffff;
+    border: 2px solid #000000;
     border-radius: 8px;
     width: 1055px;
 
@@ -1032,7 +1032,7 @@ ol li {
     font-family: 'Alexandria-Regular', sans-serif;
     margin-top: 0px;
     font-size: 12px;
-    color: #AD8B73;
+    color: #000000;
     margin-bottom: 40px;
   }
 
@@ -1044,12 +1044,12 @@ margin-bottom: 10px;
 
 .menu2-info-label {
 width: 80px;
-color: #AD8B73;
+color: #000000;
 text-align: left;
 }
 
 .menu2-info-value {
-color: #ceab93;  /* 원하는 색상으로 */
+color: #000000;  /* 원하는 색상으로 */
 font-weight: bold;
 text-align: left;
 margin-left: 80px;
@@ -1062,7 +1062,7 @@ margin-left: 80px;
   .menu2-divider {
 height: 2px;
 width: 100%;
-background-image: repeating-linear-gradient(to right, #AD8B73, #AD8B73 5px, transparent 5px, transparent 10px);
+background-image: repeating-linear-gradient(to right, #000000, #000000 5px, transparent 5px, transparent 10px);
 margin: 50px 0 40px;
 border: none;
 }
@@ -1072,7 +1072,7 @@ border: none;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    color: #ad8b73;
+    color: #000000;
     margin-bottom: 30px;
   }
 
@@ -1081,22 +1081,22 @@ border: none;
     align-items: center;
     margin-bottom: 15px;
     font-size: 14px;
-    color: #5f4436;
+    color: #000000;
   }
 
   .menu2-form-row label {
     width: 100px;
-    color: #AD8B73;
+    color: #000000;
   }
 
   .menu2-form-row input[type="text"] {
     flex: 1;
     padding: 4px 8px;
     font-size: 12px;
-    border: 2px solid #ad8b73;
+    border: 2px solid #000000;
     border-radius: 6px;
-    background-color: #fef9f5;
-    color: #5f4436;
+    background-color: #ffffff;
+    color: #000000;
     outline: none;
   }
 
@@ -1106,7 +1106,7 @@ appearance: none;
 -webkit-appearance: none;
 width: 16px;
 height: 16px;
-background-color: #FFFBE9;
+background-color: #ffffff;
 background-image: radial-gradient(circle, rgba(206, 171, 147, 0.3) 100%);
 border-radius: 50%;
 display: flex;
@@ -1120,7 +1120,7 @@ transition: border 0.3s ease;
 
 /* 선택된 상태에서만 테두리 추가 */
 .menu2-input[type="radio"]:checked {
-border: 2px solid #AD8B73;
+border: 2px solid #000000;
 }
 
 /* 내부 점 */
@@ -1135,7 +1135,7 @@ transition: background-color 0.3s ease;
 
 /* 선택된 경우만 내부 점 색칠 */
 .menu2-input[type="radio"]:checked::before {
-background-color: #AD8B73;
+background-color: #000000;
 }
 
 
@@ -1153,7 +1153,7 @@ background-color: #AD8B73;
 
   .menu2-radio-group label {
     font-size: 12px;
-    color: #ceab93;
+    color: #000000;
     display: flex;
     align-items: center;
     gap: 3px;
@@ -1170,9 +1170,9 @@ background-color: #AD8B73;
     font-size: 12px;
     padding: 3px 8px;
     background-color: #fef9f5;
-    border: 2px solid #ad8b73;
+    border: 2px solid #76b5c5;
     border-radius: 6px;
-    color: #5f4436;
+    color: #76b5c5;
     cursor: pointer;
   }
 
@@ -1193,7 +1193,7 @@ background-color: #AD8B73;
   width: 300px;
   height: 250px;
   background-color: #FFFFFF;
-  border: 3px solid #CEAB93;
+  border: 3px solid #000000;
   border-radius: 15px;
   padding: 30px;
   text-align: center;
@@ -1208,12 +1208,12 @@ background-color: #AD8B73;
 .option-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(206, 171, 147, 0.3);
-  border-color: #AD8B73;
+  border-color: #000000;
 }
 
 .option-card.selected {
-  background-color: #F1E3D0;
-  border-color: #AD8B73;
+  background-color: #Ffffff;
+  border-color: #000000;
 }
 
 .option-icon {
@@ -1228,13 +1228,13 @@ background-color: #AD8B73;
 
 .option-card h3 {
   font-size: 22px;
-  color: #AD8B73;
+  color: #000000;
   margin-bottom: 15px;
 }
 
 .option-card p {
   font-size: 16px;
-  color: #CEAB93;
+  color: #000000;
   line-height: 1.4;
 }
 
@@ -1244,7 +1244,7 @@ background-color: #AD8B73;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #AD8B73;
+  background-color: #76b5c5;
   color: white;
   border: none;
   margin-top: 20px;
@@ -1271,7 +1271,7 @@ background-color: #AD8B73;
 .realtime-section {
   width: 914px;
   height: 413px;
-  border: 3px dashed #CEAB93;
+  border: 3px dashed #000000;
   background-color: #FFFFFF;
   border-radius: 10px;
   display: flex;
@@ -1317,13 +1317,13 @@ background-color: #AD8B73;
 
 .camera-placeholder p {
   font-size: 16px;
-  color: #CEAB93;
+  color: #000000;
   margin-bottom: 25px;
   line-height: 1.4;
 }
 
 .camera-btn {
-  background-color: #AD8B73;
+  background-color: #76b5c5;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -1335,7 +1335,7 @@ background-color: #AD8B73;
 }
 
 .camera-btn:hover {
-  background-color: #9A7A62;
+  background-color: #76b5c5;
   transform: scale(1.05);
 }
 
@@ -1375,7 +1375,7 @@ background-color: #AD8B73;
   align-items: center;
   gap: 5px;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid #CEAB93;
+  border: 2px solid #76b5c5;
   border-radius: 12px;
   padding: 10px 15px;
   cursor: pointer;
@@ -1387,7 +1387,7 @@ background-color: #AD8B73;
 }
 
 .control-btn:hover {
-  background-color: #F1E3D0;
+  background-color: #76b5c5;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -1397,13 +1397,13 @@ background-color: #AD8B73;
 }
 
 .capture-btn {
-  background-color: #AD8B73;
+  background-color: #76b5c5;
   color: white;
-  border-color: #AD8B73;
+  border-color: #76b5c5;
 }
 
 .capture-btn:hover {
-  background-color: #9A7A62;
+  background-color: #76b5c5;
 }
 
 .capture-icon, .switch-icon, .stop-icon {
@@ -1485,7 +1485,7 @@ background-color: #AD8B73;
 .recipe-container {
   width: 1055px;
   background-color: #fff;
-  border: 2px solid #CEAB93;
+  border: 2px solid #76b5c5;
   border-radius: 10px;
   padding: 30px;
   margin: 100px auto;   /* 가운데 정렬 */
@@ -1507,8 +1507,8 @@ background-color: #AD8B73;
 /* 왼쪽 박스 */
 .recipe-left-box {
   flex: 1;
-  background-color: #fffdf9;
-  border: 2px dashed #CEAB93;
+  background-color: #ffffff;
+  border: 2px dashed #76b5c5;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -1518,8 +1518,8 @@ background-color: #AD8B73;
 /* 오른쪽 박스 */
 .recipe-right-box {
   flex: 1;
-  background-color: #fffdf9;
-  border: 2px dashed #CEAB93;
+  background-color: #ffffff;
+  border: 2px dashed #76b5c5;
   padding: 20px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -1540,7 +1540,7 @@ background-color: #AD8B73;
 .result-header p {
   font-size: 27px;
   font-weight: bold;
-  color: #A6856E;
+  color: #000000;
   margin: 0;
 }
 
@@ -1554,18 +1554,18 @@ background-color: #AD8B73;
 .sort-options a {
   font-size: 18px;
   font-weight: bold;
-  color: #A6856E !important;
+  color: #76b5c5 !important;
   text-decoration: none !important;
   transition: color 0.2s ease;
   cursor: pointer;
 }
 
 .sort-options a:hover {
-  color: #CEAB93 !important;
+  color: #76b5c5 !important;
 }
 
 .sort-options a.active {
-  color: #AD8B73 !important;
-  border-bottom: 2px solid #AD8B73;
+  color: #76b5c5 !important;
+  border-bottom: 2px solid #9e9a93;
   padding-bottom: 2px;
 }
