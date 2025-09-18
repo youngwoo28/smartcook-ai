@@ -122,7 +122,7 @@
     if (toRecipeBtn) {
       toRecipeBtn.addEventListener("click", function () {
         const selectedIngredients = $all("#recognized-list input:checked")
-          .map(el => el.value)   // ✅ 체크박스 value 사용
+          .map(el => el.value)
           .filter(Boolean);
 
         if (selectedIngredients.length === 0) {
@@ -130,17 +130,17 @@
           return;
         }
 
-        // ✅ q=...&q=... 형식으로 조립
         const query = selectedIngredients.map(q => `q=${encodeURIComponent(q)}`).join("&");
         window.location.href = `/search_recipes_by_detected/?${query}&sort=match`;
       });
     }
 
-    // ====== 레시피 결과 관련 ======
+    // ====== ✅ 추가재료 선택 섹션 기능 ======
     $all(".show-extra-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         currentRecipeId = btn.dataset.recipeId;
 
+        // json_script 태그에서 재료 받아오기
         const scriptTag = document.getElementById(`ingredients-${currentRecipeId}`);
         let ingredients = [];
         if (scriptTag) {
@@ -151,7 +151,11 @@
           }
         }
 
+        // 전환
+        document.getElementById("recipe-section").style.display = "none";
         extraSection.style.display = "block";
+
+        // 칩 생성
         extraIngredientsBox.innerHTML = "";
         if (!ingredients || ingredients.length === 0) {
           extraIngredientsBox.innerHTML = "<p>재료가 없습니다.</p>";
@@ -161,7 +165,7 @@
             extraIngredientsBox.innerHTML += `
               <label class="chip">
                 <input type="checkbox" class="chip-radio" name="ingredient" value="${name}">
-                ${name}
+                <span>${name}</span>
               </label>
             `;
           });
@@ -169,6 +173,7 @@
       });
     });
 
+    // 추가재료 없음 → 상세보기
     const skipBtn = document.getElementById("skip-extra-btn");
     if (skipBtn) {
       skipBtn.addEventListener("click", () => {
@@ -180,18 +185,24 @@
       });
     }
 
+    // 상세보기로 이동
     $("#go-detail-btn")?.addEventListener("click", () => {
       if (currentRecipeId) window.location.href = `/recipes/${currentRecipeId}/`;
+      else alert("먼저 요리할 레시피를 선택해주세요!");
     });
 
+    // 장바구니로 이동
     $("#go-cart-btn")?.addEventListener("click", () => {
       if (currentRecipeId) {
         const selected = [...document.querySelectorAll("input[name=ingredient]:checked")].map(chk => chk.value);
         const query = selected.length > 0 ? `?extra=${selected.join(",")}` : "";
         window.location.href = `/cart/${currentRecipeId}/${query}`;
+      } else {
+        alert("먼저 요리할 레시피를 선택해주세요!");
       }
     });
 
+    // ====== 더보기 버튼 ======
     const loadMoreBtn = $("#loadMoreBtn");
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener("click", () => {
