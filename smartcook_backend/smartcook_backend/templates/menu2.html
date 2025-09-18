@@ -9,11 +9,14 @@
   <link rel="stylesheet" href="{% static 'css/upload.css' %}">
 </head>
 <body class="upload">
-  <div class="navbar">
-    <div class="nav-left">
-      <a href="{% url 'mainpage' %}" class="logo">SMARTCOOK</a>
+  <div class="main-navbar">
+    <div class="main-nav-left">
+      <a href="{% url 'mainpage' %}" class="main-logo" style="color:#76b5c5;">
+        SMARTCOOK
+      </a>
     </div>
   </div>
+  
 
   <div class="menu2-container">
     <div class="menu2-breadcrumb">← <a href="{% url 'mainpage' %}">Home</a></div>
@@ -56,7 +59,7 @@
     <div class="menu2-form-row">
       <label>비건 여부</label>
       <input type="checkbox" class="menu2-input" name="is_vegan" {% if user.is_vegan %}checked{% endif %}>
-      <span style="margin-left:8px; color:#AD8B73;">저는 비건입니다</span>
+      <span style="margin-left:8px; color:#76b5c5;">저는 비건입니다</span>
     </div>
 
     <!-- ✅ 알레르기 -->
