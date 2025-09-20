@@ -14,7 +14,6 @@
     const previewImage = $("#preview-image");
     const recognizedSection = $("#ingredient-buttons");
     const recognizedList = $("#recognized-list");
-    const categorySection = $("#category-section");
     const toRecipeBtn = $("#toRecipeBtn");
     const extraSection = $("#extra-section");
     const extraIngredientsBox = $("#extra-ingredients");
@@ -75,13 +74,11 @@
               renderIngredientChips(["재료 인식 실패"]);
             }
             show(recognizedSection);
-            show(categorySection);
           })
           .catch(err => {
             console.error("YOLO 인식 실패:", err);
             renderIngredientChips(["재료 인식 실패"]);
             show(recognizedSection);
-            show(categorySection);
           });
       });
     }
@@ -118,7 +115,7 @@
       });
     }
 
-    // ====== 카테고리 선택 후 서버 전송 (render 방식) ======
+    // ====== 선택 완료 → 레시피 검색 ======
     if (toRecipeBtn) {
       toRecipeBtn.addEventListener("click", function () {
         const selectedIngredients = $all("#recognized-list input:checked")
@@ -151,9 +148,9 @@
           }
         }
 
-        // 전환
-        document.getElementById("recipe-section").style.display = "none";
+        // ✅ recipe-section은 그대로 두고, extra-section만 표시 후 스크롤 이동
         extraSection.style.display = "block";
+        extraSection.scrollIntoView({ behavior: "smooth" });
 
         // 칩 생성
         extraIngredientsBox.innerHTML = "";
