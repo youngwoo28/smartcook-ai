@@ -94,6 +94,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const extraIngredientsBox = document.getElementById("extra-ingredients");
   let currentRecipeId = null;
 
+  // 페이지 로드 시 검색 결과가 있으면 자동 스크롤
+  function initAutoScroll() {
+    const hasResults = document.querySelector('.recipe-list');
+    
+    if (recipeSection && hasResults) {
+      // 0.5초 후 부드럽게 스크롤 (페이지 로딩 완료 후)
+      setTimeout(function() {
+        recipeSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 500);
+    }
+  }
+
+  // 검색 폼 제출 시 스크롤 준비
+  function initSearchFormScroll() {
+    const searchForm = document.querySelector('form[action*="food_upload"]');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function() {
+        // 검색 버튼 클릭 시 로딩 표시 및 스크롤 준비
+        const submitBtn = searchForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.style.opacity = '0.7';
+          submitBtn.style.pointerEvents = 'none';
+        }
+      });
+    }
+  }
+
+  // 초기화 함수들 실행
+  initAutoScroll();
+  initSearchFormScroll();
+
   // 요리하러 가기 → 추가 재료 표시
   document.querySelectorAll(".show-extra-btn").forEach(btn => {
     btn.addEventListener("click", () => {

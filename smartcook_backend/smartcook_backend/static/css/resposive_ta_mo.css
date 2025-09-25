@@ -1,0 +1,1656 @@
+/* ==========================================
+   SMARTCOOK 태블릿/모바일 반응형 CSS
+   - 웹(데스크톱)은 기존 CSS 그대로 유지
+   - 태블릿/모바일에서만 반응형 적용
+
+갤럭시탭 S10+ (12.4인치)
+* 해상도: 2800 × 1752 픽셀
+* CSS 픽셀:
+* 세로: 800px × 1280px
+* 가로: 1280px × 800px
+아이패드 미니 (8.3인치, 6세대 기준)
+* 해상도: 2266 × 1488 픽셀
+* CSS 픽셀:
+* 세로: 744px × 1133px
+* 가로: 1133px × 744px
+아이패드 에어 (10.9인치, 5세대 기준)
+* 해상도: 2360 × 1640 픽셀
+* CSS 픽셀:
+* 세로: 820px × 1180px
+* 가로: 1180px × 820px
+========================================== */
+
+/* 모바일용 햄버거 메뉴 스타일 */
+.mobile-menu-btn {
+    display: none; /* 기본적으로 숨김 */
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+  }
+  
+  .mobile-menu-btn span {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+  
+  /* 햄버거 메뉴 활성화 시 X 모양으로 변환 */
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+  
+  /* 모바일 드롭다운 메뉴 */
+  .mobile-nav-menu {
+    display: none;
+    position: fixed;
+    top: 70px; /* 네비바 아래 위치 */
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 999;
+    padding: 20px 0;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-nav-menu.active {
+    display: block;
+    transform: translateY(0);
+  }
+  
+  .mobile-nav-menu a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.3s;
+  }
+  
+  .mobile-nav-menu a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  
+  /* ==========================================
+     메인 페이지 반응형 스타일
+  ========================================== */
+  
+  /* 1. 스마트폰 (320px ~ 480px) */
+  @media (max-width: 480px) {
+    /* 네비게이션 바 모바일 최적화 */
+    .main-navbar {
+      padding: 15px 20px !important; /* 좌우 패딩 줄임 */
+      background: rgba(0,0,0,0.9) !important; /* 더 진한 배경 */
+    }
+    
+    .main-logo {
+      font-size: 20px !important; /* 로고 크기 줄임 */
+    }
+    
+    /* 데스크톱 메뉴 숨기고 햄버거 메뉴 표시 */
+    .main-nav-links {
+      display: none !important;
+    }
+    
+    .mobile-menu-btn {
+      display: flex !important;
+    }
+    
+    .main-nav-right {
+      display: none !important; /* 모바일에서는 로그인 버튼 숨김 (햄버거 메뉴에 포함) */
+    }
+    
+    /* 히어로 섹션 모바일 최적화 */
+    .hero {
+      height: 100vh !important;
+      padding: 0 20px !important;
+    }
+    
+    .hero h1 {
+      font-size: 36px !important; /* 제목 크기 줄임 */
+      margin-bottom: 30px !important;
+    }
+    
+    .scroll-down {
+      font-size: 14px !important;
+    }
+    
+    /* 콘텐츠 섹션 모바일 최적화 */
+    .content {
+      padding: 40px 20px !important; /* 좌우 패딩 줄임 */
+    }
+    
+    .content h2 {
+      font-size: 24px !important;
+      margin-bottom: 20px !important;
+    }
+    
+    .content p {
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 15px !important;
+    }
+    
+    .about-btn {
+      padding: 12px 20px !important;
+      font-size: 14px !important;
+    }
+    
+    /* 비디오 섹션 모바일 최적화 */
+    .promo-section {
+      padding: 40px 20px !important;
+    }
+    
+    .promo-content h2 {
+      font-size: 22px !important;
+      margin-bottom: 15px !important;
+    }
+    
+    .promo-content p {
+      font-size: 14px !important;
+      margin-bottom: 20px !important;
+    }
+    
+    .video-box video,
+    .video_container {
+      max-width: 100% !important;
+      margin: 0 auto !important;
+    }
+  }
+  
+  /* 2. 아이패드 미니 세로 (481px ~ 744px) */
+  @media (min-width: 481px) and (max-width: 744px) {
+    .main-navbar {
+      padding: 15px 30px !important;
+    }
+    
+    .main-logo {
+      font-size: 22px !important;
+    }
+    
+    /* 태블릿에서는 축소된 메뉴 표시 */
+    .main-nav-links a {
+      font-size: 14px !important;
+      margin: 0 10px !important;
+    }
+    
+    .mobile-menu-btn {
+      display: none !important; /* 태블릿에서는 햄버거 메뉴 숨김 */
+    }
+    
+    .hero h1 {
+      font-size: 48px !important;
+    }
+    
+    .content {
+      padding: 50px 40px !important;
+    }
+    
+    .content h2 {
+      font-size: 28px !important;
+    }
+    
+    .content p {
+      font-size: 15px !important;
+      line-height: 1.7 !important;
+    }
+  }
+  
+  /* 3. 태블릿 세로 (745px ~ 820px) */
+  @media (min-width: 745px) and (max-width: 820px) {
+    .main-navbar {
+      padding: 18px 40px !important;
+    }
+    
+    .main-logo {
+      font-size: 24px !important;
+    }
+    
+    .main-nav-links a {
+      font-size: 15px !important;
+      margin: 0 12px !important;
+    }
+    
+    .hero h1 {
+      font-size: 52px !important;
+    }
+    
+    .content {
+      padding: 60px 50px !important;
+    }
+  }
+  
+  /* 4. 태블릿 가로 (821px ~ 1280px) */
+  @media (min-width: 821px) and (max-width: 1280px) {
+    .main-navbar {
+      padding: 20px 50px !important;
+    }
+    
+    .main-logo {
+      font-size: 26px !important;
+    }
+    
+    .main-nav-links a {
+      font-size: 16px !important;
+      margin: 0 15px !important;
+    }
+    
+    .hero h1 {
+      font-size: 56px !important;
+    }
+    
+    .content {
+      padding: 70px 60px !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+    }
+    
+    .video_container {
+      max-width: 1000px !important;
+    }
+  }
+  
+  /* 5. 데스크톱 (1281px+) */
+  @media (min-width: 1281px) {
+    .main-navbar {
+      padding: 20px 80px !important;
+    }
+    
+    .main-logo {
+      font-size: 28px !important;
+    }
+    
+    .main-nav-links a {
+      font-size: 18px !important;
+      margin: 0 20px !important;
+    }
+    
+    .hero h1 {
+      font-size: 64px !important;
+    }
+    
+    .content {
+      padding: 80px 100px !important;
+      max-width: 1400px !important;
+      margin: 0 auto !important;
+    }
+    
+    .content h2 {
+      font-size: 36px !important;
+    }
+    
+    .content p {
+      font-size: 18px !important;
+      line-height: 1.8 !important;
+    }
+    
+    .video_container {
+      max-width: 1200px !important;
+    }
+  }
+
+/* ==========================================
+   FOOD_UPLOAD 페이지 반응형 스타일
+   - 음식명 입력 부분 크기 확대 및 반응형
+========================================== */
+
+/* 1. 스마트폰 (320px ~ 480px) */
+@media (max-width: 480px) {
+  /* 탭 버튼 그룹 세로 배치 */
+  .btn-group {
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 0 20px !important;
+    margin-bottom: 25px !important;
+    width: auto !important;
+    justify-content: center !important;
+  }
+  
+  .btn {
+    width: 100% !important;
+    padding: 18px 20px !important; /* 터치하기 편하게 크기 증가 */
+    font-size: 16px !important; /* 폰트 크기 증가 */
+    text-align: center !important;
+    border-radius: 25px !important; /* 더 둥글게 */
+    height: 55px !important; /* 높이 증가 */
+  }
+  
+  /* 컨테이너 크기 - 추천 레시피와 동일하게 */
+  .container {
+    width: 95% !important; /* 화면 거의 전체 사용 */
+    height: auto !important;
+    padding: 25px 20px !important; /* 패딩 조정 */
+    margin: 0 auto !important;
+    margin-bottom: 60px !important; /* 추천 레시피와 동일한 하단 여백 */
+    min-height: 450px !important; /* 최소 높이 증가 */
+  }
+  
+  /* 폼 박스 크기 증가 */
+  .form-box {
+    margin-top: 40px !important; /* 상단 여백 줄임 */
+  }
+  
+  .form-box label {
+    font-size: 22px !important; /* 라벨 크기 대폭 증가 */
+    margin-bottom: 25px !important;
+    text-align: center !important; /* 가운데 정렬 */
+    font-weight: bold !important;
+  }
+  
+  /* 입력 필드 크기 대폭 증가 */
+  .input-wrapper {
+    width: 100% !important;
+    height: 65px !important; /* 높이 대폭 증가 */
+    flex-direction: row !important; /* 가로 배치 유지 */
+    gap: 0 !important;
+    border-radius: 15px !important; /* 더 둥글게 */
+    border: 4px solid #76b5c5 !important; /* 보더 두껍게 */
+    box-shadow: 0 4px 12px rgba(118, 181, 197, 0.3) !important; /* 그림자 추가 */
+  }
+  
+  .input-wrapper input {
+    font-size: 18px !important; /* 폰트 크기 증가 */
+    padding: 20px 22px !important; /* 패딩 증가 */
+    height: 100% !important;
+    border-radius: 11px 0 0 11px !important;
+  }
+  
+  .input-wrapper button {
+    width: 80px !important; /* 버튼 너비 증가 */
+    height: 100% !important;
+    padding: 0 !important;
+    border-radius: 0 11px 11px 0 !important;
+    background-color: #76b5c5 !important;
+    border: none !important;
+  }
+  
+  .input-wrapper button img {
+    width: 26px !important; /* 아이콘 크기 증가 */
+    height: 26px !important;
+  }
+  
+  /* 홈 링크 위치 조정 */
+  .home-link {
+    top: 15px !important;
+    left: 20px !important;
+    font-size: 16px !important;
+  }
+  
+  /* 레시피 카드 그리드 - 1열 배치 (모바일 화면 넘침 방지) */
+  .recipe-list {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
+    width: 100% !important; /* 화면 넘침 방지 */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .recipe-card {
+    padding: 15px !important; /* 패딩 줄여서 공간 확보 */
+    border-radius: 15px !important;
+    width: 100% !important; /* 화면 넘침 방지 */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important; /* 내용 넘침 방지 */
+  }
+  
+  .recipe-card img {
+    width: 100% !important;
+    height: 180px !important;
+    object-fit: cover !important;
+  }
+  
+  .recipe-card h5 {
+    font-size: 16px !important; /* 폰트 크기 조정 */
+    margin: 12px 0 8px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important; /* 긴 제목 줄바꿈 */
+  }
+  
+  .recipe-card h6 {
+    font-size: 14px !important;
+    margin: 8px 0 6px 0 !important;
+  }
+  
+  .recipe-card ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 120px !important; /* 재료 목록 높이 제한 */
+    overflow-y: auto !important; /* 스크롤 허용 */
+  }
+  
+  .recipe-card ul li {
+    font-size: 12px !important;
+    padding: 2px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* 추가재료 섹션 - 컨테이너와 동일한 크기 */
+  .extra {
+    width: 95% !important; /* 컨테이너와 동일한 너비 */
+    max-width: 100% !important;
+    padding: 25px 20px !important; /* 컨테이너와 동일한 패딩 */
+    margin: 0 auto !important; /* 컨테이너와 동일한 마진 */
+    margin-bottom: 60px !important; /* 컨테이너와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    min-height: auto !important; /* 내용에 따라 높이 조정 */
+  }
+  
+  .extra-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .extra-title {
+    font-size: 18px !important;
+    margin: 0 !important;
+  }
+  
+  .chip-box {
+    margin: 15px 0 !important; /* 마진 줄임 */
+    padding: 0 !important; /* 패딩 제거 */
+    gap: 8px 12px !important; /* 간격 줄임 */
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .chip {
+    padding: 8px 12px !important; /* 칩 크기 줄임 */
+    font-size: 14px !important;
+    height: auto !important;
+    min-height: 36px !important;
+  }
+  
+  .cart-wrapper {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 0 !important; /* 패딩 제거 */
+    margin-top: 20px !important;
+  }
+  
+  .cart-btns {
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+  
+  /* 결과 헤더 모바일 최적화 */
+  .result-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+    padding: 0 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .result-header p {
+    font-size: 18px !important; /* 폰트 크기 줄임 */
+    word-wrap: break-word !important;
+    width: 100% !important;
+  }
+  
+  .sort-options {
+    margin-left: 0 !important;
+    gap: 12px !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+  
+  .sort-options a {
+    font-size: 14px !important;
+    padding: 8px 12px !important;
+    white-space: nowrap !important;
+  }
+  
+  /* 검색 결과 섹션 - 컨테이너와 동일한 크기 */
+  .recommend {
+    width: 95% !important; /* 컨테이너와 동일한 너비 */
+    max-width: 100% !important;
+    padding: 25px 20px !important; /* 컨테이너와 동일한 패딩 */
+    margin: 0 auto !important; /* 컨테이너와 동일한 마진 */
+    margin-bottom: 60px !important; /* 컨테이너와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* 컨테이너와 동일한 배경 */
+    border: 2px solid #76b5c5 !important; /* 컨테이너와 동일한 보더 */
+    border-radius: 10px !important; /* 컨테이너와 동일한 둥근 모서리 */
+  }
+  
+  /* 페이지네이션 모바일 최적화 */
+  .pagination {
+    margin-top: 30px !important;
+    padding: 0 15px !important;
+    text-align: center !important;
+  }
+  
+  .page-btn {
+    padding: 8px 10px !important;
+    margin: 0 2px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* 2. 아이패드 미니 세로 (481px ~ 744px) - 744px × 1133px */
+@media (min-width: 481px) and (max-width: 744px) {
+  .btn-group {
+    gap: 15px !important;
+    padding: 0 30px !important;
+    width: auto !important;
+    justify-content: center !important;
+  }
+  
+  .btn {
+    padding: 16px 25px !important;
+    font-size: 16px !important;
+    border-radius: 22px !important;
+    height: 50px !important;
+  }
+  
+  .container {
+    width: 90% !important;
+    height: auto !important;
+    padding: 35px 25px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important; /* 동일한 하단 여백 */
+    min-height: 480px !important;
+  }
+  
+  .form-box label {
+    font-size: 24px !important;
+    text-align: center !important;
+    margin-bottom: 22px !important;
+  }
+  
+  .input-wrapper {
+    width: 100% !important;
+    height: 58px !important;
+    border-radius: 12px !important;
+    border: 3px solid #76b5c5 !important;
+  }
+  
+  .input-wrapper input {
+    font-size: 17px !important;
+    padding: 18px 20px !important;
+  }
+  
+  .input-wrapper button {
+    width: 75px !important;
+  }
+  
+  .input-wrapper button img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  /* 레시피 카드 그리드 - 2열 배치 (아이패드 미니 세로 최적화) */
+  .recipe-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important; /* 간격 더 줄임 */
+    padding: 0 10px !important; /* 좌우 패딩 더 줄임 */
+    width: 100% !important; /* 화면 넘침 방지 */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-top: 20px !important;
+  }
+  
+  .recipe-card {
+    padding: 12px !important; /* 카드 내부 패딩 더 줄임 */
+    border-radius: 12px !important;
+    width: 100% !important; /* 화면 넘침 방지 */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    min-height: auto !important; /* 고정 높이 제거 */
+  }
+  
+  .recipe-card img {
+    width: 100% !important;
+    height: 120px !important; /* 이미지 높이 줄임 */
+    object-fit: cover !important;
+  }
+  
+  .recipe-card h5 {
+    font-size: 15px !important; /* 제목 크기 조정 */
+    margin: 10px 0 6px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+  }
+  
+  .recipe-card h6 {
+    font-size: 13px !important;
+    margin: 6px 0 4px 0 !important;
+  }
+  
+  .recipe-card ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 100px !important; /* 재료 목록 높이 제한 */
+    overflow-y: auto !important;
+  }
+  
+  .recipe-card ul li {
+    font-size: 12px !important;
+    padding: 1px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* 추가재료 섹션 - 컨테이너와 동일한 크기 */
+  .extra {
+    width: 90% !important; /* 컨테이너와 동일한 너비 */
+    max-width: 100% !important;
+    padding: 35px 25px !important; /* 컨테이너와 동일한 패딩 */
+    margin: 0 auto !important; /* 컨테이너와 동일한 마진 */
+    margin-bottom: 60px !important; /* 컨테이너와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* 컨테이너와 동일한 배경 */
+    border: 2px solid #76b5c5 !important; /* 컨테이너와 동일한 보더 */
+    border-radius: 10px !important; /* 컨테이너와 동일한 둥근 모서리 */
+  }
+  
+  .chip-box {
+    margin: 15px 0 !important;
+    padding: 0 !important;
+    gap: 8px 10px !important;
+    width: 100% !important;
+  }
+  
+  .cart-wrapper {
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 0 !important;
+  }
+  
+  /* 검색 결과 섹션 - 컨테이너와 동일한 크기 */
+  .recommend {
+    width: 90% !important; /* 컨테이너와 동일한 너비 */
+    max-width: 100% !important;
+    padding: 35px 25px !important; /* 컨테이너와 동일한 패딩 */
+    margin: 0 auto !important; /* 컨테이너와 동일한 마진 */
+    margin-bottom: 60px !important; /* 컨테이너와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* 컨테이너와 동일한 배경 */
+    border: 2px solid #76b5c5 !important; /* 컨테이너와 동일한 보더 */
+    border-radius: 10px !important; /* 컨테이너와 동일한 둥근 모서리 */
+  }
+  
+  .result-header {
+    padding: 0 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .result-header p {
+    font-size: 20px !important;
+    word-wrap: break-word !important;
+  }
+}
+
+/* 3. 아이패드 에어 세로 (745px ~ 820px) - 820px × 1180px */
+@media (min-width: 745px) and (max-width: 820px) {
+  .btn-group {
+    gap: 20px !important;
+    padding: 0 40px !important;
+    width: auto !important;
+    justify-content: center !important;
+  }
+  
+  .btn {
+    padding: 16px 30px !important;
+    font-size: 17px !important;
+    height: 52px !important;
+  }
+  
+  .container {
+    width: 85% !important;
+    height: auto !important;
+    padding: 45px 35px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important; /* 동일한 하단 여백 */
+    min-height: 500px !important;
+  }
+  
+  .form-box label {
+    font-size: 26px !important;
+    text-align: center !important;
+  }
+  
+  .input-wrapper {
+    width: 100% !important;
+    height: 55px !important;
+  }
+  
+  /* 레시피 카드 그리드 - 2열 배치 (아이패드 에어 세로 최적화) */
+  .recipe-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important; /* 간격 조정하여 화면 넘침 방지 */
+    padding: 0 20px !important; /* 좌우 패딩 조정 */
+    width: 100% !important; /* 화면 넘침 방지 */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-top: 20px !important;
+  }
+  
+  .recipe-card {
+    padding: 15px !important; /* 카드 내부 패딩 조정 */
+    border-radius: 12px !important;
+    width: 100% !important; /* 화면 넘침 방지 */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    min-height: auto !important; /* 고정 높이 제거 */
+  }
+  
+  .recipe-card img {
+    width: 100% !important;
+    height: 150px !important; /* 이미지 높이 조정 */
+    object-fit: cover !important;
+  }
+  
+  .recipe-card h5 {
+    font-size: 16px !important; /* 제목 크기 조정 */
+    margin: 12px 0 8px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+  }
+  
+  .recipe-card h6 {
+    font-size: 14px !important;
+    margin: 8px 0 6px 0 !important;
+  }
+  
+  .recipe-card ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 110px !important; /* 재료 목록 높이 제한 */
+    overflow-y: auto !important;
+  }
+  
+  .recipe-card ul li {
+    font-size: 13px !important;
+    padding: 2px 0 !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+  }
+  
+  /* 추가재료 섹션 - 컨테이너와 동일한 크기 */
+  .extra {
+    width: 85% !important; /* 컨테이너와 동일한 너비 */
+    max-width: 100% !important;
+    padding: 45px 35px !important; /* 컨테이너와 동일한 패딩 */
+    margin: 0 auto !important; /* 컨테이너와 동일한 마진 */
+    margin-bottom: 60px !important; /* 컨테이너와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* 컨테이너와 동일한 배경 */
+    border: 2px solid #76b5c5 !important; /* 컨테이너와 동일한 보더 */
+    border-radius: 10px !important; /* 컨테이너와 동일한 둥근 모서리 */
+  }
+  
+  .chip-box {
+    margin: 20px 0 !important;
+    padding: 0 !important;
+    gap: 10px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .cart-wrapper {
+    flex-direction: row !important; /* 아이패드 에어는 가로 배치 */
+    gap: 12px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+  
+  .cart-btns {
+    flex: 1 !important;
+    padding: 15px !important;
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+  
+  /* 검색 결과 섹션 - 컨테이너와 동일한 크기 */
+  .recommend {
+    width: 85% !important; /* 컨테이너와 동일한 너비 */
+    max-width: 100% !important;
+    padding: 45px 35px !important; /* 컨테이너와 동일한 패딩 */
+    margin: 0 auto !important; /* 컨테이너와 동일한 마진 */
+    margin-bottom: 60px !important; /* 컨테이너와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* 컨테이너와 동일한 배경 */
+    border: 2px solid #76b5c5 !important; /* 컨테이너와 동일한 보더 */
+    border-radius: 10px !important; /* 컨테이너와 동일한 둥근 모서리 */
+  }
+  
+  .result-header {
+    padding: 0 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .result-header p {
+    font-size: 22px !important;
+    word-wrap: break-word !important;
+  }
+}
+
+/* ==========================================
+   스크롤 최적화 스타일
+========================================== */
+
+/* 부드러운 스크롤 효과 */
+html {
+  scroll-behavior: smooth !important;
+}
+
+/* 검색 결과 섹션 스크롤 타겟 최적화 */
+#recipe-section, #ingredient-buttons {
+  scroll-margin-top: 100px !important; /* 네비바 높이만큼 여백 */
+}
+
+/* 모바일에서 스크롤 타겟 조정 */
+@media (max-width: 480px) {
+  #recipe-section, #ingredient-buttons {
+    scroll-margin-top: 80px !important; /* 모바일 네비바에 맞춤 */
+  }
+}
+
+/* 태블릿에서 스크롤 타겟 조정 */
+@media (min-width: 481px) and (max-width: 1280px) {
+  #recipe-section, #ingredient-buttons {
+    scroll-margin-top: 90px !important; /* 태블릿 네비바에 맞춤 */
+  }
+}
+
+
+
+/* 2. 아이패드 미니 세로 (481px ~ 744px) */
+@media (min-width: 481px) and (max-width: 744px) {
+  .recipe-container {
+    width: 90% !important;
+    padding: 25px 20px !important;
+    margin: 20px auto !important;
+    margin-bottom: 60px !important;
+    margin-top: 100px !important;
+  }
+  
+  .recipe-content {
+    gap: 30px !important;
+  }
+  
+  .recipe-left-box, .recipe-right-box {
+    padding: 25px 20px !important;
+  }
+  
+  .recipe-left-box h2, .recipe-right-box h2 {
+    font-size: 22px !important;
+    text-align: center !important;
+  }
+  
+  .recipe-bottom-button {
+    margin: 50px auto !important;
+    margin-bottom: 60px !important;
+    text-align: center !important;
+  }
+  
+  .recipe-bottom-button button {
+    width: 80% !important;
+    max-width: 400px !important;
+    padding: 16px 25px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* 3. 아이패드 에어 세로 (745px ~ 820px) */
+@media (min-width: 745px) and (max-width: 820px) {
+  .recipe-container {
+    width: 85% !important;
+    padding: 30px 25px !important;
+    margin: 20px auto !important;
+    margin-bottom: 60px !important;
+    margin-top: 100px !important;
+  }
+  
+  .recipe-content {
+    gap: 35px !important;
+  }
+  
+  .recipe-left-box, .recipe-right-box {
+    padding: 30px 25px !important;
+  }
+  
+  .recipe-left-box h2, .recipe-right-box h2 {
+    font-size: 24px !important;
+    text-align: center !important;
+  }
+  
+  .recipe-bottom-button {
+    margin: 60px auto !important;
+    margin-bottom: 60px !important;
+    text-align: center !important;
+  }
+  
+  .recipe-bottom-button button {
+    width: 70% !important;
+    max-width: 500px !important;
+    padding: 18px 30px !important;
+    font-size: 17px !important;
+  }
+}
+
+/* 4. 태블릿 가로 (821px ~ 1280px) */
+@media (min-width: 821px) and (max-width: 1280px) {
+  .recipe-container {
+    width: 80% !important;
+    max-width: 1200px !important;
+    padding: 40px 35px !important;
+    margin: 20px auto !important;
+    margin-bottom: 60px !important;
+    margin-top: 100px !important;
+  }
+  
+  .recipe-content {
+    gap: 40px !important;
+  }
+  
+  .recipe-left-box, .recipe-right-box {
+    padding: 35px 30px !important;
+  }
+  
+  .recipe-left-box h2, .recipe-right-box h2 {
+    font-size: 26px !important;
+    text-align: center !important;
+  }
+  
+  .recipe-bottom-button {
+    margin: 60px auto !important;
+    margin-bottom: 60px !important;
+    text-align: center !important;
+  }
+  
+  .recipe-bottom-button button {
+    width: auto !important;
+    min-width: 350px !important;
+    padding: 18px 40px !important;
+    font-size: 18px !important;
+  }
+}
+
+
+/* ==========================================
+   FOOD_UPLOAD 페이지 태블릿 가로 모드 계속
+========================================== */
+
+/* 4. 태블릿 가로 (821px ~ 1280px) */
+@media (min-width: 821px) and (max-width: 1280px) {
+  .btn-group {
+    gap: 25px !important;
+    padding: 0 50px !important;
+    width: auto !important;
+    justify-content: center !important;
+  }
+  
+  .btn {
+    padding: 17px 32px !important;
+    font-size: 17px !important;
+  }
+  
+  .container {
+    width: 80% !important;
+    max-width: 1200px !important;
+    height: auto !important;
+    padding: 50px 40px !important;
+    margin: 0 auto !important;
+    min-height: 520px !important;
+  }
+  
+  .form-box label {
+    font-size: 28px !important;
+    text-align: center !important;
+  }
+  
+  .input-wrapper {
+    width: 100% !important;
+    height: 52px !important;
+  }
+  
+  /* 레시피 카드 그리드 - 3열 배치 */
+  .recipe-list {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 25px !important;
+    padding: 0 40px !important;
+  }
+}
+
+/* ==========================================
+   UPLOAD 페이지 반응형 스타일 (재료로 탐색하기)
+   - food_upload와 동일한 구조로 적용
+========================================== */
+
+/* 1. 스마트폰 (320px ~ 480px) */
+@media (max-width: 480px) {
+  /* 컨테이너2 크기 확대 및 반응형 */
+  .container2 {
+    width: 95% !important; /* 화면 거의 전체 사용 */
+    height: auto !important;
+    padding: 25px 20px !important; /* 패딩 조정 */
+    margin: 0 auto !important;
+    margin-bottom: 60px !important; /* 동일한 하단 여백 */
+    min-height: 450px !important; /* 최소 높이 증가 */
+    box-sizing: border-box !important;
+  }
+  
+  /* 폼 박스 크기 증가 */
+  .form-box {
+    margin-top: 40px !important; /* 상단 여백 줄임 */
+  }
+  
+  .form-box label {
+    font-size: 22px !important; /* 라벨 크기 대폭 증가 */
+    margin-bottom: 25px !important;
+    text-align: center !important; /* 가운데 정렬 */
+    font-weight: bold !important;
+  }
+  
+  /* 업로드 섹션 크기 대폭 증가 */
+  .upload-section {
+    width: 100% !important;
+    height: 250px !important; /* 높이 증가 */
+    min-height: 200px !important;
+    margin: 0 auto !important;
+    border-radius: 15px !important; /* 더 둥글게 */
+    border: 4px dashed #76b5c5 !important; /* 보더 두껍게 */
+  }
+  
+  .dropdown-btn {
+    width: 85% !important; /* 버튼 크기 증가 */
+    max-width: 280px !important;
+    padding: 20px 15px !important;
+    font-size: 18px !important; /* 폰트 크기 증가 */
+    border-radius: 15px !important; /* 더 둥글게 */
+    box-shadow: 0 4px 12px rgba(118, 181, 197, 0.3) !important; /* 그림자 추가 */
+  }
+  
+  .dropdown-btn img {
+    width: 50px !important; /* 아이콘 크기 증가 */
+    height: 65px !important;
+  }
+  
+  .dropdown-btn span {
+    font-size: 18px !important; /* 텍스트 크기 증가 */
+    margin-left: 12px !important;
+  }
+  
+  .dropdown-menu {
+    width: 85% !important;
+    max-width: 280px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+  }
+  
+  .dropdown-menu div {
+    padding: 15px 18px !important; /* 터치 영역 증가 */
+    font-size: 16px !important;
+  }
+  
+  /* 인식된 재료 섹션 최적화 */
+  .recognized {
+    width: 95% !important;
+    max-width: 100% !important;
+    padding: 25px 20px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    box-sizing: border-box !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .recognized-title {
+    font-size: 20px !important;
+    text-align: center !important;
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+  }
+  
+  .chip-box {
+    margin: 15px 0 !important;
+    padding: 0 !important;
+    gap: 8px 12px !important;
+    width: 100% !important;
+  }
+  
+  .chip {
+    padding: 10px 15px !important; /* 터치 영역 증가 */
+    font-size: 14px !important;
+    height: auto !important;
+    min-height: 40px !important;
+    border-radius: 20px !important;
+  }
+  
+  .confirm-wrapper {
+    text-align: center !important;
+    margin-top: 20px !important;
+  }
+  
+  .confirm-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    padding: 15px 20px !important;
+    font-size: 16px !important;
+    border-radius: 25px !important;
+  }
+}
+
+/* 2. 아이패드 미니 세로 (481px ~ 744px) */
+@media (min-width: 481px) and (max-width: 744px) {
+  .container2 {
+    width: 90% !important;
+    height: auto !important;
+    padding: 35px 25px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    min-height: 480px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .form-box label {
+    font-size: 24px !important;
+    text-align: center !important;
+    margin-bottom: 22px !important;
+  }
+  
+  .upload-section {
+    width: 100% !important;
+    height: 320px !important;
+    margin: 0 auto !important;
+  }
+  
+  .dropdown-btn {
+    width: 75% !important;
+    max-width: 320px !important;
+    padding: 18px 20px !important;
+    font-size: 17px !important;
+  }
+  
+  .dropdown-btn img {
+    width: 48px !important;
+    height: 62px !important;
+  }
+  
+  .recognized {
+    width: 90% !important;
+    padding: 35px 25px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .recognized-title {
+    font-size: 22px !important;
+    text-align: center !important;
+  }
+}
+
+/* 3. 아이패드 에어 세로 (745px ~ 820px) */
+@media (min-width: 745px) and (max-width: 820px) {
+  .container2 {
+    width: 85% !important;
+    height: auto !important;
+    padding: 45px 35px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    min-height: 500px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .form-box label {
+    font-size: 26px !important;
+    text-align: center !important;
+  }
+  
+  .upload-section {
+    width: 100% !important;
+    height: 380px !important;
+    margin: 0 auto !important;
+  }
+  
+  .dropdown-btn {
+    width: 70% !important;
+    max-width: 350px !important;
+    padding: 20px 25px !important;
+    font-size: 18px !important;
+  }
+  
+  .recognized {
+    width: 85% !important;
+    padding: 45px 35px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .recognized-title {
+    font-size: 24px !important;
+    text-align: center !important;
+  }
+}
+
+/* 4. 태블릿 가로 (821px ~ 1280px) */
+@media (min-width: 821px) and (max-width: 1280px) {
+  .container2 {
+    width: 80% !important;
+    max-width: 1200px !important;
+    height: auto !important;
+    padding: 50px 40px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    min-height: 520px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .form-box label {
+    font-size: 28px !important;
+    text-align: center !important;
+  }
+  
+  .upload-section {
+    width: 100% !important;
+    height: 400px !important;
+    margin: 0 auto !important;
+  }
+  
+  .dropdown-btn {
+    width: auto !important;
+    min-width: 280px !important;
+    padding: 18px 30px !important;
+    font-size: 17px !important;
+  }
+  
+  .recognized {
+    width: 80% !important;
+    max-width: 1200px !important;
+    padding: 50px 40px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .recognized-title {
+    font-size: 26px !important;
+    text-align: center !important;
+  }
+}
+
+/* ==========================================
+   LIVE 페이지 반응형 스타일 (실시간으로 탐색하기)
+   - 다른 페이지와 동일한 구조로 적용
+========================================== */
+
+/* 1. 스마트폰 (320px ~ 480px) */
+@media (max-width: 480px) {
+  /* 업로드 컨테이너 모바일 최적화 */
+  .upload-container {
+    width: 100% !important;
+    padding: 0 10px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+  
+  .upload-form-box {
+    width: 95% !important; /* 다른 페이지와 동일한 크기 */
+    max-width: 100% !important;
+    padding: 25px 20px !important; /* 다른 페이지와 동일한 패딩 */
+    margin: 0 auto !important;
+    margin-bottom: 60px !important; /* 다른 페이지와 동일한 하단 여백 */
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; /* 다른 페이지와 동일한 배경 */
+    border: 2px solid #76b5c5 !important; /* 다른 페이지와 동일한 보더 */
+    border-radius: 10px !important; /* 다른 페이지와 동일한 둥근 모서리 */
+  }
+  
+  .upload-title {
+    font-size: 22px !important; /* 제목 크기 증가 */
+    margin-bottom: 25px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+  }
+  
+  /* 카메라 영역 모바일 최적화 */
+  .camera-wrapper {
+    padding-top: 75% !important; /* 4:3 비율로 조정 (모바일에 적합) */
+    border-radius: 15px !important; /* 더 둥글게 */
+    margin-bottom: 20px !important;
+  }
+  
+  /* 카메라 컨트롤 버튼 모바일 최적화 */
+  .camera-controls {
+    bottom: 15px !important;
+    padding: 12px 18px !important;
+    border-radius: 20px !important;
+    gap: 12px !important;
+  }
+  
+  .camera-controls button {
+    padding: 12px 16px !important; /* 터치 영역 증가 */
+    font-size: 14px !important;
+    border-radius: 15px !important;
+    min-width: 80px !important; /* 최소 너비 설정 */
+  }
+}
+
+/* 2. 아이패드 미니 세로 (481px ~ 744px) */
+@media (min-width: 481px) and (max-width: 744px) {
+  .upload-form-box {
+    width: 90% !important;
+    padding: 35px 25px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .upload-title {
+    font-size: 24px !important;
+    text-align: center !important;
+  }
+  
+  .camera-wrapper {
+    padding-top: 65% !important; /* 적절한 비율 */
+  }
+  
+  .camera-controls button {
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* 3. 아이패드 에어 세로 (745px ~ 820px) */
+@media (min-width: 745px) and (max-width: 820px) {
+  .upload-form-box {
+    width: 85% !important;
+    padding: 45px 35px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .upload-title {
+    font-size: 26px !important;
+    text-align: center !important;
+  }
+  
+  .camera-wrapper {
+    padding-top: 60% !important; /* 적절한 비율 */
+  }
+}
+
+/* 4. 태블릿 가로 (821px ~ 1280px) */
+@media (min-width: 821px) and (max-width: 1280px) {
+  .upload-form-box {
+    width: 80% !important;
+    max-width: 1200px !important;
+    padding: 50px 40px !important;
+    margin: 0 auto !important;
+    margin-bottom: 60px !important;
+    background-color: #ffffff !important;
+    border: 2px solid #76b5c5 !important;
+    border-radius: 10px !important;
+  }
+  
+  .upload-title {
+    font-size: 28px !important;
+    text-align: center !important;
+  }
+  
+  .camera-wrapper {
+    padding-top: 50% !important; /* 넓은 화면에 적합한 비율 */
+  }
+}
+
+/* ==========================================
+   LIVE 페이지 새로운 UI 요소들 반응형 스타일
+========================================== */
+
+/* 홍보 영상 및 시작 버튼 스타일 */
+.start-btn:hover {
+  background: #5da2af !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(118, 181, 197, 0.6) !important;
+}
+
+.start-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* 플로팅 윈도우 애니메이션 */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* 플로팅 윈도우 버튼 호버 효과 */
+.floating-ingredient-item button:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+/* 플로팅 완료 버튼 호버 효과 */
+#floating-complete-btn:hover {
+  background: #5da2af !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(118, 181, 197, 0.6) !important;
+}
+
+#floating-complete-btn:disabled {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* ==========================================
+   가로(landscape) 전용 최적화
+   - 전체화면 종료 후에도 가로 레이아웃이면 가로 규칙이 유지되도록 root 클래스 사용
+========================================== */
+html.landscape-mode #ingredient-buttons,
+html.landscape-mode #recognized-section,
+html.landscape-mode #recipe-section {
+  /* 가로 시 좀 더 넓게, 행 배치 */
+  width: 95% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.landscape-mode .recognized .chip-box {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+/* 레시피 카드: 가로에서 3열(태블릿/폰 가로 공통) */
+@media (max-width: 1024px) {
+  html.landscape-mode .recipe-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 14px !important;
+  }
+}
+
+/* 작은 기기 가로(<= 744px): 2열로 안전하게 */
+@media (max-width: 744px) {
+  html.landscape-mode .recipe-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* 버튼 그룹 가로 정렬 보완 */
+html.landscape-mode .confirm-wrapper {
+  flex-direction: row !important;
+  gap: 12px !important;
+}
+
+/* 가로 시 플로팅 윈도우 위치/크기 보정 */
+html.landscape-mode #floating-ingredients {
+  top: 16px !important;
+  right: 16px !important;
+  max-width: 360px !important;
+}
+
+/* 권한 요청 모달 반응형 */
+@media (max-width: 480px) {
+  #permission-modal .permission-box {
+    padding: 30px 20px !important;
+    margin: 0 15px !important;
+    max-width: 350px !important;
+  }
+  
+  #permission-modal h3 {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  #permission-modal p {
+    font-size: 14px !important;
+    margin-bottom: 25px !important;
+  }
+  
+  #permission-modal button {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    max-width: 100px !important;
+  }
+  
+  /* 홍보 영상 모바일 최적화 */
+  .promo-video-wrapper {
+    margin-bottom: 25px !important;
+  }
+  
+  .start-btn {
+    width: 100% !important;
+    max-width: 300px !important;
+    padding: 20px 30px !important;
+    font-size: 16px !important;
+  }
+  
+  /* 플로팅 윈도우 모바일 최적화 */
+  #floating-ingredients {
+    top: 10px !important;
+    right: 10px !important;
+    max-width: 250px !important;
+    min-width: 220px !important;
+    padding: 15px !important;
+    font-size: 13px !important;
+  }
+  
+  #floating-ingredients h4 {
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  #floating-list {
+    max-height: 200px !important;
+  }
+  
+  .floating-ingredient-item {
+    margin-bottom: 8px !important;
+    padding: 6px 10px !important;
+  }
+  
+  .floating-ingredient-item span {
+    font-size: 13px !important;
+  }
+  
+  .floating-ingredient-item button {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+  }
+  
+  #floating-complete-btn {
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 744px) {
+  #permission-modal .permission-box {
+    padding: 35px 25px !important;
+    max-width: 380px !important;
+  }
+  
+  .start-btn {
+    width: 80% !important;
+    max-width: 400px !important;
+    padding: 18px 35px !important;
+    font-size: 17px !important;
+  }
+}
+
+@media (min-width: 745px) and (max-width: 820px) {
+  #permission-modal .permission-box {
+    padding: 40px 30px !important;
+    max-width: 420px !important;
+  }
+  
+  .start-btn {
+    width: 70% !important;
+    max-width: 450px !important;
+    padding: 18px 40px !important;
+    font-size: 18px !important;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1280px) {
+  .start-btn {
+    width: auto !important;
+    min-width: 300px !important;
+    padding: 18px 50px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* ==========================================
+   FOOD_UPLOAD 페이지 태블릿 가로 모드 계속
+========================================== */

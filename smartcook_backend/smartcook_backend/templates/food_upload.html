@@ -3,17 +3,30 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>SmartCook</title>
+  <!-- 반응형 웹을 위한 viewport 설정 - 디바이스 너비에 맞춰 화면 크기 조정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SMARTCOOK - 레시피 탐색</title>
   
+  <!-- 기본 웹 스타일 -->
   <link rel="stylesheet" href="{% static 'css/upload.css' %}" />
+  <!-- 태블릿/모바일 반응형 스타일 -->
+  <link rel="stylesheet" href="{% static 'css/resposive_ta_mo.css' %}" />
 </head>
 <body>
   <main>
+    <!-- 반응형 네비게이션 바 -->
     <div class="main-navbar">
       <!-- 왼쪽 -->
       <div class="main-nav-left">
         <a href="{% url 'mainpage' %}" class="logo">SMARTCOOK</a>
       </div>
+      
+      <!-- 모바일용 햄버거 메뉴 버튼 -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     
       <!-- 오른쪽 -->
       <div class="main-nav-right">
@@ -22,6 +35,14 @@
           <button type="submit" class="logout-button">Logout</button>
         </form>
       </div>
+    </div>
+
+    <!-- 모바일용 드롭다운 메뉴 -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+      <a href="{% url 'food_upload' %}">Recipe</a>
+      <a href="{% url 'upload' %}">Picture</a>
+      <a href="{% url 'live_page' %}">Realtime</a>
+      <a href="{% url 'mainpage' %}">Home</a>
     </div>
 
     <!-- 음식명 검색 -->
@@ -143,5 +164,36 @@
   </div>
 
   <script src="{% static 'js/script.js' %}"></script>
+  
+  <!-- 모바일 햄버거 메뉴 JavaScript -->
+  <script>
+  (function () {
+    // 모바일 햄버거 메뉴 토글 기능
+    function initMobileMenu() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileNavMenu = document.getElementById('mobileNavMenu');
+      
+      if (mobileMenuBtn && mobileNavMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+          // 햄버거 버튼 애니메이션 토글
+          mobileMenuBtn.classList.toggle('active');
+          // 모바일 메뉴 표시/숨김 토글
+          mobileNavMenu.classList.toggle('active');
+        });
+
+        // 메뉴 외부 클릭 시 메뉴 닫기
+        document.addEventListener('click', function(e) {
+          if (!mobileMenuBtn.contains(e.target) && !mobileNavMenu.contains(e.target)) {
+            mobileMenuBtn.classList.remove('active');
+            mobileNavMenu.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    // DOM 로드 완료 시 초기화 함수 실행
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  })();
+  </script>
 </body>
 </html>

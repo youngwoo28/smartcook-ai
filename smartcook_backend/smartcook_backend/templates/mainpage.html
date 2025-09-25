@@ -2,16 +2,24 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>로그인 페이지</title>
+  <!-- 반응형 웹을 위한 viewport 설정 - 디바이스 너비에 맞춰 화면 크기 조정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SMARTCOOK - 스마트 요리 도우미</title>
   {% load static %}
+  <!-- 기본 웹 스타일 -->
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <!-- 태블릿/모바일 반응형 스타일 -->
+  <link rel="stylesheet" href="{% static 'css/resposive_ta_mo.css' %}">
 </head>
 <body>
   <script src="{% static 'js/script.js' %}"></script>
- <!-- 네비게이션 -->
+ <!-- 반응형 네비게이션 바 -->
   <div class="main-navbar">
     <div class="main-nav-left">
+      <!-- 로고 -->
       <a href="{% url 'mainpage' %}" class="main-logo" style="color: #76b5c5;">SMARTCOOK</a>
+      
+      <!-- 데스크톱/태블릿용 메뉴 링크 -->
       <div class="main-nav-links">
         <a href="{% url 'food_upload' %}" class="main-active">Recipe</a>
         <a href="{% url 'upload' %}">Picture</a>
@@ -19,9 +27,16 @@
         {% if user.is_authenticated %}
         <a href="{% url 'mypage' %}">Mypage</a>
         {% endif %}
-
       </div>
     </div>
+    
+    <!-- 모바일용 햄버거 메뉴 버튼 -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
     <div class="main-nav-right">
       {% if user.is_authenticated %}
         <form method="POST" action="{% url 'logout' %}" style="display:inline;">
@@ -32,6 +47,16 @@
         <a href="{% url 'login' %}" class="main-login-button">Login</a>
       {% endif %}
     </div>
+  </div>
+
+  <!-- 모바일용 드롭다운 메뉴 -->
+  <div class="mobile-nav-menu" id="mobileNavMenu">
+    <a href="{% url 'food_upload' %}">Recipe</a>
+    <a href="{% url 'upload' %}">Picture</a>
+    <a href="{% url 'live_page' %}">Realtime</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'mypage' %}">Mypage</a>
+    {% endif %}
   </div>
 
   
@@ -116,13 +141,14 @@
 
 <script>
 (function () {
+  // 비디오 lazy loading 초기화 함수
   function initLazyVideos() {
     document.querySelectorAll('.video_container').forEach(container => {
       const wrap = container.querySelector('.video_wrap_inner');
       const src = wrap && wrap.getAttribute('data-jt-lazy');
       if (!src) return;
 
-      // video 생성
+      // video 엘리먼트 생성 및 속성 설정
       const video = document.createElement('video');
       video.setAttribute('preload', 'metadata');
       video.setAttribute('muted', '');
@@ -137,21 +163,49 @@
       video.appendChild(source);
       wrap.appendChild(video);
 
-      // 포스터 세팅
+      // 포스터 이미지 설정
       const posterBg = container.querySelector('.video_poster_bg');
       const posterSrc = posterBg && posterBg.getAttribute('data-jt-lazy');
       if (posterSrc) posterBg.style.backgroundImage = `url('${posterSrc}')`;
 
-      // 재생 시 포스터 숨김
+      // 비디오 재생 시 포스터 숨김 처리
       const play = () => {
         video.play().catch(() => {});
         container.classList.add('is-playing');
       };
       video.addEventListener('canplay', play, { once: true });
-      setTimeout(play, 120); // 사파리 보정
+      setTimeout(play, 120); // Safari 브라우저 호환성을 위한 지연
     });
   }
-  document.addEventListener('DOMContentLoaded', initLazyVideos);
+
+  // 모바일 햄버거 메뉴 토글 기능
+  function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNavMenu = document.getElementById('mobileNavMenu');
+    
+    if (mobileMenuBtn && mobileNavMenu) {
+      mobileMenuBtn.addEventListener('click', function() {
+        // 햄버거 버튼 애니메이션 토글
+        mobileMenuBtn.classList.toggle('active');
+        // 모바일 메뉴 표시/숨김 토글
+        mobileNavMenu.classList.toggle('active');
+      });
+
+      // 메뉴 외부 클릭 시 메뉴 닫기
+      document.addEventListener('click', function(e) {
+        if (!mobileMenuBtn.contains(e.target) && !mobileNavMenu.contains(e.target)) {
+          mobileMenuBtn.classList.remove('active');
+          mobileNavMenu.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  // DOM 로드 완료 시 초기화 함수들 실행
+  document.addEventListener('DOMContentLoaded', function() {
+    initLazyVideos();
+    initMobileMenu();
+  });
 })();
 </script>
 

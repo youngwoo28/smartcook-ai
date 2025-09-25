@@ -23,6 +23,25 @@
 
     let currentRecipeId = null;
 
+    // 페이지 로드 시 검색 결과가 있으면 자동 스크롤
+    function initAutoScroll() {
+      const recipeSection = $("#recipe-section");
+      const hasResults = $(".recipe-list");
+      
+      if (recipeSection && hasResults) {
+        // 0.5초 후 부드럽게 스크롤 (페이지 로딩 완료 후)
+        setTimeout(function() {
+          recipeSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+          });
+        }, 500);
+      }
+    }
+
+    // 초기화 함수 실행
+    initAutoScroll();
+
     // ====== 드롭다운 처리 ======
     const dropdownToggle = $("#dropdownToggle");
     const dropdownMenu = $("#dropdownMenu");
@@ -74,11 +93,25 @@
               renderIngredientChips(["재료 인식 실패"]);
             }
             show(recognizedSection);
+            // 인식된 재료 섹션으로 자동 스크롤
+            setTimeout(function() {
+              recognizedSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+              });
+            }, 300);
           })
           .catch(err => {
             console.error("YOLO 인식 실패:", err);
             renderIngredientChips(["재료 인식 실패"]);
             show(recognizedSection);
+            // 인식된 재료 섹션으로 자동 스크롤
+            setTimeout(function() {
+              recognizedSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+              });
+            }, 300);
           });
       });
     }

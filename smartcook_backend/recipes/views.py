@@ -502,14 +502,18 @@ def get_recipes_json(request):
 
     valid_results = [r for r in results if r.get("ingredients")]
     
-    # 최대 6개만 반환 (실시간 탐색용)
-    limited_results = valid_results[:6]
+    # limit 파라미터 처리 (기본값: 6개, 최대: 20개)
+    limit = int(request.GET.get("limit", 6))
+    limit = min(limit, 20)  # 최대 20개로 제한
+    limited_results = valid_results[:limit]
 
     return JsonResponse({
         "recipes": limited_results,
         "query": ", ".join(detected_ingredients),
         "total_count": len(valid_results),
-        "has_recipes": bool(valid_results)
+        "has_recipes": bool(valid_results),
+        "returned_count": len(limited_results),
+        "limit": limit
     })
 
 @csrf_exempt
