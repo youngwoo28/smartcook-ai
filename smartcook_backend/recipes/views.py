@@ -556,3 +556,26 @@ def rerank_view(request):
         return JsonResponse({"recommendations": ranked})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+def onedrive_callback(request):
+    code = request.GET.get("code")
+    if not code:
+        return JsonResponse({"error": "No code returned"}, status=400)
+
+    client_id = "10ea8200-3a0d-4f71-9214-26e16bda2f53"   # Azure에서 발급받은 Client ID
+    client_secret = "3da0980b-c4bd-459e-8de9-153e28db335c"  # Azure에서 발급받은 Secret
+    redirect_uri = "http://localhost:8000/auth/onedrive/callback"
+    tenant_id = "3da0980b-c4bd-459e-8de9-153e28db335c"
+
+    token_url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token"
+    data = {
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "code": code,
+        "redirect_uri": redirect_uri,
+        "grant_type": "authorization_code",
+    }
+
+    resp = requests.post(token_url, data=data)
+    tokens = resp.json()
+    return JsonResponse(tokens)

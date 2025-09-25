@@ -23,24 +23,76 @@
 
     let currentRecipeId = null;
 
-    // 페이지 로드 시 검색 결과가 있으면 자동 스크롤
-    function initAutoScroll() {
-      const recipeSection = $("#recipe-section");
-      const hasResults = $(".recipe-list");
-      
-      if (recipeSection && hasResults) {
-        // 0.5초 후 부드럽게 스크롤 (페이지 로딩 완료 후)
-        setTimeout(function() {
-          recipeSection.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-          });
-        }, 500);
+    let oauthToken;
+
+    function onApiLoad() {
+      gapi.load('auth', {'callback': onAuthApiLoad});
+      gapi.load('picker', {'callback': onPickerApiLoad});
+    }
+
+    function onAuthApiLoad() {
+      gapi.auth.authorize(
+        {
+          client_id: "983736024557-4dliicprbce97c5vvd7m9ohlfs0vdebi.apps.googleusercontent.com",   // 구글 클라우드 콘솔에서 발급
+          scope: ['https://www.googleapis.com/auth/drive.file'],
+          immediate: false
+        },
+        handleAuthResult
+      );
+    }
+
+    function handleAuthResult(authResult) {
+      if (authResult && !authResult.error) {
+        oauthToken = authResult.access_token;
+        createPicker();
       }
     }
 
-    // 초기화 함수 실행
-    initAutoScroll();
+    function onPickerApiLoad() {
+      createPicker();
+    }
+
+    function createPicker() {
+      if (oauthToken) {
+        const picker = new google.picker.PickerBuilder()
+          .addView(google.picker.ViewId.DOCS_IMAGES)
+          .setOAuthToken(oauthToken)
+          .setDeveloperKey("AIzaSyAp15oZqNnOOQT7XkSX58aIXZdvUcExorU")   // 구글 API 키
+          .setCallback(pickerCallback)
+          .build();
+        picker.setVisible(true);
+      } else {
+        onApiLoad(); // 토큰 없으면 인증 먼저
+      }
+    }
+
+    function pickerCallback(data) {
+      if (data.action === google.picker.Action.PICKED) {
+        const doc = data.docs[0];
+        console.log("선택된 파일:", doc);
+
+        fetch(`https://www.googleapis.com/drive/v3/files/${doc.id}?alt=media`, {
+          headers: { Authorization: "Bearer " + oauthToken }
+        })
+        .then(res => res.blob())
+        .then(blob => {
+          const fd = new FormData();
+          fd.append("image", blob, doc.name);
+          return fetch("/api/detect/", {
+            method: "POST",
+            headers: CSRF ? { "X-CSRFToken": CSRF } : undefined,
+            body: fd
+          });
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log("YOLO 결과:", data);
+          renderIngredientChips(data.items.map(it => it.name));
+          show(recognizedSection);
+        });
+      }
+    }
+
 
     // ====== 드롭다운 처리 ======
     const dropdownToggle = $("#dropdownToggle");
@@ -48,13 +100,95 @@
     if (dropdownToggle && dropdownMenu) {
       dropdownToggle.addEventListener("click", function (e) {
         e.preventDefault();
+        console.log("드롭다운 버튼 클릭됨");
+        dropdownMenu.style.display =
+          dropdownMenu.style.display === "flex" ? "none" : "flex";
         dropdownMenu.style.display =
           dropdownMenu.style.display === "flex" ? "none" : "flex";
       });
 
       dropdownMenu.querySelectorAll("div").forEach(item => {
         item.addEventListener("click", () => {
+          console.log("메뉴 클릭됨:", item.dataset.value);
           const choice = item.dataset.value;
+          console.log("선택된 옵션:", choice);
+          if (choice === "dropbox") {
+          // Dropbox 파일 선택 열기
+            var options = {
+              success: function(files) {
+                const file = files[0];
+                fetch(file.link)
+                  .then(res => res.blob())
+                  .then(blob => {
+                    const fd = new FormData();
+                    fd.append("image", blob, file.name);
+
+                    return fetch("/api/detect/", {
+                      method: "POST",
+                      headers: CSRF ? { "X-CSRFToken": CSRF } : undefined,
+                      body: fd
+                    });
+                  })
+                  .then(res => res.json())
+                  .then(data => {
+                    console.log("YOLO 결과:", data);
+                    renderIngredientChips(data.items.map(it => it.name));
+                    show(recognizedSection);
+                  })
+                  .catch(err => console.error("Dropbox 업로드 실패:", err));
+              },
+              cancel: function() {},
+              linkType: "direct",
+              multiselect: false
+            };
+            Dropbox.choose(options);
+          }
+
+          if (choice === "onedrive") {
+            var odOptions = {
+              clientId: "10ea8200-3a0d-4f71-9214-26e16bda2f53", // 네 Azure App Client ID
+              action: "download",
+              multiSelect: false,
+              advanced: {
+                redirectUri: "http://localhost:8000/auth/onedrive/callback"
+              },
+              success: function(files) {
+                console.log("OneDrive 선택된 파일:", files);
+                const file = files.value[0];
+                const downloadUrl = file['@microsoft.graph.downloadUrl'];
+
+                fetch(downloadUrl)
+                  .then(res => res.blob())
+                  .then(blob => {
+                    const fd = new FormData();
+                    fd.append("image", blob, file.name);
+
+                    return fetch("/api/detect/", {
+                      method: "POST",
+                      headers: CSRF ? { "X-CSRFToken": CSRF } : undefined,
+                      body: fd
+                    });
+                  })
+                  .then(res => res.json())
+                  .then(data => {
+                    console.log("YOLO 결과:", data);
+                    renderIngredientChips(data.items.map(it => it.name));
+                    show(recognizedSection);
+                  })
+                  .catch(err => console.error("OneDrive 업로드 실패:", err));
+              },
+              cancel: function() {
+                console.log("OneDrive 선택 취소");
+              }
+            };
+            OneDrive.open(odOptions);
+          }
+
+          if (choice === "gdrive") {
+            // Google Picker API 실행
+            createPicker();
+          }
+
           if (choice === "device" || choice === "gallery") {
             fileInput && fileInput.click();
           }
