@@ -101,10 +101,8 @@
       dropdownToggle.addEventListener("click", function (e) {
         e.preventDefault();
         console.log("드롭다운 버튼 클릭됨");
-        dropdownMenu.style.display =
-          dropdownMenu.style.display === "flex" ? "none" : "flex";
-        dropdownMenu.style.display =
-          dropdownMenu.style.display === "flex" ? "none" : "flex";
+        const isVisible = dropdownMenu.style.display === "flex";
+        dropdownMenu.style.display = isVisible ? "none" : "flex";
       });
 
       dropdownMenu.querySelectorAll("div").forEach(item => {
