@@ -37,7 +37,7 @@ def put_hangul_text(img,text,pos,font_size=20,color=(0,255,0)):
     pil_img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     draw = ImageDraw.Draw(pil_img)
     try:
-        font_path = "C:/Windows/Fonts/malgun.ttf"
+        font_path = "/System/Library/Fonts/Supplemental/AppleSDGothicNeo.ttc"
         font = ImageFont.truetype(font_path,font_size)
     except:
         font = ImageFont.load_default()
