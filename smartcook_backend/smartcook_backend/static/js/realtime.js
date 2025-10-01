@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.textContent = i;
         if (i === current) btn.classList.add("active");
         btn.addEventListener("click", () => {
+          currentPage = i;
           loadRecipes(i, currentSort);
         });
         pagination.appendChild(btn);
@@ -139,15 +140,48 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let currentSort = "match";
+    let currentPage = 1;
+    const limit = 6; // 페이지당 레시피 개수
+
+        // 🔥 정렬 버튼 active 토글 함수 추가
+    function setActiveSort(btn) {
+      document.querySelectorAll(".sort-options a").forEach(el => el.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    // 정렬 버튼
+    const sortMatchBtn = document.getElementById("sort-match");
+    const sortIngredientsBtn = document.getElementById("sort-ingredients");
+
+    if (sortMatchBtn) {
+      sortMatchBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentSort = "match";
+        currentPage = 1;   // 정렬 바뀌면 첫 페이지로
+        setActiveSort(sortMatchBtn);
+        loadRecipes(currentPage, currentSort);
+      });
+    }
+
+    if (sortIngredientsBtn) {
+      sortIngredientsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentSort = "ingredients";
+        currentPage = 1;   // 정렬 바뀌면 첫 페이지로
+        setActiveSort(sortIngredientsBtn);
+        loadRecipes(currentPage, currentSort);
+      });
+    }
+
+
 
     async function loadRecipes(page=1, sort=currentSort) {
       const selectedIngredients = [...document.querySelectorAll('#recognized-list input:checked')].map(el => el.value);
       if (selectedIngredients.length === 0) return;
 
       try {
-        const data = await getRecipeRecommendations(selectedIngredients, sort, page);
+        const data = await getRecipeRecommendations(selectedIngredients, sort, page, limit);
         renderRecipes(data);
-
         // 헤더 업데이트
         if (recipeHeaderText) {
           recipeHeaderText.textContent = `${selectedIngredients.join(", ")}에 대한 추천 레시피 (${data.total_count}개 중 ${data.recipes.length}개 표시)`;
@@ -167,24 +201,4 @@ document.addEventListener("DOMContentLoaded", function () {
         loadRecipes(1, currentSort);
       });
     }
-
-    // 정렬 버튼
-    const sortMatchBtn = document.getElementById("sort-match");
-    const sortIngredientsBtn = document.getElementById("sort-ingredients");
-
-    if (sortMatchBtn) {
-      sortMatchBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        currentSort = "match";
-        loadRecipes(1, currentSort);
-      });
-    }
-    if (sortIngredientsBtn) {
-      sortIngredientsBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        currentSort = "ingredients";
-        loadRecipes(1, currentSort);
-      });
-    }
-
 });
