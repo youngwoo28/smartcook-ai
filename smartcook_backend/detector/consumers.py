@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 from ultralytics import YOLO
 import platform
 import os
+import torch   # 👈 추가 필요
 
 # ---------------- UTF-8 로깅 설정 ----------------
 logger = logging.getLogger()
@@ -100,31 +101,48 @@ def annotate_and_encode(img, results, conf_thresh=0.6):
     return img_data_url, frame_detections
 
 # ---------------- Optimized YOLO Wrapper ----------------
+
+
 class YOLO_PT:
-    def __init__(self, model_path="best.pt", device="cuda", imgsz=640, conf_thresh=0.6):
-        self.model = YOLO(model_path)
-        self.model.to(device)
+    def __init__(self, model_path="best.pt", device=None, imgsz=640, conf_thresh=0.6):
         self.imgsz = imgsz
         self.conf_thresh = conf_thresh
+
+        # CUDA 사용 가능 여부 확인
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        self.device = device
+        self.model = YOLO(model_path)
+        self.model.to(self.device)
+        logger.info(f"[YOLO INIT] device = {self.device}")
 
     def infer(self, img):
         h0, w0 = img.shape[:2]
         scale = self.imgsz / max(h0, w0)
-        img_resized = img.copy() if scale >= 1.0 else cv2.resize(img, (int(w0*scale), int(h0*scale)))
+        img_resized = img.copy() if scale >= 1.0 else cv2.resize(
+            img, (int(w0 * scale), int(h0 * scale))
+        )
 
-        results = self.model.predict(source=img_resized, conf=self.conf_thresh, imgsz=self.imgsz, device="cuda")
+        # ⬇️ 여기서도 self.device 사용하도록 수정
+        results = self.model.predict(
+            source=img_resized,
+            conf=self.conf_thresh,
+            imgsz=self.imgsz,
+            device=self.device
+        )
         output = []
 
         for r in results:
             if hasattr(r, 'boxes') and r.boxes is not None and len(r.boxes) > 0:
                 boxes = r.boxes.xyxy.cpu().numpy()
-                confs = r.boxes.conf.cpu().numpy().reshape(-1,1)
-                cls = r.boxes.cls.cpu().numpy().reshape(-1,1)
+                confs = r.boxes.conf.cpu().numpy().reshape(-1, 1)
+                cls = r.boxes.cls.cpu().numpy().reshape(-1, 1)
 
                 # 좌표 스케일링
                 h1, w1 = img_resized.shape[:2]
-                boxes[:, [0,2]] *= (w0 / w1)
-                boxes[:, [1,3]] *= (h0 / h1)
+                boxes[:, [0, 2]] *= (w0 / w1)
+                boxes[:, [1, 3]] *= (h0 / h1)
 
                 out_arr = np.hstack([boxes, confs, cls])
                 output.append({'boxes': out_arr})
