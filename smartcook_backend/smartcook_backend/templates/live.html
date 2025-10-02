@@ -224,7 +224,17 @@
   let isStreaming = false;
   let currentFacingMode = 'environment'; // 기본값: 후면 카메라
   let detectedIngredients = new Set(); // 인식된 재료들을 저장
-  
+  let currentSort = "match";  //기본 정렬 기준 (관련도 순)
+  let currentPage = 1;                  
+
+
+
+
+
+
+
+
+
   // 새로운 UI 요소들
   const promoSection = document.getElementById('promo-section');
   const permissionModal = document.getElementById('permission-modal');
@@ -418,38 +428,53 @@
   }
 
   // 레시피 추천 요청 (JSON API 사용) - 더 많은 레시피 가져오기
-  async function getRecipeRecommendations(selectedIngredients) {
+  async function getRecipeRecommendations(selectedIngredients, page = 1) {
     try {
       const query = selectedIngredients.map(q => `q=${encodeURIComponent(q)}`).join('&');
-      // limit 파라미터 추가하여 더 많은 레시피 요청
-      const response = await fetch(`/api/recipes/?${query}&sort=match&limit=20`);
+      // ✅ currentSort 사용 (관련도 or 재료 적은 순)
+      const response = await fetch(`/api/recipes/?${query}&sort=${currentSort}&page=${page}&limit=6`);
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      
-      if (!data.has_recipes) {
-        return [];
-      }
-      
-      // JSON 데이터를 레시피 객체로 변환
-      const recipes = data.recipes.map(recipe => ({
-        title: recipe.title || '',
-        image: recipe.image || '',
-        ingredients: recipe.ingredients || [],
-        id: recipe.id || ''
-      }));
-      
-      console.log(`API 응답:`, data);
-      console.log(`API에서 ${recipes.length}개 레시피 받음 (전체: ${data.total_count}개, 제한: ${data.limit}개)`);
-      return recipes;
+       return data;
     } catch (error) {
       console.error('레시피 추천 오류:', error);
       throw error;
     }
   }
+
+
+  function renderPagination(totalPages, selectedIngredients) {
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    if (!totalPages || totalPages <= 1) {
+      pagination.style.display = "none";
+      return;
+    }
+    pagination.style.display = "flex";
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      btn.className = (i === currentPage) ? "active-page" : "";
+      btn.addEventListener("click", async () => {
+        currentPage = i;
+        const data = await getRecipeRecommendations(getSelectedIngredients(), currentPage);
+        renderRecipes(data.recipes);
+        renderPagination(data.total_pages, getSelectedIngredients());
+        recipeHeaderText.textContent =
+          `${getSelectedIngredients().join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
+      });
+      pagination.appendChild(btn);
+    }
+  }
+  // 공통: 현재 체크된 재료
+  function getSelectedIngredients() {
+    return Array.from(document.querySelectorAll('#recognized-list input:checked'))
+      .map(el => el.value)
+      .filter(Boolean); 
+  }   
 
   // 레시피 결과 렌더링
   function renderRecipes(recipes) {
@@ -531,55 +556,38 @@
   switchCameraBtn.addEventListener('click', switchCamera);
   stopCameraBtn.addEventListener('click', stopCameraStream);
   
-  // 선택 완료 버튼 이벤트
-  toRecipeBtn.addEventListener('click', async function() {
-    const selectedIngredients = Array.from(document.querySelectorAll('#recognized-list input:checked'))
-      .map(el => el.value)
-      .filter(Boolean);
+  // ✅ 선택 완료 클릭
+toRecipeBtn.addEventListener('click', async function() {
+  const selectedIngredients = getSelectedIngredients();
+  if (selectedIngredients.length === 0) {
+    alert('재료를 선택해주세요!');
+    return;
+  }
 
-    if (selectedIngredients.length === 0) {
-      alert('재료를 선택해주세요!');
-      return;
-    }
+  try {
+    toRecipeBtn.textContent = '레시피 찾는 중...';
+    toRecipeBtn.disabled = true;
 
-    try {
-      // 로딩 표시
-      toRecipeBtn.textContent = '레시피 찾는 중...';
-      toRecipeBtn.disabled = true;
+    currentPage = 1;
+    const data = await getRecipeRecommendations(selectedIngredients, currentPage);
 
-      // 레시피 추천 요청
-      const recipes = await getRecipeRecommendations(selectedIngredients);
-      
-      // 헤더 텍스트 업데이트
-      recipeHeaderText.textContent = `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${recipes.length}개)`;
-      
-      // 레시피 결과 렌더링
-      renderRecipes(recipes);
-      
-      // 레시피 섹션 표시
-      recipeSection.style.display = 'block';
-      recipeSection.scrollIntoView({ behavior: 'smooth' });
-      
-      // 성공 메시지
-      if (recipes.length > 0) {
-        console.log(`${recipes.length}개의 레시피를 찾았습니다.`);
-      } else {
-        console.log('해당 재료로 만들 수 있는 레시피가 없습니다.');
-      }
-      
-    } catch (error) {
-      console.error('레시피 추천 오류:', error);
-      alert('레시피 추천 중 오류가 발생했습니다. 다시 시도해주세요.');
-      
-      // 에러 시에도 레시피 섹션을 표시하여 사용자에게 피드백 제공
-      recipeSection.style.display = 'block';
-      recipeList.innerHTML = '<div class="no-result"><p>레시피를 불러오는 중 오류가 발생했습니다.</p></div>';
-    } finally {
-      // 버튼 상태 복원
-      toRecipeBtn.textContent = '선택 완료';
-      toRecipeBtn.disabled = false;
-    }
-  });
+    recipeHeaderText.textContent =
+      `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
+
+    renderRecipes(data.recipes);
+    renderPagination(data.total_pages, selectedIngredients);
+
+    recipeSection.style.display = 'block';
+    recipeSection.scrollIntoView({ behavior: 'smooth' });
+  } catch (error) {
+    console.error('레시피 추천 오류:', error);
+    recipeSection.style.display = 'block';
+    recipeList.innerHTML = '<div class="no-result"><p>레시피를 불러오는 중 오류가 발생했습니다.</p></div>';
+  } finally {
+    toRecipeBtn.textContent = '선택 완료';
+    toRecipeBtn.disabled = false;
+  }
+});
 
   // 버튼 호버 효과
   switchCameraBtn.addEventListener('mouseenter', function() {
@@ -978,6 +986,39 @@
     }
     stopCamera();
     // 페이지 종료 시에는 자동으로 모든 것이 초기화됨
+  });
+   // ✅ 정렬 버튼 이벤트 등록
+  document.addEventListener("DOMContentLoaded", function() {
+    const sortMatchBtn = document.getElementById("sort-match");
+    const sortIngredientsBtn = document.getElementById("sort-ingredients");
+
+    async function reloadRecipes() {
+      const selectedIngredients = getSelectedIngredients();
+      if (selectedIngredients.length === 0) return;
+
+      currentPage = 1;
+      const data = await getRecipeRecommendations(selectedIngredients, currentPage);
+      renderRecipes(data.recipes);
+      renderPagination(data.total_pages, selectedIngredients);
+      recipeHeaderText.textContent =
+        `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
+    }
+
+    sortMatchBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      currentSort = "match";
+      sortMatchBtn.classList.add("active");
+      sortIngredientsBtn.classList.remove("active");
+      reloadRecipes();
+    });
+
+    sortIngredientsBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      currentSort = "ingredients";
+      sortIngredientsBtn.classList.add("active");
+      sortMatchBtn.classList.remove("active");
+      reloadRecipes();
+    });
   });
 </script>
 

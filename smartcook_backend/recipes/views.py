@@ -501,6 +501,10 @@ def get_recipes_json(request):
         )
 
     valid_results = [r for r in results if r.get("ingredients")]
+    page = int(request.GET.get("page", 1))
+    per_page = int(request.GET.get("limit", 6))
+    results_page, paginator, page_range, total_pages = paginate_queryset(request, valid_results, per_page)
+    
     
     # limit 파라미터 처리 (기본값: 6개, 최대: 20개)
     limit = int(request.GET.get("limit", 6))
@@ -508,14 +512,13 @@ def get_recipes_json(request):
     limited_results = valid_results[:limit]
 
     return JsonResponse({
-        "recipes": limited_results,
+        "recipes": list(results_page),
         "query": ", ".join(detected_ingredients),
         "total_count": len(valid_results),
         "has_recipes": bool(valid_results),
         "returned_count": len(limited_results),
         "limit": limit
     })
-
 @csrf_exempt
 def rerank_view(request):
     if request.method != "POST":
