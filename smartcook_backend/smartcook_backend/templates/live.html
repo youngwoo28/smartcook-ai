@@ -98,6 +98,15 @@
       </div>
     </div>
 
+    <!-- 모바일 전용 하단 고정 버튼 바 (카메라 레이어 아래) -->
+    <div id="mobile-camera-actions" style="display:none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 1002;">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 10px 12px; display: flex; gap: 10px; justify-content: space-between;">
+        <button id="mobile-return-home" style="flex:1; background:#ff6666; color:#fff; border:none; padding:14px 12px; border-radius:12px; font-weight:700;">🏠 처음으로</button>
+        <button id="mobile-fullscreen" style="flex:1; background:#444; color:#fff; border:none; padding:14px 12px; border-radius:12px; font-weight:700;">🔍 전체화면</button>
+        <button id="mobile-stop" style="flex:1; background:#76b5c5; color:#fff; border:none; padding:14px 12px; border-radius:12px; font-weight:700;">✅ 감지 완료</button>
+      </div>
+    </div>
+
     <div id="permission-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; justify-content: center; align-items: center;">
       <div class="permission-box" style="background: white; padding: 40px 30px; border-radius: 20px; text-align: center; max-width: 400px; margin: 0 20px;">
         <h3 style="color: #76b5c5; margin-bottom: 20px; font-size: 24px;">📷 카메라 권한 필요</h3>
@@ -463,6 +472,9 @@
       renderIngredientChips(Array.from(detectedIngredients));
       ingredientButtons.style.display = 'block';
       ingredientButtons.scrollIntoView({ behavior: 'smooth' });
+      if (mobileActionBar && isMobileView()) {
+        mobileActionBar.style.display = 'none';
+      }
     }
   }
 
@@ -620,6 +632,9 @@
       renderIngredientChips(Array.from(detectedIngredients));
       ingredientButtons.style.display = 'block';
       ingredientButtons.scrollIntoView({ behavior: 'smooth' });
+      if (mobileActionBar && isMobileView()) {
+        mobileActionBar.style.display = 'none';
+      }
     } else {
       alert('인식된 재료가 없습니다. 다시 시도해주세요.');
       returnToPromo();
@@ -678,11 +693,13 @@
     permissionModal.style.display = 'none';
     ingredientButtons.style.display = 'none';
     recipeSection.style.display = 'none';
+    if (mobileActionBar) mobileActionBar.style.display = 'none';
   }
   
   function showPermissionModal() {
     permissionModal.style.display = 'flex';
     promoSection.style.display = 'none';
+    if (mobileActionBar) mobileActionBar.style.display = 'none';
   }
   
   function startCameraDetection() {
@@ -690,31 +707,82 @@
     cameraSection.style.display = 'block';
     setTimeout(() => cameraSection.scrollIntoView({ behavior: 'smooth' }), 300);
     connectWebSocket();
+    if (mobileActionBar && isMobileView()) mobileActionBar.style.display = 'block';
   }
   
   function enterFullscreen() {
     const cameraWrapper = cameraSection.querySelector('.camera-wrapper');
-    isFullscreenMode = true;
+    const isMobile = isMobileView();
     try {
+      if (isMobile) {
+        // 모바일: 네이티브 대신 pseudo-fullscreen 적용
+        document.documentElement.classList.add('mobile-fs');
+        document.body.classList.add('mobile-fs');
+        cameraWrapper.classList.add('mobile-fs');
+        isFullscreenMode = true;
+        if (floatingIngredients) floatingIngredients.style.display = 'block';
+        const ctrls = cameraWrapper.querySelector('.camera-controls');
+        if (ctrls) ctrls.style.display = 'none';
+        if (mobileActionBar) mobileActionBar.style.display = 'none';
+        setTimeout(() => {
+          overlay.width = overlay.clientWidth;
+          overlay.height = overlay.clientHeight;
+        }, 50);
+        return;
+      }
+
+      // 태블릿/데스크톱: 표준 전체화면
       if (cameraWrapper.requestFullscreen) cameraWrapper.requestFullscreen();
       else if (cameraWrapper.webkitRequestFullscreen) cameraWrapper.webkitRequestFullscreen();
       else if (cameraWrapper.mozRequestFullScreen) cameraWrapper.mozRequestFullScreen();
-      
-      floatingIngredients.style.display = 'block';
-      cameraWrapper.querySelector('.camera-controls').style.display = 'none';
+      isFullscreenMode = true;
+      if (floatingIngredients) floatingIngredients.style.display = 'block';
+      const ctrls = cameraWrapper.querySelector('.camera-controls');
+      if (ctrls) ctrls.style.display = 'none';
+      if (mobileActionBar) mobileActionBar.style.display = 'none';
+      setTimeout(() => {
+        overlay.width = overlay.clientWidth;
+        overlay.height = overlay.clientHeight;
+      }, 50);
     } catch (error) {
       alert('전체화면을 지원하지 않는 브라우저입니다.');
     }
   }
   
   function exitFullscreen() {
+    const cameraWrapper = cameraSection.querySelector('.camera-wrapper');
+    const isMobile = isMobileView();
     isFullscreenMode = false;
-    if (document.exitFullscreen) document.exitFullscreen();
-    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+    if (!isMobile) {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+    } else {
+      // 모바일 pseudo-fullscreen 해제
+      document.documentElement.classList.remove('mobile-fs');
+      document.body.classList.remove('mobile-fs');
+      cameraWrapper.classList.remove('mobile-fs');
+    }
     
     floatingIngredients.style.display = 'none';
     cameraSection.querySelector('.camera-controls').style.display = 'flex';
+    if (mobileActionBar && isMobileView() && cameraSection.style.display !== 'none') {
+      mobileActionBar.style.display = 'block';
+    }
+    setTimeout(() => {
+      overlay.width = overlay.clientWidth;
+      overlay.height = overlay.clientHeight;
+    }, 50);
+  }
+
+  // iOS Safari 네이티브 비디오 전체화면 종료 이벤트 처리
+  if (video) {
+    video.addEventListener('webkitendfullscreen', function() {
+      isFullscreenMode = false;
+      if (mobileActionBar && isMobileView() && cameraSection && cameraSection.style.display !== 'none') {
+        mobileActionBar.style.display = 'block';
+      }
+    });
   }
   
   // 플로팅 윈도우 재료 업데이트 (문자열 배열 받음)
@@ -820,6 +888,7 @@
     ctx.clearRect(0, 0, overlay.width, overlay.height);
     
     setTimeout(() => promoSection.scrollIntoView({ behavior: 'smooth' }), 300);
+    if (mobileActionBar) mobileActionBar.style.display = 'none';
   }
   
   // ==========================================
@@ -879,6 +948,46 @@
       reloadRecipes();
     });
   });
+
+  // ==============================
+  // 모바일 하단 버튼 이벤트 바인딩
+  // ==============================
+  const mobileActionBar = document.getElementById('mobile-camera-actions');
+  const mobileStopBtn = document.getElementById('mobile-stop');
+  const mobileFullscreenBtn = document.getElementById('mobile-fullscreen');
+  const mobileReturnHomeBtn = document.getElementById('mobile-return-home');
+
+  function isMobileView() {
+    return window.matchMedia('(max-width: 480px)').matches;
+  }
+
+  function updateMobileActionBarVisibility() {
+    if (!mobileActionBar) return;
+    const cameraVisible = cameraSection && cameraSection.style.display !== 'none';
+    const selectionVisible = ingredientButtons && ingredientButtons.style.display !== 'none';
+    const recipeVisible = recipeSection && recipeSection.style.display !== 'none';
+    // 인식된 재료/레시피 화면에서는 항상 숨김
+    if (selectionVisible || recipeVisible) {
+      mobileActionBar.style.display = 'none';
+      return;
+    }
+    // 카메라 화면에서만 노출
+    mobileActionBar.style.display = (isMobileView() && cameraVisible) ? 'block' : 'none';
+  }
+
+  if (mobileStopBtn) mobileStopBtn.addEventListener('click', stopCameraAndShowResults);
+  if (mobileFullscreenBtn) mobileFullscreenBtn.addEventListener('click', enterFullscreen);
+  if (mobileReturnHomeBtn) mobileReturnHomeBtn.addEventListener('click', () => {
+    if (confirm('처음으로 돌아가시겠습니까? 인식된 재료가 모두 삭제됩니다.')) {
+      returnToPromo();
+      updateMobileActionBarVisibility();
+    }
+  });
+
+  window.addEventListener('resize', updateMobileActionBarVisibility);
+  document.addEventListener('fullscreenchange', updateMobileActionBarVisibility);
+  document.addEventListener('DOMContentLoaded', updateMobileActionBarVisibility);
+  window.addEventListener('scroll', updateMobileActionBarVisibility, { passive: true });
 </script>
 
     <section class="extra" id="extra-section" style="display:none;">
