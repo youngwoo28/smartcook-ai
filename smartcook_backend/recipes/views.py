@@ -114,10 +114,15 @@ def paginate_queryset(request, queryset, per_page=6):
     current_page = page_obj.number
     total_pages = paginator.num_pages
 
-    # 10개 단위 그룹 계산
-    page_group = (current_page - 1) // 10
-    start_page = page_group * 10 + 1
-    end_page = min(start_page + 9, total_pages)
+    # 모바일 감지 (User-Agent 확인)
+    user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
+    is_mobile = any(device in user_agent for device in ['mobile', 'android', 'iphone', 'ipad'])
+    
+    # 모바일: 5개 단위, 데스크톱: 10개 단위
+    group_size = 5 if is_mobile else 10
+    page_group = (current_page - 1) // group_size
+    start_page = page_group * group_size + 1
+    end_page = min(start_page + group_size - 1, total_pages)
     page_range = range(start_page, end_page + 1)
 
     return page_obj, paginator, page_range, total_pages

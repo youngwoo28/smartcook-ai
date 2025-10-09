@@ -549,8 +549,20 @@
     pagination.appendChild(prevSpan);
   }
 
-  // 페이지 번호 버튼들 (10개 단위 그룹)
-  for (let num of pageRange) {
+  // 모바일 감지
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  
+  // 페이지 번호 버튼들 (모바일: 5개, 데스크톱: 10개)
+  const maxPages = isMobile ? 5 : 10;
+  const startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
+  const endPage = Math.min(totalPages, startPage + maxPages - 1);
+  
+  // 모바일에서는 현재 페이지 기준으로 5개만 표시
+  const displayPages = isMobile ? 
+    Array.from({length: Math.min(maxPages, totalPages)}, (_, i) => startPage + i).filter(p => p <= totalPages) :
+    pageRange;
+
+  for (let num of displayPages) {
     if (num === currentPage) {
       const activeSpan = document.createElement("span");
       activeSpan.textContent = num;
