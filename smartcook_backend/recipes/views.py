@@ -547,6 +547,9 @@ def get_recipes_json(request):
         "recipes": list(results_page),
         "query": ", ".join(detected_ingredients),
         "total_count": len(valid_results),
+        "total_pages": total_pages,
+        "page_range": list(page_range),
+        "current_page": page,
         "has_recipes": bool(valid_results),
         "returned_count": len(limited_results),
         "limit": limit

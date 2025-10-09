@@ -1719,6 +1719,12 @@ background-color: #76b5c5;
   font-weight: bold;
 }
 
+.page-btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .skip-extra {
   color: #76b5c5;
   font-weight: bold;

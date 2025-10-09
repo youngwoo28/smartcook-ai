@@ -196,7 +196,7 @@
       </div>
 
     <!-- ✅ 페이지네이션 추가 -->
-    <div class="pagination" id="pagination" style="display:flex;"></div>
+    <div class="pagination" id="pagination"></div>
 
     </section>
 
@@ -514,63 +514,84 @@
   }
 
 
-  function renderPagination(totalPages, selectedIngredients) {
+  function renderPagination(data, selectedIngredients) {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  if (!totalPages) {
+  const totalPages = data.total_pages;
+  const pageRange = data.page_range || [];
+  const currentPage = data.current_page || 1;
+
+  if (!totalPages || totalPages <= 1) {
     pagination.style.display = "none";
     return;
   }
-  pagination.style.display = "flex";   // ✅ 항상 보이게
+  pagination.style.display = "block";
 
   // 이전 페이지 버튼
-  const prevBtn = document.createElement("button");
-  prevBtn.textContent = "<";
-  prevBtn.disabled = (currentPage === 1);
-  prevBtn.addEventListener("click", async () => {
-    if (currentPage > 1) {
-      currentPage--;
-      const data = await getRecipeRecommendations(getSelectedIngredients(), currentPage);
-      renderRecipes(data.recipes);
-      renderPagination(data.total_pages, getSelectedIngredients());
+  if (currentPage > 1) {
+    const prevBtn = document.createElement("a");
+    prevBtn.textContent = "<";
+    prevBtn.className = "page-btn";
+    prevBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const newData = await getRecipeRecommendations(selectedIngredients, currentPage - 1);
+      renderRecipes(newData.recipes);
+      renderPagination(newData, selectedIngredients);
       recipeHeaderText.textContent =
-        `${getSelectedIngredients().join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
-    }
-  });
-  pagination.appendChild(prevBtn);
-
-  // 페이지 번호 버튼들
-  for (let i = 1; i <= totalPages; i++) {
-    const btn = document.createElement("button");
-    btn.textContent = i;
-    btn.className = (i === currentPage) ? "active-page" : "";
-    btn.addEventListener("click", async () => {
-      currentPage = i;
-      const data = await getRecipeRecommendations(getSelectedIngredients(), currentPage);
-      renderRecipes(data.recipes);
-      renderPagination(data.total_pages, getSelectedIngredients());
-      recipeHeaderText.textContent =
-        `${getSelectedIngredients().join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
+        `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${newData.total_count}개)`;
     });
-    pagination.appendChild(btn);
+    pagination.appendChild(prevBtn);
+  } else {
+    const prevSpan = document.createElement("span");
+    prevSpan.textContent = "<";
+    prevSpan.className = "page-btn disabled";
+    pagination.appendChild(prevSpan);
+  }
+
+  // 페이지 번호 버튼들 (10개 단위 그룹)
+  for (let num of pageRange) {
+    if (num === currentPage) {
+      const activeSpan = document.createElement("span");
+      activeSpan.textContent = num;
+      activeSpan.className = "page-btn active";
+      pagination.appendChild(activeSpan);
+    } else {
+      const btn = document.createElement("a");
+      btn.textContent = num;
+      btn.className = "page-btn";
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const newData = await getRecipeRecommendations(selectedIngredients, num);
+        renderRecipes(newData.recipes);
+        renderPagination(newData, selectedIngredients);
+        recipeHeaderText.textContent =
+          `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${newData.total_count}개)`;
+      });
+      pagination.appendChild(btn);
+    }
   }
 
   // 다음 페이지 버튼
-  const nextBtn = document.createElement("button");
-  nextBtn.textContent = ">";
-  nextBtn.disabled = (currentPage === totalPages);
-  nextBtn.addEventListener("click", async () => {
-    if (currentPage < totalPages) {
-      currentPage++;
-      const data = await getRecipeRecommendations(getSelectedIngredients(), currentPage);
-      renderRecipes(data.recipes);
-      renderPagination(data.total_pages, getSelectedIngredients());
+  if (currentPage < totalPages) {
+    const nextBtn = document.createElement("a");
+    nextBtn.textContent = ">";
+    nextBtn.className = "page-btn";
+    nextBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const newData = await getRecipeRecommendations(selectedIngredients, currentPage + 1);
+      renderRecipes(newData.recipes);
+      renderPagination(newData, selectedIngredients);
       recipeHeaderText.textContent =
-        `${getSelectedIngredients().join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
-    }
-  });
-  pagination.appendChild(nextBtn);
+        `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${newData.total_count}개)`;
+    });
+    pagination.appendChild(nextBtn);
+  } else {
+    const nextSpan = document.createElement("span");
+    nextSpan.textContent = ">";
+    nextSpan.className = "page-btn disabled";
+    pagination.appendChild(nextSpan);
+  }
 }
 
   // 공통: 현재 체크된 재료
@@ -667,7 +688,7 @@
         `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
 
       renderRecipes(data.recipes);
-      renderPagination(data.total_pages, selectedIngredients);
+      renderPagination(data, selectedIngredients);
 
       recipeSection.style.display = 'block';
       recipeSection.scrollIntoView({ behavior: 'smooth' });
@@ -927,7 +948,7 @@
       currentPage = 1;
       const data = await getRecipeRecommendations(selectedIngredients, currentPage);
       renderRecipes(data.recipes);
-      renderPagination(data.total_pages, selectedIngredients);
+      renderPagination(data, selectedIngredients);
       recipeHeaderText.textContent =
         `${selectedIngredients.join(', ')}에 대한 추천 레시피 (${data.total_count}개)`;
     }
