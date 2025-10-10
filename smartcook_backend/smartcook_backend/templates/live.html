@@ -249,6 +249,7 @@
   let confirmedIngredients = new Set();
   let rejectedIngredients = new Set();
   let isFullscreenMode = false;
+  let needsRecalculation = false;
 
   // 웹소켓 연결
   function connectWebSocket() {
@@ -268,7 +269,13 @@
       // ==========================================
       // ▼▼▼▼▼ 박스 위치 보정 로직 (핵심 수정) ▼▼▼▼▼
       // ==========================================
-      if (data.detections) {
+      if (data.detections || needsRecalculation) {
+        // needsRecalculation 플래그가 설정된 경우 캔버스 크기 재조정
+        if (needsRecalculation) {
+          overlay.width = overlay.clientWidth;
+          overlay.height = overlay.clientHeight;
+          needsRecalculation = false;
+        }
         
         // 1. 캔버스가 화면에 표시되는 실제 크기 (e.g., 800px, 450px)
         const cW = overlay.clientWidth;
@@ -305,8 +312,9 @@
         // 5. 이전 그림 지우기
         ctx.clearRect(0, 0, cW, cH);
 
-        // 6. 스케일/오프셋이 적용된 좌표로 박스 그리기
-        data.detections.forEach(det => {
+        // 6. 스케일/오프셋이 적용된 좌표로 박스 그리기 (데이터가 있을 때만)
+        if (data.detections) {
+          data.detections.forEach(det => {
             // 서버에서 받은 원본 비디오 기준 좌표
             const [x1_video, y1_video, x2_video, y2_video] = det.box;
             
@@ -342,17 +350,20 @@
             ctx.strokeStyle = color; // 외곽선 색상은 클래스 고유 색상
             ctx.lineWidth = 3;
             ctx.strokeRect(x1_canvas, y1_canvas, x2_canvas - x1_canvas, y2_canvas - y1_canvas);
-        });
+          });
+        }
 
         // ==========================================
         // ▲▲▲▲▲ 박스 위치 보정 로직 (수정 완료) ▲▲▲▲▲
         // ==========================================
         
         // 기존 재료 목록 업데이트 로직 (동일)
-        const detectedNames = data.detections.map(d => d.name);
-        updateDetectedIngredients(detectedNames);
-        if (isFullscreenMode) {
-            updateFloatingIngredients(detectedNames);
+        if (data.detections) {
+          const detectedNames = data.detections.map(d => d.name);
+          updateDetectedIngredients(detectedNames);
+          if (isFullscreenMode) {
+              updateFloatingIngredients(detectedNames);
+          }
         }
       }
       
@@ -375,7 +386,7 @@
   }
 
   // ==========================================
-  // 디바이스 방향(가로/세로) 클래스 토글 (동일)
+  // 디바이스 방향(가로/세로) 클래스 토글 (전체화면 모드 지원 강화)
   // ==========================================
   const rootEl = document.documentElement;
   function updateOrientationClass() {
@@ -385,10 +396,46 @@
     } else {
       rootEl.classList.remove('landscape-mode');
     }
+    
+    // 전체화면 모드에서도 캔버스 크기 재조정
+    if (isFullscreenMode && overlay && video) {
+      setTimeout(() => {
+        overlay.width = overlay.clientWidth;
+        overlay.height = overlay.clientHeight;
+        // 가로모드 전환 시 비디오 크기도 재조정
+        if (video.videoWidth && video.videoHeight) {
+          // 박스 위치 보정 로직 재실행을 위한 플래그
+          needsRecalculation = true;
+        }
+        
+        // 가로모드 전체화면에서 플로팅 윈도우 위치 조정
+        if (floatingIngredients && isMobileView()) {
+          adjustFloatingWindowForLandscape();
+        }
+      }, 100);
+    }
+  }
+
+  // 가로모드 전체화면에서 플로팅 윈도우 위치 조정 함수
+  function adjustFloatingWindowForLandscape() {
+    if (!floatingIngredients || !isMobileView() || !isFullscreenMode) return;
+    
+    const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+    if (isLandscape) {
+      // 가로모드일 때 플로팅 윈도우 크기와 위치 조정
+      floatingIngredients.style.maxWidth = '280px';
+      floatingIngredients.style.maxHeight = '80vh';
+      floatingIngredients.style.top = '10px';
+      floatingIngredients.style.right = '10px';
+      floatingIngredients.style.fontSize = '12px';
+      floatingIngredients.style.padding = '12px';
+    }
   }
 
   document.addEventListener('DOMContentLoaded', updateOrientationClass);
-  window.addEventListener('orientationchange', () => setTimeout(updateOrientationClass, 200));
+  // 전체화면 모드에서도 방향 전환 감지 강화
+  window.addEventListener('orientationchange', () => setTimeout(updateOrientationClass, 300));
+  window.addEventListener('resize', () => setTimeout(updateOrientationClass, 100));
   document.addEventListener('fullscreenchange', updateOrientationClass);
 
   // ==========================================
@@ -748,20 +795,22 @@
     const isMobile = isMobileView();
     try {
       if (isMobile) {
-        // 모바일: 네이티브 대신 pseudo-fullscreen 적용
-        document.documentElement.classList.add('mobile-fs');
-        document.body.classList.add('mobile-fs');
-        cameraWrapper.classList.add('mobile-fs');
-        isFullscreenMode = true;
-        if (floatingIngredients) floatingIngredients.style.display = 'block';
-        const ctrls = cameraWrapper.querySelector('.camera-controls');
-        if (ctrls) ctrls.style.display = 'none';
-        if (mobileActionBar) mobileActionBar.style.display = 'none';
-        setTimeout(() => {
-          overlay.width = overlay.clientWidth;
-          overlay.height = overlay.clientHeight;
-        }, 50);
-        return;
+      // 모바일: 네이티브 대신 pseudo-fullscreen 적용
+      document.documentElement.classList.add('mobile-fs');
+      document.body.classList.add('mobile-fs');
+      cameraWrapper.classList.add('mobile-fs');
+      isFullscreenMode = true;
+      if (floatingIngredients) floatingIngredients.style.display = 'block';
+      const ctrls = cameraWrapper.querySelector('.camera-controls');
+      if (ctrls) ctrls.style.display = 'none';
+      if (mobileActionBar) mobileActionBar.style.display = 'none';
+      setTimeout(() => {
+        overlay.width = overlay.clientWidth;
+        overlay.height = overlay.clientHeight;
+        // 가로모드 전체화면에서 플로팅 윈도우 조정
+        adjustFloatingWindowForLandscape();
+      }, 50);
+      return;
       }
 
       // 태블릿/데스크톱: 표준 전체화면
@@ -776,6 +825,8 @@
       setTimeout(() => {
         overlay.width = overlay.clientWidth;
         overlay.height = overlay.clientHeight;
+        // 가로모드 전체화면에서 플로팅 윈도우 조정
+        adjustFloatingWindowForLandscape();
       }, 50);
     } catch (error) {
       alert('전체화면을 지원하지 않는 브라우저입니다.');
@@ -786,6 +837,7 @@
     const cameraWrapper = cameraSection.querySelector('.camera-wrapper');
     const isMobile = isMobileView();
     isFullscreenMode = false;
+    
     if (!isMobile) {
       if (document.exitFullscreen) document.exitFullscreen();
       else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
@@ -802,10 +854,17 @@
     if (mobileActionBar && isMobileView() && cameraSection.style.display !== 'none') {
       mobileActionBar.style.display = 'block';
     }
+    
+    // 방향 클래스 다시 확인하여 상태 복원 (가로모드 유지)
     setTimeout(() => {
+      updateOrientationClass();
       overlay.width = overlay.clientWidth;
       overlay.height = overlay.clientHeight;
-    }, 50);
+      // 박스 위치 보정 로직 재실행
+      if (video.videoWidth && video.videoHeight) {
+        needsRecalculation = true;
+      }
+    }, 150);
   }
 
   // iOS Safari 네이티브 비디오 전체화면 종료 이벤트 처리
