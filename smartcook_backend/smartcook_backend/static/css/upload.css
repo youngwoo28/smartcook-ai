@@ -892,10 +892,15 @@ body.upload.cart-page {
 
 /* recipe */
 
+/* recipe 페이지 body 스타일 재정의 */
+body.upload {
+  display: block;
+}
 
 /* 흰색 컨테이너 */
 .recipe-container {
   width: 1055px;
+  max-width: 100%;        /* 작은 화면에서 넘치지 않도록 */
   background-color: #fff;
   border: 2px solid #000000;
   border-radius: 10px;
@@ -914,6 +919,7 @@ body.upload.cart-page {
   align-items: stretch; /* 두 박스 중 긴 쪽에 맞춰 늘어나도록 */
   gap: 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* 왼쪽 박스 */
@@ -922,6 +928,7 @@ body.upload.cart-page {
   border: 3px dashed #000000;
   border-radius: 10px;
   padding: 20px;
+  box-sizing: border-box;
 
   height: auto !important;
   min-height: 0 !important;
@@ -934,6 +941,7 @@ body.upload.cart-page {
   border: 3px dashed #000000;
   border-radius: 10px;
   padding: 20px;
+  box-sizing: border-box;
 
   height: auto !important;
   min-height: 0 !important;
@@ -981,6 +989,8 @@ ol li {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .video-card {
@@ -989,6 +999,7 @@ ol li {
   overflow: hidden;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease;
+  box-sizing: border-box;
 }
 
 .video-card:hover {
@@ -1025,6 +1036,8 @@ ol li {
   align-items: center;
   margin-bottom: 100px;
   height: 100px;      /* 버튼 영역 높이 (원하는 대로 조정 가능) */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .recipe-bottom-button button {
@@ -1038,6 +1051,7 @@ ol li {
   cursor: pointer;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .recipe-bottom-button button:hover {

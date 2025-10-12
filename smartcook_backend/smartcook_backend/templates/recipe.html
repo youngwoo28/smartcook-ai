@@ -3,8 +3,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ recipe.title }} 레시피</title>
   <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+  <link rel="stylesheet" href="{% static 'css/resposive_ta_mo.css' %}">
   <style>
   .listening-popup {
     display: none;
@@ -62,6 +64,7 @@
     </div>
   </div>
   
+  <main>
   <div class="recipe-container">
     <div class="recipe-content">
       <div class="recipe-left-box">
@@ -112,6 +115,7 @@
       </button>
     {% endif %}
   </div>
+  </main>
 
   <div class="feedback-footer">
     © SmartCook. All rights reserved.
