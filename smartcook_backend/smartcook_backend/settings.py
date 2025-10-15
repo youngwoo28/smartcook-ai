@@ -16,7 +16,8 @@ SECRET_KEY = "django-insecure--ic=vs^t=g8^dytk9tt5jmz_pv6(i5so2*6@ouubcklm+xyd)1
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok.io', '.ngrok-free.app']
+
 
 
 # Application definition
@@ -139,9 +140,12 @@ model_path = BASE_DIR / "best.pt"
 
 # 외부 터널(ngrok/localtunnel) 사용 시 CSRF 문제 방지
 CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok.io',
     'https://*.ngrok-free.app',
     "https://*.ngrok-free.dev",
     'https://*.loca.lt',
 ]
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(BASE_DIR, "smartcook_backend", "tts.json")
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False

@@ -24,23 +24,53 @@ logger = logging.getLogger(__name__)
 
 # --- 상수 정의 ---
 HANGUL_NAMES = {
-    0: '오이', 1: '소고기', 2: '브로콜리', 3: '양배추', 4: '당근',
-    5: '계란', 6: '상추', 7: '양파', 8: '돼지고기', 9: '파',
-    10: '새우', 11: '시금치'
+    0: '사과',        # apple
+    1: '소고기',      # beef
+    2: '브로콜리',    # broccoli
+    3: '양배추',      # cabbage
+    4: '당근',        # carrot
+    5: '오이',        # cucumber
+    6: '계란',        # egg
+    7: '상추',        # lettuce
+    8: '식빵',        # loaf_of_bread
+    9: '버섯',        # mushroom
+    10: '양파',       # onion
+    11: '오렌지',     # orange
+    12: '배',         # pear
+    13: '고추',       # pepper
+    14: '돼지고기',   # pork
+    15: '감자',       # potato
+    16: '무',         # radish
+    17: '파',         # scallion
+    18: '새우',       # shrimp
+    19: '시금치',     # spinach
+    20: '딸기',       # strawberry
+    21: '고구마',     # sweet_potato
+    22: '두부'        # tofu
 }
 
-# ▼▼▼▼▼ 클래스별 색상 지정 (HEX 코드) ▼▼▼▼▼
-# HANGUL_NAMES의 순서(0~11)에 맞춰 각 클래스의 색상을 정의합니다.
+# ▼▼▼▼▼ 클래스별 색상 지정 ▼▼▼▼▼
 CLASS_COLORS = [
-    '#FF3838', '#FF9D97', '#FF701F', '#FFB21D', '#CFD231', '#48F28B', '#97FF64',
-    '#01FCEF', '#00A9FF', '#0049FF', '#AD46FF', '#FF53B0'
+    '#FF3838', '#FF9D97', '#FF701F', '#FFB21D', '#CFD231',
+    '#48F28B', '#97FF64', '#01FCEF', '#00A9FF', '#0049FF',
+    '#AD46FF', '#FF53B0', '#FFD300', '#00FF87', '#FF8C00',
+    '#FF007F', '#4B0082', '#9932CC', '#8B0000', '#7FFF00',
+    '#008B8B', '#0000FF', '#FF00FF'
 ]
 # ▲▲▲▲▲ 클래스별 색상 지정 ▲▲▲▲▲
 
-
 # ▼▼▼▼▼ 여기서 모델의 민감도를 조절할 수 있습니다 ▼▼▼▼▼
-CONF_THRESH = 0.6 # 이전 단계에서 0.6로 조정했습니다.
-# ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+CONF_THRESH = 0.65  # 기본(대부분 클래스)에 요구하는 임계값
+# 특별 클래스(딸기, 버섯)는 0.5 이상일 때만 표시하도록 별도 정의
+SPECIAL_CLASS_THRESH = {
+    9: 0.5,   # 버섯
+    20: 0.5   # 딸기
+}
+# 모델에 전달할 predict conf는 모든 필요한 박스를 반환하도록
+# 전체 임계값들 중 최소값으로 설정합니다.
+PREDICT_CONF = min([CONF_THRESH] + list(SPECIAL_CLASS_THRESH.values()))
+# 예: CONF_THRESH=0.65, special=0.5 -> PREDICT_CONF = 0.5
+# ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
 # 모델 추론을 위한 스레드 풀
 executor = ThreadPoolExecutor(max_workers=1)
@@ -53,6 +83,7 @@ class DetectConsumer(AsyncWebsocketConsumer):
             # OpenVINO 모델 대신 원본 best.pt 모델을 로드합니다.
             self.model = YOLO("best.pt")
             logger.info("YOLOv8 PyTorch 모델 로드 완료 (best.pt)")
+            logger.info(f"Predict conf set to {PREDICT_CONF}, default display conf {CONF_THRESH}, special: {SPECIAL_CLASS_THRESH}")
         except Exception as e:
             logger.error(f"모델 로드 실패: {e}")
             await self.close()
@@ -103,8 +134,9 @@ class DetectConsumer(AsyncWebsocketConsumer):
         YOLO 모델로 추론하고 결과를 JSON으로 만들어 전송합니다.
         """
         try:
-            # YOLO 라이브러리의 predict 함수를 직접 사용. NMS가 내장되어 있음.
-            results = self.model.predict(img, conf=CONF_THRESH, verbose=False)
+            # predict에선 가장 낮은 필요 신뢰도(PREDICT_CONF)를 전달하여
+            # 후처리에서 클래스별로 다시 필터링합니다.
+            results = self.model.predict(img, conf=PREDICT_CONF, verbose=False)
 
             # 결과가 있는 경우에만 처리
             if results and results[0].boxes:
@@ -114,19 +146,23 @@ class DetectConsumer(AsyncWebsocketConsumer):
 
                 for box in boxes:
                     cls_idx = int(box.cls.item())
-                    conf = box.conf.item()
+                    conf = float(box.conf.item())
+                    # 클래스별 요구 임계값(특수 클래스가 있으면 그 값, 없으면 기본 CONF_THRESH)
+                    required_conf = SPECIAL_CLASS_THRESH.get(cls_idx, CONF_THRESH)
+                    # 해당 박스가 클래스별 기준을 만족해야 화면에 표시
+                    if conf < required_conf:
+                        # 기준 미달이면 건너뜀
+                        continue
+
                     cls_name = HANGUL_NAMES.get(cls_idx, f"ID:{cls_idx}")
                     xyxy = box.xyxy.cpu().numpy()[0]
                     
-                    # ▼▼▼▼▼ 색상 정보 추가 ▼▼▼▼▼
-                    # cls_idx에 해당하는 색상을 CLASS_COLORS 리스트에서 가져옵니다.
-                    # 만약 cls_idx가 리스트 범위를 벗어나도 오류가 나지 않도록 % 연산자 사용
+                    # 색상 정보 (index 범위 초과 방지)
                     color = CLASS_COLORS[cls_idx % len(CLASS_COLORS)]
-                    # ▲▲▲▲▲ 색상 정보 추가 ▲▲▲▲▲
 
                     frame_detections_data.append({
                         'box': xyxy.tolist(),
-                        'label': f"{cls_name} {conf:.2f}",
+                        'label': cls_name,
                         'name': cls_name,
                         'color': color # JSON에 색상 정보 추가
                     })
