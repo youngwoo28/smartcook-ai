@@ -925,6 +925,8 @@ margin-top: 120px;
   align-items: center;
   justify-content: center;
   margin-top: 180px;
+  
+  
 }
 
 .login-input-box {
@@ -974,7 +976,8 @@ margin-top: 120px;
   justify-content: space-between;
   font-size: 14px;
   color: #76b5c5;
-  margin-bottom: 40px;
+  margin-bottom: 140px;
+  
 }
 
 .login-social-login {
