@@ -2758,6 +2758,104 @@ html.landscape-mode #floating-ingredients {
    - 사용자 정보 수정, 목소리 선택, 선호/비선호 재료 설정
 ========================================== */
 
+/* ==========================================
+   LOGIN 페이지 반응형 스타일
+   - 모든 기기에서 중앙 정렬 유지, 요소 크기/간격 최적화
+========================================== */
+
+/* 1) 스마트폰 (320px ~ 480px) */
+@media (max-width: 480px) {
+  body.authpage {
+    padding: 100px 0 !important; /* 상단 여백 축소 */
+  }
+  .navbar {
+    padding: 10px 20px !important;
+  }
+  .login-container {
+    width: 95% !important;
+    padding: 30px 18px !important;
+    border-radius: 10px !important;
+  }
+  .login-form-box {
+    margin-top: 60px !important;
+  }
+  .login-input-box {
+    width: 100% !important;
+    height: 48px !important;
+    padding: 8px 10px !important;
+  }
+  .login-login-btn {
+    width: 100% !important;
+    height: 48px !important;
+    font-size: 16px !important;
+    margin: 16px auto 8px auto !important;
+  }
+  .login-options {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    margin-bottom: 40px !important;
+  }
+  .login-social-login {
+    padding: 0 6px !important;
+  }
+  .login-icons {
+    gap: 18px !important;
+  }
+}
+
+/* 2) 아이패드 미니 세로 (481px ~ 744px) */
+@media (min-width: 481px) and (max-width: 744px) {
+  body.authpage { padding-top: 130px !important; }
+  .navbar { padding: 10px 28px !important; }
+  .login-container {
+    width: 90% !important;
+    padding: 40px 28px !important;
+  }
+  .login-form-box { margin-top: 120px !important; }
+  .login-input-box { width: 100% !important; height: 50px !important; }
+  .login-login-btn { width: 100% !important; height: 50px !important; }
+  .login-options { width: 100% !important; margin-bottom: 80px !important; }
+}
+
+/* 3) 아이패드 에어 세로 (745px ~ 820px) */
+@media (min-width: 745px) and (max-width: 820px) {
+  body.authpage { padding-top: 140px !important; }
+  .navbar { padding: 12px 36px !important; }
+  .login-container {
+    width: 85% !important;
+    padding: 48px 36px !important;
+  }
+  .login-form-box { margin-top: 140px !important; }
+  .login-input-box { width: 100% !important; height: 52px !important; }
+  .login-login-btn { width: 100% !important; height: 52px !important; }
+  .login-options { width: 100% !important; margin-bottom: 100px !important; }
+}
+
+/* 4) 태블릿 가로 (821px ~ 1280px) - 갤럭시탭 포함 */
+@media (min-width: 821px) and (max-width: 1280px) {
+  body.authpage { padding-top: 150px !important; }
+  .navbar { padding: 14px 44px !important; }
+  .login-container {
+    width: 80% !important;
+    max-width: 900px !important;
+    padding: 54px 40px !important;
+  }
+  .login-form-box { margin-top: 150px !important; }
+  .login-input-box { width: 640px !important; max-width: 100% !important; }
+  .login-login-btn { width: 640px !important; max-width: 100% !important; }
+  .login-options { width: 640px !important; max-width: 100% !important; }
+}
+
+/* 5) 데스크톱 (1281px+) */
+@media (min-width: 1281px) {
+  body.authpage { padding-top: 160px !important; }
+  .navbar { padding: 16px 60px !important; }
+  .login-container { max-width: 900px !important; }
+  .login-form-box { margin-top: 180px !important; }
+}
+
 /* 1. 스마트폰 (320px ~ 480px) */
 @media (max-width: 480px) {
   /* 메인 컨테이너 */
