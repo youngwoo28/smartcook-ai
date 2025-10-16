@@ -81,7 +81,8 @@ class DetectConsumer(AsyncWebsocketConsumer):
         await self.accept()
         try:
             # OpenVINO 모델 대신 원본 best.pt 모델을 로드합니다.
-            self.model = YOLO("best.pt")
+            #self.model = YOLO("best.pt")
+            self.model = YOLO("best.engine")
             logger.info("YOLOv8 PyTorch 모델 로드 완료 (best.pt)")
             logger.info(f"Predict conf set to {PREDICT_CONF}, default display conf {CONF_THRESH}, special: {SPECIAL_CLASS_THRESH}")
         except Exception as e:
