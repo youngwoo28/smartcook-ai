@@ -66,5 +66,22 @@
   </div>
   
   <script src="{% static 'js/script.js' %}"></script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const detailBtn = document.getElementById("go-detail-btn");
+  if (detailBtn) {
+    const recipeId = "{{ recipe.id }}";  // views.py에서 넘겨준 recipe 객체
+    detailBtn.addEventListener("click", () => {
+      if (recipeId) {
+        window.location.href = `/recipes/${recipeId}/`;
+      } else {
+        alert("레시피 정보를 불러올 수 없습니다.");
+      }
+    });
+  }
+});
+</script>
+
 </body>
 </html>
