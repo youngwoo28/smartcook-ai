@@ -135,7 +135,7 @@ https://youtu.be/jwLQ02vwwZ8
 
 ---
 
-##11. 성과 및 전시 (Achievements & Exhibitions)
+## 11. 성과 및 전시 (Achievements & Exhibitions)
 
 2025 한국전자전(KES) – 동양미래대학교관 공식 출품 (장려상 수상)
 
