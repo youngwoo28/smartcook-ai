@@ -206,12 +206,6 @@ def food_upload_view(request):
     })
 
 
-
-
-
-
-
-
 # 업로드 이미지 인식
 @login_required
 def search_recipes_by_detected(request):
@@ -563,6 +557,8 @@ def get_recipes_json(request):
         "returned_count": len(limited_results),
         "limit": limit
     })
+
+
 @csrf_exempt
 def rerank_view(request):
     if request.method != "POST":
@@ -604,6 +600,7 @@ def rerank_view(request):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
     
+
 def onedrive_callback(request):
     code = request.GET.get("code")
     if not code:
@@ -627,10 +624,14 @@ def onedrive_callback(request):
     tokens = resp.json()
     return JsonResponse(tokens)
 
-from django.http import HttpResponse
-from google.cloud import texttospeech
+
+# =========================
+# Google Cloud Text-to-Speech
+# =========================
 
 def tts_view(request):
+    from google.cloud import texttospeech  # ✅ 함수 내부에서만 임포트
+
     text = request.GET.get("text")
     voice_name = request.GET.get("voice", "ko-KR-Chirp3-HD-Charon")  # <- 이거 중요!
 
@@ -656,12 +657,10 @@ def tts_view(request):
 
     return HttpResponse(response.audio_content, content_type="audio/mpeg")
 
-# ✅ views.py 가장 아래에 추가 (임시 확인용)
-
-from django.http import JsonResponse
-from google.cloud import texttospeech
 
 def list_voices_view(request):
+    from google.cloud import texttospeech  # ✅ 함수 내부에서만 임포트
+
     client = texttospeech.TextToSpeechClient()
     response = client.list_voices(language_code="ko-KR")
 
@@ -675,13 +674,12 @@ def list_voices_view(request):
 
     return JsonResponse({"voices": voices})
 
+
+# =========================
+# Google Cloud Speech-to-Text
+# =========================
 from google.cloud import speech 
 from django.views.decorators.csrf import csrf_exempt 
-from django.http import JsonResponse 
-# views.py
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from google.cloud import speech
 
 COMMAND_MAP = {
     "요리 시작": [

@@ -15,16 +15,9 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
-
-    # 3️⃣ 추론
     results = model(frame)
-
-    # 4️⃣ 바운딩 박스 그리기
     annotated_frame = results[0].plot()  # plot()이 박스, 클래스, 신뢰도 표시
-
-    # 5️⃣ 화면 표시
     cv2.imshow("YOLO Live", annotated_frame)
-
     # q 누르면 종료
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
