@@ -109,4 +109,11 @@ python manage.py runserver
 
 아래 링크에서 확인할 수 있습니다:
 
-https://youtu.be/jwLQ02vwwZ8
+pip install -r requirements.txt
+python manage.py runserver
+
+시연 영상 (Demo Video)
+
+아래 링크에서 확인할 수 있습니다:
+
+[![SmartCook Demo](https://img.youtube.com/vi/jwLQ02vwwZ8/0.jpg)](https://youtu.be/jwLQ02vwwZ8)
