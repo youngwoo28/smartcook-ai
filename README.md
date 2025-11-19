@@ -109,13 +109,6 @@ python manage.py runserver
 
 아래 링크에서 확인할 수 있습니다:
 
-pip install -r requirements.txt
-python manage.py runserver
-
-시연 영상 (Demo Video)
-
-아래 링크에서 확인할 수 있습니다:
-
 https://youtu.be/jwLQ02vwwZ8
 
 또는 아래 썸네일을 클릭하여 바로 시청할 수 있습니다:
