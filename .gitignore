@@ -224,3 +224,5 @@ smartcook_backend/best.pt
 *.pt
 *.pth
 *.onnx
+smart/
+smart/
