@@ -99,8 +99,6 @@ SmartCook은 **한 장의 이미지로 재료를 자동 인식하고 즉시 요�
 
 ## 9. 실행 방법 및 시연 영상
 
-### 실행 방법
-
 ```bash
 pip install -r requirements.txt
 python manage.py runserver
