@@ -104,6 +104,16 @@ pip install -r requirements.txt
 python manage.py runserver
 
 
+---
+
+##10. 시연 영상 (Demo Video)
+프로젝트의 전체 흐름을 2분 데모 영상으로 정리했습니다.
+
+아래 링크에서 확인할 수 있습니다:
+
+https://youtu.be/jwLQ02vwwZ8
+
+또는 아래 썸네일을 클릭하여 바로 시청할 수 있습니다:
 
 
 
