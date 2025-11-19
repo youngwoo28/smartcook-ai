@@ -99,15 +99,13 @@ SmartCook은 **한 장의 이미지로 재료를 자동 인식하고 즉시 요�
 
 ## 9. 실행 방법 및 시연 영상
 
+```bash
 pip install -r requirements.txt
 python manage.py runserver
-
+```bash
 ---
 
 ## 10. 시연 영상 (Demo Video)
-
-프로젝트의 전체 흐름(재료 인식 → 레시피 추천 → 상세 보기)을  
-2분 데모 영상으로 정리했습니다.
 
 아래 링크에서 확인할 수 있습니다:
 
