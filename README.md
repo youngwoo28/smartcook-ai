@@ -116,12 +116,92 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
 
 ---
 
-## 9. 실행 방법
+## 9. 실행 방법 (Run Instructions)
+
+SmartCook는 Django 기반 백엔드 서버에서 실행됩니다.  
+처음 실행하는 사용자도 그대로 따라 하면 동작하도록 구성되어 있습니다.
+
+---
+
+## 9.1 가상환경 생성 및 활성화
+
+### ▶ macOS / Linux
 
 ```bash
+# 1) 프로젝트 외부 경로에서 가상환경 생성
+python3 -m venv smart
+
+# 2) 가상환경 활성화
+source smart/bin/activate
+
+▶ Windows (PowerShell)
+# 1) 가상환경 생성
+python -m venv smart
+
+# 2) 가상환경 활성화
+smart\Scripts\activate
+
+9.2 프로젝트 백엔드 디렉터리로 이동
+
+SmartCook의 Django 서버는 smartcook_backend 폴더 안에 있습니다.
+
+cd smartcook_backend
+
+9.3 패키지 설치
 pip install -r requirements.txt
+
+
+※ ultralytics / opencv-python 등의 패키지는 설치에 다소 시간이 걸릴 수 있습니다.
+
+9.4 데이터베이스 초기 설정(마이그레이션)
+python manage.py migrate
+
+9.5 YOLO 모델 파일 준비
+
+SmartCook는 YOLOv8 모델 weight 파일이 필요합니다.
+best.pt 파일을 아래 위치에 넣어야 합니다.
+
+smartcook_backend/
+ └── model/
+      └── best.pt
+
+
+모델 파일이 없으면 이미지 분석 기능이 동작하지 않습니다.
+
+9.6 서버 실행
+▶ macOS / Windows / Linux 공통
 python manage.py runserver
-```
+
+
+이후 브라우저에서 아래 주소로 접속합니다.
+
+http://127.0.0.1:8000/
+
+9.7 실행 시 참고 사항
+
+/static/fonts/*, /favicon.ico 등의 404 오류는 정상이며 서비스 동작에 영향을 주지 않습니다.
+
+실시간 감지 기능(/ws/detect/)은 WebSocket 기반 기능이며 개발 환경에 따라 비활성화될 수 있습니다.
+이미지 업로드 기반 재료 인식 및 레시피 추천 기능은 정상적으로 사용 가능합니다.9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 10. 시연 영상 
 (Demo Video) 아래 링크에서 확인할 수 있습니다: 
