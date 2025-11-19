@@ -126,5 +126,14 @@ https://youtu.be/jwLQ02vwwZ8
 
 [![SmartCook Demo](https://img.youtube.com/vi/jwLQ02vwwZ8/0.jpg)](https://youtu.be/jwLQ02vwwZ8)
 
+## 11. 성과 및 전시 (Achievements & Exhibitions)
+
+- **2025 한국전자전(KES) – 동양미래대학교관 공식 출품 (장려상 수상)**  
+  - SmartCook 서비스 전시 및 데모 시연  
+  - 이미지 기반 식재료 인식 기술과 레시피 추천 알고리즘 구현 요소로 긍정적 평가  
+
+- **동양미래대학교 졸업 전시회 참가**  
+  - SmartCook 프로젝트 전시  
+  - UI/UX 구조, 데이터 처리 흐름, 서비스 완성도, 사용자 편의성 측면에서 현장 피드백 확보  
 
 
