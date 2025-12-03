@@ -115,8 +115,8 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
   - YOLO 추론·레시피 검색 파이프라인 최적화  
 
 ---
-
-## 9. 실행 방법 (Run Instructions)
+<details>
+<summary>## 9. 실행 방법 (Run Instructions)</summary>
 
 SmartCook는 Django 기반 백엔드 서버에서 실행됩니다.  
 처음 실행하는 사용자도 그대로 따라 하면 동작하도록 구성되어 있습니다.
