@@ -195,6 +195,7 @@ http://127.0.0.1:8000/
 실시간 감지 기능(/ws/detect/)은 WebSocket 기반 기능이며 개발 환경에 따라 비활성화될 수 있습니다.
 이미지 업로드 기반 재료 인식 및 레시피 추천 기능은 정상적으로 사용 가능합니다.
 
+</details>
 
 ## 10. 시연 영상 
 (Demo Video) 아래 링크에서 확인할 수 있습니다: 
@@ -205,7 +206,6 @@ https://youtu.be/jwLQ02vwwZ8
 
 [![SmartCook Demo](https://img.youtube.com/vi/jwLQ02vwwZ8/0.jpg)](https://youtu.be/jwLQ02vwwZ8)
 
-</details>
 ---
 
 ## 11. 성과 및 전시 (Achievements & Exhibitions)
