@@ -115,10 +115,12 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
   - YOLO 추론·레시피 검색 파이프라인 최적화  
 
 ---
-<details>
- <summary><strong style="font-size: 1.15em;">9. 실행 방법 (Run Instructions)</strong></summary>
 
---- 
+
+<details>
+ <summary><strong style="font-size: 1.5em;">9. 실행 방법 (Run Instructions)</strong></summary>
+
+
 
 SmartCook는 Django 기반 백엔드 서버에서 실행됩니다.  
 처음 실행하는 사용자도 그대로 따라 하면 동작하도록 구성되어 있습니다.
@@ -198,6 +200,10 @@ http://127.0.0.1:8000/
 이미지 업로드 기반 재료 인식 및 레시피 추천 기능은 정상적으로 사용 가능합니다.
 
 </details>
+
+
+--- 
+
 
 ## 10. 시연 영상 
 (Demo Video) 아래 링크에서 확인할 수 있습니다: 
