@@ -42,8 +42,12 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
 - YOLOv8 기반 식재료 자동 인식  
 - 인식된 재료 이름으로 JSON 레시피 데이터 검색  
 - 레시피의 조리 과정, 재료 구성, 영상/링크 제공  
-- 웹 브라우저 기반 서비스 (PC·모바일 지원)  
-
+- 웹 브라우저 기반 서비스 (PC·모바일 지원)
+  
+### Live Detection Demo
+<p align="center">
+  <img src="./images/live_detect.gif" width="720" alt="실시간 재료 인식 GIF" />
+</p>
 
 ---
 
