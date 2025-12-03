@@ -218,6 +218,7 @@ https://youtu.be/jwLQ02vwwZ8
   - SmartCook 프로젝트 전시 (6개팀 중 2등 수상)
   - UI/UX 및 모델 파이프라인에 대한 현장 피드백 확보  
 
+---
 
   ## **팀원 소개**
 
