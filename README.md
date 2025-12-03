@@ -45,7 +45,6 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
 - 웹 브라우저 기반 서비스 (PC·모바일 지원)  
 
 
-<img src="./images/live_detect.gif" width="780" />
 ---
 
 ## 4. 기술 스택
