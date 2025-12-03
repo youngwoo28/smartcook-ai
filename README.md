@@ -129,7 +129,7 @@ SmartCook는 Django 기반 백엔드 서버에서 실행됩니다.
 
 ## 9.1 가상환경 생성 및 활성화
 
-### ▶ macOS / Linux
+###  macOS / Linux
 
 ```bash
 # 1) 프로젝트 외부 경로에서 가상환경 생성
@@ -138,7 +138,7 @@ python3 -m venv smart
 # 2) 가상환경 활성화
 source smart/bin/activate
 
-▶ Windows (PowerShell)
+Windows (PowerShell)
 # 1) 가상환경 생성
 python -m venv smart
 
@@ -180,7 +180,7 @@ smartcook_backend/
 모델 파일이 없으면 이미지 분석 기능이 동작하지 않습니다.
 
 9.6 서버 실행
-▶ macOS / Windows / Linux 공통
+macOS / Windows / Linux 공통
 ```bash
 python manage.py runserver
 ```
