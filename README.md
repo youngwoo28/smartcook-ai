@@ -118,7 +118,7 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
 
 
 <details>
- <summary><strong style="font-size: 2.5em;">9. 실행 방법 (Run Instructions)</strong></summary>
+  <summary><h2>9. 실행 방법 (Run Instructions)</h2></summary>
 
 
 
