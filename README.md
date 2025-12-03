@@ -218,3 +218,15 @@ https://youtu.be/jwLQ02vwwZ8
   - SmartCook 프로젝트 전시 (6개팀 중 2등 수상)
   - UI/UX 및 모델 파이프라인에 대한 현장 피드백 확보  
 
+
+  ## **팀원 소개**
+
+| **이름** | **역할** | **담당 업무** | **GitHub** |
+|-----------|-----------|----------------|----------------|
+| **최영우** | **PM / 기획** | 프로젝트 총괄, 추천알고리즘 설계, 데이터 크롤링 | [GitHub](https://github.com/youngwoo28) |
+| **이건호** | **ML 개발** | 전처리, 반응형 디자인 | [GitHub](https://github.com/geonho27) |
+| **경규민** | **AI 개발** | YOLO 모델 학습, 학습 데이터셋 설계 | [GitHub](https://github.com/gyumin8) |
+| **홍연화** | **프론트엔드&백엔드 개발** | 인터페이스 디자인, Django API, UI/UX 구현 | [GitHub](https://github.com/ghddusghk46) |
+| **이유민** | **프론트엔드&백엔드 및 AI 연동** | TTS/STT 기능, 웹 구조 구현, 서버 구축 | [GitHub](https://github.com/YUM-MING) |
+
+
