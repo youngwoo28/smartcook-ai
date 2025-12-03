@@ -46,7 +46,7 @@ SmartCook은 **이미지 한 장으로 재료를 자동 인식하고, 해당 재
   
 ### Live Detection Demo
 <p align="center">
-  <img src="./images/live_detect.gif" width="720" alt="실시간 재료 인식 GIF" />
+  <img src="./images/live_detect.gif" width="480" alt="실시간 재료 인식 GIF" />
 </p>
 
 ---
