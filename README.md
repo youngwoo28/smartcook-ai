@@ -250,9 +250,11 @@ python manage.py migrate
 **SmartCook는 YOLOv8 모델 weight 파일이 필요합니다.
 best.pt 파일을 아래 위치에 넣어야 합니다.**
 
+```bash
 smartcook_backend/
  └── model/
       └── best.pt
+```
 
 **모델 파일이 없으면 이미지 분석 기능이 동작하지 않습니다.**
 
