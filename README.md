@@ -62,12 +62,12 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 ## 3. 핵심 기능 및 화면 (Features)
 
 | **1. 기본 타이핑 방식** | **2. 이미지 업로드 방식** |
-| :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/72271fd8-5721-4fcc-9802-83461010ac32" width="280" /> | <img src="https://github.com/user-attachments/assets/ec6f127a-149a-439f-81c5-9e865a6b0baf" width="280" /> |
+| :---: | :---:|
+| <img src="https://github.com/user-attachments/assets/72271fd8-5721-4fcc-9802-83461010ac32" width="400" /> | <img src="https://github.com/user-attachments/assets/ec6f127a-149a-439f-81c5-9e865a6b0baf" width="400" /> |
 
 | **3. 실시간 탐지 방식** | **4. 상세 레시피** |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/77a438e3-3636-4945-b7bf-ad65dd74f6c1" width="280" /> | <img src="https://github.com/user-attachments/assets/95462451-2edf-44e1-9f52-aecb2bf0cec4" width="280" /> |
+| <img src="https://github.com/user-attachments/assets/77a438e3-3636-4945-b7bf-ad65dd74f6c1" width="400" /> | <img src="https://github.com/user-attachments/assets/95462451-2edf-44e1-9f52-aecb2bf0cec4" width="400" /> |
 ---
 
 ## 4. 기술적 도전과 해결 (Troubleshooting)
