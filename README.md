@@ -9,7 +9,7 @@
 
 **실시간 재료 인식 (Live Detection)**  
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f141e1a3-76eb-47a2-8bac-01216b37a444" width="480" />
+  <img src="https://github.com/user-attachments/assets/a8dd5520-dd17-4936-b848-6fbee90fd776" width="480" />
 </p>
 
 > 사용자가 식재료 사진을 업로드하거나 카메라를 비추면,  
@@ -22,7 +22,7 @@
 **기술적 구조도**
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ecea8831-f60d-46c0-952c-e11451080749" width="800" />
+  <img src="https://github.com/user-attachments/assets/0e137f82-5ab0-4953-b754-5e326822d832" width="800" />
 </p>
 
 SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가 유기적으로 연결된  
