@@ -12,10 +12,6 @@
 <p align="left">
   <a href="mailto:a01092011940@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-d14836?style=flat-square&logo=Gmail&logoColor=white" />
-  </a>
-  <a href="https://github.com/youngwoo28/smartcook-ai">
-    <img src="https://img.shields.io/badge/GitHub-smartcook--ai-181717?style=flat-square&logo=GitHub&logoColor=white" />
-  </a>
   <a href="https://record50460.tistory.com">
     <img src="https://img.shields.io/badge/Blog-Tistory-ff6f0f?style=flat-square&logo=tistory&logoColor=white" />
   </a>
