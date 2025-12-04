@@ -12,7 +12,7 @@
 <p align="left">
   <a href="mailto:a01092011940@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-d14836?style=flat-square&logo=Gmail&logoColor=white" />
-  <a href="https://record50460.tistory.com">
+  <a href="[https://record50460.tistory.com](https://record50460.tistory.com/2)">
     <img src="https://img.shields.io/badge/Blog-Tistory-ff6f0f?style=flat-square&logo=tistory&logoColor=white" />
   </a>
   <a href="https://youtu.be/jwLQ02vwwZ8">
