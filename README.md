@@ -82,7 +82,11 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 - GitHub 제한으로 `.pt` 모델 업로드 불가  
 - → **Git LFS 도입으로 해결**
 
-<img src="https://github.com/user-attachments/assets/7fc77956-c47c-4fb6-a801-d035b7a40010" width="480" /> 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7fc77956-c47c-4fb6-a801-d035b7a40010" width="480" alt="YOLOv8 Training Curve" />
+  <br/>
+  <em>▲ YOLOv8 최종 학습 결과 — Loss 감소 및 Precision/Recall, mAP50·mAP50-95 안정적으로 수렴</em>
+</p>
 
 ---
 
