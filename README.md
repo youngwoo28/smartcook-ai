@@ -44,6 +44,7 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 **완전한 End-to-End 파이프라인**으로 동작합니다.
 
 ### Tech Stack
+<img width="984" height="528" alt="스크린샷 2025-12-04 오후 7 37 41" src="https://github.com/user-attachments/assets/3e29a0d0-7440-4c95-9753-f929a5412d0f" />
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
