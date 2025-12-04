@@ -224,40 +224,39 @@ python -m venv smart
 smart\Scripts\activate
 ```
 
-9.2 프로젝트 백엔드 디렉터리로 이동
+### 9.2 프로젝트 백엔드 디렉터리로 이동
 
-SmartCook의 Django 서버는 smartcook_backend 폴더 안에 있습니다.
+**SmartCook의 Django 서버는 smartcook_backend 폴더 안에 있습니다.**
 
 ```bash
 cd smartcook_backend
 ```
 
-9.3 패키지 설치
+### 9.3 패키지 설치
 ```bash
 pip install -r requirements.txt
 ```
 
 
-※ ultralytics / opencv-python 등의 패키지는 설치에 다소 시간이 걸릴 수 있습니다.
+**※ ultralytics / opencv-python 등의 패키지는 설치에 다소 시간이 걸릴 수 있습니다.**
 
-9.4 데이터베이스 초기 설정(마이그레이션)
+### 9.4 데이터베이스 초기 설정(마이그레이션)
 ```bash
 python manage.py migrate
 ```
 
-9.5 YOLO 모델 파일 준비
+### 9.5 YOLO 모델 파일 준비
 
-SmartCook는 YOLOv8 모델 weight 파일이 필요합니다.
-best.pt 파일을 아래 위치에 넣어야 합니다.
+**SmartCook는 YOLOv8 모델 weight 파일이 필요합니다.
+best.pt 파일을 아래 위치에 넣어야 합니다.**
 
 smartcook_backend/
  └── model/
       └── best.pt
 
+**모델 파일이 없으면 이미지 분석 기능이 동작하지 않습니다.**
 
-모델 파일이 없으면 이미지 분석 기능이 동작하지 않습니다.
-
-9.6 서버 실행
+### 9.6 서버 실행
 macOS / Windows / Linux 공통
 ```bash
 python manage.py runserver
@@ -267,15 +266,15 @@ python manage.py runserver
 
 http://127.0.0.1:8000/
 
-9.7 실행 시 참고 사항
+### 9.7 실행 시 참고 사항
 
-레시피 관련 기능(장바구니, 추천, 검색)을 활성화하기 위해  
-`import_recipes.py` 스크립트를 통해 JSON 레시피 데이터를 DB로 사전 로드해야 합니다.
+**레시피 관련 기능(장바구니, 추천, 검색)을 활성화하기 위해  
+`import_recipes.py` 스크립트를 통해 JSON 레시피 데이터를 DB로 사전 로드해야 합니다.**
 
-/static/fonts/*, /favicon.ico 등의 404 오류는 정상이며 서비스 동작에 영향을 주지 않습니다.
+**/static/fonts/*, /favicon.ico 등의 404 오류는 정상이며 서비스 동작에 영향을 주지 않습니다.**
 
-실시간 감지 기능(/ws/detect/)은 WebSocket 기반 기능이며 개발 환경에 따라 비활성화될 수 있습니다.
-이미지 업로드 기반 재료 인식 및 레시피 추천 기능은 정상적으로 사용 가능합니다.
+**실시간 감지 기능(/ws/detect/)은 WebSocket 기반 기능이며 개발 환경에 따라 비활성화될 수 있습니다.
+이미지 업로드 기반 재료 인식 및 레시피 추천 기능은 정상적으로 사용 가능합니다.**
 
 </details>
 
