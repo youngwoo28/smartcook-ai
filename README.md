@@ -59,7 +59,6 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 
 ## 4. 기술적 도전과 해결 (Troubleshooting)
 
-<img src="https://github.com/user-attachments/assets/f141e1a3-76eb-47a2-8bac-01216b37a444" width="480" /> | <img src="https://github.com/user-attachments/assets/7fc77956-c47c-4fb6-a801-d035b7a40010" width="480" /> 
 
 ### ① YOLOv8 인식 정확도 개선
 - 조명 변화, 유사 색상 재료 오인식 문제  
@@ -72,6 +71,8 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 ### ③ 대용량 모델 관리 (Git LFS)
 - GitHub 제한으로 `.pt` 모델 업로드 불가  
 - → **Git LFS 도입으로 해결**
+
+<img src="https://github.com/user-attachments/assets/7fc77956-c47c-4fb6-a801-d035b7a40010" width="480" /> 
 
 ---
 
