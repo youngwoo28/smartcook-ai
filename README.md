@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b30ef1fa-aaef-4679-81b0-9b84e09e16b8" width="480" />
+  <img src="https://github.com/user-attachments/assets/b30ef1fa-aaef-4679-81b0-9b84e09e16b8" width="800" />
 </p>
 
 > **"냉장고 파먹기, 사진 한 장이면 충분합니다."**  
