@@ -1,5 +1,10 @@
 # SmartCook (AI 기반 레시피 추천 서비스)
 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b30ef1fa-aaef-4679-81b0-9b84e09e16b8" width="480" />
+</p>
+
 > **"냉장고 파먹기, 사진 한 장이면 충분합니다."**  
 > YOLOv8 사물 인식 기술을 활용해 식재료를 자동 식별하고, 최적의 레시피를 추천하는 웹 서비스
 
