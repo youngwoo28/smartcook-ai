@@ -1,8 +1,4 @@
-![SmartCook Banner](./images/smartcook_banner.png)
 
-<br/><br/>
-
-# SmartCook <img src="https://img.shields.io/badge/AI%20Kitchen-SmartCook-ff7f50?style=flat-square" align="left">
 
 > 냉장고 사진 한 장으로, **재료 인식부터 레시피 추천까지** 이어지는 AI 기반 주방 보조 서비스
 
