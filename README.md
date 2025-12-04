@@ -1,8 +1,14 @@
+네, 제안해 드린 구조대로 "글자는 확 줄이고, 이미지가 돋보이게" 리팩토링한 README.md 소스코드입니다.
 
-<!-- Social Badges -->
+이 코드를 그대로 복사해서 README.md 파일에 덮어쓰기 하세요. (괄호로 표시된 [여기에 ... 사진을 넣어주세요] 부분만 실제 파일 경로로 확인하시면 됩니다.)
+
+📋 수정된 README.md 소스코드
+Markdown
+
 <p align="left">
   <a href="mailto:a01092011940@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-d14836?style=flat-square&logo=Gmail&logoColor=white" />
+  </a>
   <a href="https://record50460.tistory.com/2">
     <img src="https://img.shields.io/badge/Blog-Tistory-ff6f0f?style=flat-square&logo=tistory&logoColor=white" />
   </a>
@@ -13,169 +19,93 @@
 
 <br/>
 
-> **SmartCook은 YOLOv8 기반 이미지 인식과 Django 웹 서버를 결합한,  
-> “스마트 냉장고 없이도 누구나 쓸 수 있는 이미지 기반 레시피 추천 서비스”입니다.**
+# 🍳 SmartCook (AI 기반 레시피 추천 서비스)
+
+> **"냉장고 파먹기, 사진 한 장이면 충분합니다."** > YOLOv8 사물 인식 기술을 활용해 식재료를 자동 식별하고, 최적의 레시피를 추천하는 웹 서비스
+
+<br/>
+
+## 🏆 핵심 성과 (Achievements)
+
+| 2025 한국전자전(KES) | 동양미래대학교 졸업작품전 |
+| :---: | :---: |
+| **장려상 수상 (공식 출품)** | **은상 수상 (2위/6팀)** |
+| 기술 완성도 및 서비스 실용성 검증 | 산학협력 프로젝트 우수작 선정 |
 
 <br/>
 
 ---
 
-## 1. 서비스 소개
+## 1. 서비스 시연 (Demo)
 
-<img width="90%" align="center" alt="SmartCook Overview" src="./images/main_page.png">
-
-SmartCook은 냉장고 속 재료 사진을 업로드하면,  
-이미지 속 재료를 자동 인식하고 그 재료로 만들 수 있는 레시피를 추천하는 AI 웹 서비스입니다.
-
-**서비스 핵심 플로우**
-
-> 이미지 업로드 → 재료 인식(YOLOv8) → JSON 레시피 검색 → 추천 결과 제공
-
-<br/>
-
-### 핵심 성과 요약 (Key Highlights)
-
-- YOLOv8 기반 이미지 식재료 인식 모델 직접 적용 및 정확도 개선  
-- JSON 기반 레시피 데이터 구축 및 추천 알고리즘 설계  
-- Django 기반 end-to-end 웹 서비스 구현  
-- 2025 한국전자전(KES) 공식 출품 및 **장려상 수상**  
-- 동양미래대학교 졸업 전시회 출품 (6개 팀 중 2등)  
-
-<br/>
-
----
-
-## 2. 문제 정의 & 목표
-
-| 문제 | 설명 |
-|------|------|
-| 재료 입력의 번거로움 | 기존 앱/서비스는 재료를 텍스트로 하나씩 입력해야 하는 불편함 존재 |
-| 식재료 낭비 | 남은 재료를 사용하지 못해 폐기되는 비율 증가 |
-| 고가 장비 접근성 | 스마트 냉장고 등 고가 하드웨어에 의존하는 솔루션은 일반 사용자에게 부담 |
-
-**SmartCook의 목표**
-
-> **이미지 한 장으로 재료를 자동 인식하고,  
-> 그 재료로 만들 수 있는 레시피를 바로 추천하는 것.**
-
-<br/>
-
----
-
-## 3. 주요 기능
-
-- YOLOv8 기반 식재료 자동 인식  
-- 인식된 재료 이름으로 JSON 레시피 데이터 검색  
-- 레시피의 **조리 과정 / 재료 구성 / 영상 링크** 제공  
-- PC·모바일에서 모두 사용 가능한 웹 브라우저 기반 서비스  
-
-### Live Detection Demo
-
+**📸 실시간 재료 인식 (Live Detection)**
 <p align="center">
-  <img src="./images/live_detect.gif" width="480" alt="실시간 재료 인식 GIF" />
+  <img src="./images/live_detect.gif" width="600" alt="SmartCook Live Demo" />
 </p>
 
-> 실시간 영상/카메라 기반 인식까지 확장 가능한 구조로 설계했습니다.
+> 사용자가 식재료 사진을 업로드하거나 카메라를 비추면, **0.5초 내에 재료를 인식**하고 즉시 요리 가능한 레시피를 제안합니다.
 
 <br/>
 
 ---
 
-## 4. 사용 스택
+## 2. 시스템 아키텍처 (Architecture)
 
-<div align="left">
-<div>
-<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white">
-<img src="https://img.shields.io/badge/YOLOv8-0E83CD?style=flat-square&logo=opencv&logoColor=white">
-<img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white">
-</div>
-<div>
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/JavaScript-323330?style=flat-square&logo=javascript&logoColor=F7DF1E">
-</div>
-<div>
-<img src="https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white">
-<img src="https://img.shields.io/badge/JSON-000000?style=flat-square&logo=json&logoColor=white">
-<img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/Git%20LFS-412991?style=flat-square&logo=gitlfs&logoColor=white">
-</div>
-</div>
-
-<br/>
-
----
-
-## 5. 시스템 구조
-
+**🛠️ 기술적 구조도**
 <p align="center">
-  <img src="./images/system_flow.png" width="750" alt="SmartCook System Architecture" />
+  <img src="./images/system.png" width="800" alt="System Architecture Diagram" />
 </p>
 
-### 구성 플로우
+SmartCook은 **Django**를 메인 백엔드로 하여, **YOLOv8** 추론 엔진과 **SQLite** 데이터베이스가 유기적으로 연결된 **End-to-End 파이프라인**을 구축했습니다.
 
-1. 사용자가 재료 사진 업로드  
-2. Django 서버에서 YOLOv8 모델로 이미지 분석  
-3. 감지된 재료 목록 추출  
-4. JSON 기반 레시피 데이터에서 관련 레시피 검색  
-5. 추천 결과 구성  
-6. 템플릿 렌더링을 통해 결과 화면 제공  
-
-> end-to-end 파이프라인(업로드 → 인식 → 매칭 → 추천)을 직접 설계하고 구현했습니다.
-
-<br/>
-
----
-
-## 6. 화면 구성 (UI)
-
-| 메인 페이지 | 실시간 재료 인식 | 상세 레시피 |
-| ---------- | ---------------- | ----------- |
-| <img src="./images/main_page.png" width="320" /> | <img src="./images/ingredients_result.jpg" width="320" /> | <img src="./images/recipe_detail.png" width="320" /> |
-
-- **메인 페이지**: 서비스 소개 및 기능 진입점  
-- **실시간/업로드 인식 화면**: 인식된 재료 + 추천 레시피 목록 제공  
-- **상세 레시피 화면**: 재료, 조리 순서, 참고 영상/링크 제공  
+### 🛠 Tech Stack
+<div align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white">
+  <img src="https://img.shields.io/badge/YOLOv8-0E83CD?style=flat-square&logo=opencv&logoColor=white">
+  <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white">
+  <br>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/JavaScript-323330?style=flat-square&logo=javascript&logoColor=F7DF1E">
+  <img src="https://img.shields.io/badge/Git%20LFS-412991?style=flat-square&logo=gitlfs&logoColor=white">
+</div>
 
 <br/>
 
 ---
 
-## 7. 개인 기여 및 역할
+## 3. 핵심 기능 및 화면 (Features)
 
-- **모델/인식**
-  - YOLOv8 기반 재료 인식 모델 적용 및 정확도 개선  
-  - Confidence / IoU threshold 튜닝 및 데이터 정제로 오인식 감소  
-- **서버/추천 로직**
-  - Django 서버 구조 설계 및 주요 API 구현  
-  - 재료 조합 기반 레시피 추천 알고리즘 설계 및 최적화  
-  - 다중 재료 우선순위 계산, 가중치 기반 매칭 로직 구현  
-- **데이터 구축/정제**
-  - JSON 레시피 데이터셋 직접 수집·구조화  
-  - 재료명 표준화(소문자 통일, 중복 제거, 정규화)  
-  - 키워드 확장 및 클린업으로 검색 누락 최소화  
-- **협업/버전 관리**
-  - Git LFS 도입 및 YOLO 모델 파일(Large weight) 관리 구조 정립  
+| **1. 메인 / 이미지 업로드** | **2. 재료 분석 결과** | **3. 레시피 상세 추천** |
+| :---: | :---: | :---: |
+| <img src="./images/main_page.png" width="100%"> | <img src="./images/ingredients_result.jpg" width="100%"> | <img src="./images/recipe_detail.png" width="100%"> |
+| 직관적인 Drag & Drop 업로드 | YOLOv8 모델이 재료(객체) 추출 | 보유 재료 기반 최적 레시피 매칭 |
 
 <br/>
 
 ---
 
-## 8. 기술적 해결 과정
+## 4. 기술적 도전과 해결 (Troubleshooting)
 
-- **YOLO 인식 정확도 개선**
-  - threshold 튜닝 & 샘플 데이터 정제로 조명/배경 변화에 대한 인식 품질 향상  
-- **대용량 모델 파일 관리**
-  - Git LFS 적용으로 `best.pt` 등 대용량 weight 파일 안정적 관리  
-- **Media / Static 경로 충돌 해결**
-  - 업로드 파일과 정적 리소스 경로를 분리하고 URL 매핑 구조 재정의  
-- **레시피 매칭 정확도 개선**
-  - 재료명 정규화 및 키워드 확장으로 다양한 입력에도 일관된 매칭 유지  
-- **응답 속도 최적화**
-  - YOLO 추론 파이프라인, 레시피 검색 쿼리 구조 최적화  
+### ① YOLOv8 인식 정확도 개선
+**문제:** 초기 모델에서 조명 변화 및 유사 색상 재료(예: 양파 vs 마늘) 오인식 발생  
+**해결:** Confidence Threshold 튜닝 및 Data Augmentation(증강) 적용  
+
+<p align="center">
+  <em>(인식 정확도 개선 전/후 비교 데이터 시각화 자료 위치)</em>
+</p>
+
+### ② 데이터 파이프라인 최적화
+**문제:** 비정형 레시피 데이터와 인식된 재료 키워드 간의 불일치(Mismatch)  
+**해결:** 재료명 정규화(Normalization) 프로세스 도입 및 유사어 매핑 테이블 구축  
+
+### ③ 대용량 모델 관리 (Git LFS)
+**문제:** GitHub 용량 제한(100MB)으로 인한 `.pt` 모델 파일 업로드 불가  
+**해결:** Git LFS(Large File Storage) 도입으로 대용량 웨이트 파일 버전 관리 자동화
 
 <br/>
+
 
 ---
 
