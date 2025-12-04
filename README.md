@@ -1,9 +1,4 @@
 
-
-
-
-<br/><br/>
-
 <!-- Social Badges -->
 <p align="left">
   <a href="mailto:a01092011940@gmail.com">
