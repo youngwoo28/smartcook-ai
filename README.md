@@ -61,7 +61,7 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 
 ## 3. 핵심 기능 및 화면 (Features)
 
-| **1. 메인 / 이미지 업로드** | **2. 재료 분석 결과** | **3. 레시피 상세 추천** |
+| **1. 기본 레시피 추천** | **2. 이미지 레시피 추천** | **3. 실시간 레시피 추천** |
 | :---: | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/721462f9-b404-4901-8014-c484de0f413e" width="280" /> | <img src="https://github.com/user-attachments/assets/647e5195-1339-450a-8401-75cf2550cc92" width="280" /> | <img src="https://github.com/user-attachments/assets/ecea8831-f60d-46c0-952c-e11451080749" width="280" /> |
 
