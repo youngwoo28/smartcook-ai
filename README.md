@@ -1,35 +1,35 @@
-
 # SmartCook (AI 기반 레시피 추천 서비스)
 
-> **"냉장고 파먹기, 사진 한 장이면 충분합니다."** > YOLOv8 사물 인식 기술을 활용해 식재료를 자동 식별하고, 최적의 레시피를 추천하는 웹 서비스
-
-<br/>
+> **"냉장고 파먹기, 사진 한 장이면 충분합니다."**  
+> YOLOv8 사물 인식 기술을 활용해 식재료를 자동 식별하고, 최적의 레시피를 추천하는 웹 서비스
 
 ---
 
 ## 1. 서비스 시연 (Demo)
 
-**실시간 재료 인식 (Live Detection)**
+**실시간 재료 인식 (Live Detection)**  
 <p align="center">
-  <img src="./images/live_detect.gif" width="600" alt="SmartCook Live Demo" />
+  <img src="https://github.com/user-attachments/assets/f141e1a3-76eb-47a2-8bac-01216b37a444" width="480" />
 </p>
 
-> 사용자가 식재료 사진을 업로드하거나 카메라를 비추면, **재료를 인식**하고 즉시 요리 가능한 레시피를 제안합니다.
-
-<br/>
+> 사용자가 식재료 사진을 업로드하거나 카메라를 비추면,  
+> **재료를 인식 → 즉시 요리 가능한 레시피를 추천**합니다.
 
 ---
 
 ## 2. 시스템 아키텍처 (Architecture)
 
 **기술적 구조도**
+
 <p align="center">
-  <img src="./images/system.png" width="800" alt="System Architecture Diagram" />
+  <img src="https://github.com/user-attachments/assets/ecea8831-f60d-46c0-952c-e11451080749" width="800" />
 </p>
 
-SmartCook은 **Django**를 메인 백엔드로 하여, **YOLOv8** 추론 엔진과 **SQLite** 데이터베이스가 유기적으로 연결된 **End-to-End 파이프라인**을 구축했습니다.
+SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가 유기적으로 연결된  
+**완전한 End-to-End 파이프라인**으로 동작합니다.
 
 ### Tech Stack
+
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
   <img src="https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white">
@@ -42,41 +42,29 @@ SmartCook은 **Django**를 메인 백엔드로 하여, **YOLOv8** 추론 엔진�
   <img src="https://img.shields.io/badge/Git%20LFS-412991?style=flat-square&logo=gitlfs&logoColor=white">
 </div>
 
-<br/>
-
 ---
 
 ## 3. 핵심 기능 및 화면 (Features)
 
 | **1. 메인 / 이미지 업로드** | **2. 재료 분석 결과** | **3. 레시피 상세 추천** |
 | :---: | :---: | :---: |
-| <img src="./images/main_page.png" width="100%"> | <img src="./images/ingredients_result.jpg" width="100%"> | <img src="./images/recipe_detail.png" width="100%"> |
-| 직관적인 Drag & Drop 업로드 | YOLOv8 모델이 재료(객체) 추출 | 보유 재료 기반 최적 레시피 매칭 |
-
-<br/>
+| <img src="https://github.com/user-attachments/assets/0e137f82-5ab0-4953-b754-5e326822d832" width="280" /> | <img src="https://github.com/user-attachments/assets/7fc77956-c47c-4fb6-a801-d035b7a40010" width="280" /> | <img src="https://github.com/user-attachments/assets/647e5195-1339-450a-8401-75cf2550cc92" width="280" /> |
 
 ---
 
 ## 4. 기술적 도전과 해결 (Troubleshooting)
 
 ### ① YOLOv8 인식 정확도 개선
-**문제:** 초기 모델에서 조명 변화 및 유사 색상 재료(예: 양파 vs 마늘) 오인식 발생  
-**해결:** Confidence Threshold 튜닝 및 Data Augmentation(증강) 적용  
-
-<p align="center">
-  <em>(인식 정확도 개선 전/후 비교 데이터 시각화 자료 위치)</em>
-</p>
+- 조명 변화, 유사 색상 재료 오인식 문제  
+- → **Threshold 튜닝 + Augmentation 적용**
 
 ### ② 데이터 파이프라인 최적화
-**문제:** 비정형 레시피 데이터와 인식된 재료 키워드 간의 불일치(Mismatch)  
-**해결:** 재료명 정규화(Normalization) 프로세스 도입 및 유사어 매핑 테이블 구축  
+- 레시피 재료명과 인식 결과 불일치 문제  
+- → **정규화(Normalization) + 유사어 매핑 테이블 구축**
 
 ### ③ 대용량 모델 관리 (Git LFS)
-**문제:** GitHub 용량 제한(100MB)으로 인한 `.pt` 모델 파일 업로드 불가  
-**해결:** Git LFS(Large File Storage) 도입으로 대용량 웨이트 파일 버전 관리 자동화
-
-<br/>
-
+- GitHub 제한으로 `.pt` 모델 업로드 불가  
+- → **Git LFS 도입으로 해결**
 
 ---
 
