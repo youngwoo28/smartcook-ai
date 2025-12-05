@@ -50,7 +50,7 @@ SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가
 
 ## 3. 핵심 기능 및 화면 (Features)
 
-| **1. 기본 타이핑 방식 및 장바구니 기능 ** | **2. 이미지 업로드 방식** |
+| **1. 기본 타이핑 방식 및 장바구니 기능** | **2. 이미지 업로드 방식** |
 | :---: | :---:|
 | <img src="https://github.com/user-attachments/assets/72271fd8-5721-4fcc-9802-83461010ac32" width="400" /> | <img src="https://github.com/user-attachments/assets/ec6f127a-149a-439f-81c5-9e865a6b0baf" width="400" /> |
 
