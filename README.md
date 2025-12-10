@@ -24,7 +24,7 @@
 
 ## 2. 시스템 아키텍처 (Architecture)
 
-**기술적 구조도**
+### **기술적 구조도**
 
 <p align="center">
   <table>
