@@ -43,7 +43,7 @@
 SmartCook은 **Django 백엔드 + YOLOv8 추론 + SQLite 데이터베이스**가 유기적으로 연결된  
 **완전한 End-to-End 파이프라인**으로 동작합니다.
 
-### 🔄 Service Workflow
+### Service Workflow
 
 ```mermaid
 graph TD
