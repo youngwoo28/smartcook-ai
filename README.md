@@ -59,10 +59,10 @@ graph TD
 
 
 
-- **Input & Inference**
+- **Input & Inference** :
 사용자가 이미지를 업로드하면 Django 서버가 수신하여 YOLOv8 모델로 재료를 실시간 추론합니다.
 
-- **Data Persistence**
+- **Data Persistence** :
 분석된 결과는 JSON 형태로 구조화되어 SQLite 데이터베이스에 저장되어 관리됩니다.
 
 - **Performance & Connectivity**
