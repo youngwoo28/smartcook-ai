@@ -60,13 +60,14 @@ graph TD
 
 <details>
   <summary><strong>자세한 설명 </strong></summary>
-- Input & Inference
+  
+- **Input & Inference**
 사용자가 이미지를 업로드하면 Django 서버가 수신하여 YOLOv8 모델로 재료를 실시간 추론합니다.
 
-- Data Persistence
+- **Data Persistence**
 분석된 결과는 JSON 형태로 구조화되어 SQLite 데이터베이스에 저장되어 관리됩니다.
 
-- Performance & Connectivity
+- **Performance & Connectivity**
 Redis: 반복적인 레시피 조회 요청에 In-Memory Caching을 적용하여 데이터베이스 부하를 줄이고 응답 속도(Latency)를 획기적으로 개선했습니다.
 Ngrok: 로컬 개발 서버를 외부 퍼블릭 네트워크와 Secure Tunneling으로 연결하여, 어디서든 접속 가능한 실시간 웹 서비스 환경을 구축했습니다.
 
